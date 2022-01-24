@@ -1,0 +1,3931 @@
+{
+  "id": 2,
+  "entity_type": 3208,
+  "properties": {
+    "name": "gef_file_2.GEF",
+    "filename": "https://viktor-storage-prod.s3.amazonaws.com/storage/dev-kvangiessen-viktor-ai/10b6d9be-e261-4735-9407-b431ca3e0e30?response-content-disposition=attachment%3B%20filename%3D%22DKM14_000.GEF%22&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA53GKZRCUFTBWN2YE%2F20200504%2Feu-central-1%2Fs3%2Faws4_request&X-Amz-Date=20200504T161258Z&X-Amz-Expires=300&X-Amz-SignedHeaders=host&X-Amz-Signature=5d8116045af8848e62c571c7d9a686555134e6a4ac7b7e337648d7e02ffb56ce",
+    "_processed": true,
+    "x_coordinate": 72535.81,
+    "y_coordinate": 438028.52,
+    "height_system": "NAP",
+    "classification": {
+      "soil_layout": {
+        "filter_thickness": 200
+      }
+    },
+    "soil_layout_user": [
+      {
+        "name": "Zand tot zand, grindig",
+        "top_of_layer": 5.34,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, zwak siltig tot siltig",
+        "top_of_layer": 5.32,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, vast - zand, kleiig",
+        "top_of_layer": 5.3,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, zwak siltig tot siltig",
+        "top_of_layer": 5.28,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, vast - zand, kleiig",
+        "top_of_layer": 5.22,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, zwak siltig tot siltig",
+        "top_of_layer": 5.16,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, vast - zand, kleiig",
+        "top_of_layer": 4.88,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, zwak siltig tot siltig",
+        "top_of_layer": 4.78,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand tot zand, grindig",
+        "top_of_layer": 4.76,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, zwak siltig tot siltig",
+        "top_of_layer": 4.72,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, vast - zand, kleiig",
+        "top_of_layer": 4.7,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, zwak siltig tot siltig",
+        "top_of_layer": 4.68,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, vast - zand, kleiig",
+        "top_of_layer": 4.62,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, zwak siltig tot siltig",
+        "top_of_layer": 4.6,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Klei, siltig / leem",
+        "top_of_layer": 4.32,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, vast - zand, kleiig",
+        "top_of_layer": 4.3,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Grond, zeer stijf, fijnkorrelig",
+        "top_of_layer": 4.28,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Klei, siltig / leem",
+        "top_of_layer": 4.24,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Klei, zwak siltig tot siltig",
+        "top_of_layer": 4.22,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Klei, siltig / leem",
+        "top_of_layer": 4.2,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, zwak siltig tot siltig",
+        "top_of_layer": 4.18,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Klei, siltig / leem",
+        "top_of_layer": 3.94,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, zwak siltig tot siltig",
+        "top_of_layer": 3.86,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, siltig tot leem",
+        "top_of_layer": 2.88,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, zwak siltig tot siltig",
+        "top_of_layer": 2.76,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, siltig tot leem",
+        "top_of_layer": 2.54,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Klei, siltig / leem",
+        "top_of_layer": 2.46,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, siltig tot leem",
+        "top_of_layer": 2.38,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Klei, siltig / leem",
+        "top_of_layer": 2.12,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, siltig tot leem",
+        "top_of_layer": 1.98,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Klei, siltig / leem",
+        "top_of_layer": 1.82,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, siltig tot leem",
+        "top_of_layer": 1.66,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Klei, siltig / leem",
+        "top_of_layer": 1.62,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Klei, zwak siltig tot siltig",
+        "top_of_layer": 1.46,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Klei, siltig / leem",
+        "top_of_layer": 1.32,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Klei, zwak siltig tot siltig",
+        "top_of_layer": 1.28,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Klei, siltig / leem",
+        "top_of_layer": 0.66,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, siltig tot leem",
+        "top_of_layer": 0.64,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Klei, siltig / leem",
+        "top_of_layer": 0.5,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Klei, zwak siltig tot siltig",
+        "top_of_layer": 0.48,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Klei, siltig / leem",
+        "top_of_layer": 0.06,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Klei, zwak siltig tot siltig",
+        "top_of_layer": -0.16,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Klei, siltig / leem",
+        "top_of_layer": -0.22,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Klei, zwak siltig tot siltig",
+        "top_of_layer": -0.28,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Veen, organisch materiaal",
+        "top_of_layer": -0.3,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Klei, zwak siltig tot siltig",
+        "top_of_layer": -0.4,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Klei, siltig / leem",
+        "top_of_layer": -0.44,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, siltig tot leem",
+        "top_of_layer": -0.46,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, zwak siltig tot siltig",
+        "top_of_layer": -0.48,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, siltig tot leem",
+        "top_of_layer": -1.36,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Klei, siltig / leem",
+        "top_of_layer": -1.42,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, zwak siltig tot siltig",
+        "top_of_layer": -1.7,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, siltig tot leem",
+        "top_of_layer": -1.86,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Klei, siltig / leem",
+        "top_of_layer": -1.88,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Klei, zwak siltig tot siltig",
+        "top_of_layer": -2.48,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Klei, siltig / leem",
+        "top_of_layer": -2.54,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Klei, zwak siltig tot siltig",
+        "top_of_layer": -2.720000000000001,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Klei, siltig / leem",
+        "top_of_layer": -2.8,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, siltig tot leem",
+        "top_of_layer": -2.86,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Klei, siltig / leem",
+        "top_of_layer": -2.88,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Klei, zwak siltig tot siltig",
+        "top_of_layer": -3.06,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Klei, siltig / leem",
+        "top_of_layer": -3.1,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, siltig tot leem",
+        "top_of_layer": -3.24,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Klei, siltig / leem",
+        "top_of_layer": -3.34,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, siltig tot leem",
+        "top_of_layer": -3.38,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, zwak siltig tot siltig",
+        "top_of_layer": -3.6,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, siltig tot leem",
+        "top_of_layer": -3.76,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Klei, siltig / leem",
+        "top_of_layer": -3.8,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, siltig tot leem",
+        "top_of_layer": -4.06,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, zwak siltig tot siltig",
+        "top_of_layer": -4.08,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, siltig tot leem",
+        "top_of_layer": -8.02,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Klei, siltig / leem",
+        "top_of_layer": -8.04,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, siltig tot leem",
+        "top_of_layer": -8.1,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Klei, siltig / leem",
+        "top_of_layer": -8.22,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, siltig tot leem",
+        "top_of_layer": -8.32,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Klei, siltig / leem",
+        "top_of_layer": -8.38,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, siltig tot leem",
+        "top_of_layer": -8.48,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, zwak siltig tot siltig",
+        "top_of_layer": -8.52,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, siltig tot leem",
+        "top_of_layer": -8.9,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Klei, siltig / leem",
+        "top_of_layer": -8.92,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, siltig tot leem",
+        "top_of_layer": -9.02,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, zwak siltig tot siltig",
+        "top_of_layer": -9.04,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, siltig tot leem",
+        "top_of_layer": -9.06,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Klei, siltig / leem",
+        "top_of_layer": -9.1,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, siltig tot leem",
+        "top_of_layer": -9.24,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Klei, siltig / leem",
+        "top_of_layer": -9.34,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, siltig tot leem",
+        "top_of_layer": -9.46,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, zwak siltig tot siltig",
+        "top_of_layer": -9.54,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, siltig tot leem",
+        "top_of_layer": -9.64,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, zwak siltig tot siltig",
+        "top_of_layer": -9.8,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, siltig tot leem",
+        "top_of_layer": -9.86,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Klei, siltig / leem",
+        "top_of_layer": -9.9,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Klei, zwak siltig tot siltig",
+        "top_of_layer": -9.96,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Klei, siltig / leem",
+        "top_of_layer": -10.06,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, siltig tot leem",
+        "top_of_layer": -10.1,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Klei, siltig / leem",
+        "top_of_layer": -10.14,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Klei, zwak siltig tot siltig",
+        "top_of_layer": -10.28,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Veen, organisch materiaal",
+        "top_of_layer": -10.36,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Klei, zwak siltig tot siltig",
+        "top_of_layer": -10.52,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Klei, siltig / leem",
+        "top_of_layer": -10.54,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, siltig tot leem",
+        "top_of_layer": -10.56,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Klei, siltig / leem",
+        "top_of_layer": -10.639999999999999,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Klei, zwak siltig tot siltig",
+        "top_of_layer": -10.700000000000001,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Klei, siltig / leem",
+        "top_of_layer": -10.76,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, siltig tot leem",
+        "top_of_layer": -10.83,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Klei, siltig / leem",
+        "top_of_layer": -10.85,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, siltig tot leem",
+        "top_of_layer": -10.950000000000001,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Klei, siltig / leem",
+        "top_of_layer": -11.07,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, siltig tot leem",
+        "top_of_layer": -11.15,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, zwak siltig tot siltig",
+        "top_of_layer": -11.19,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, siltig tot leem",
+        "top_of_layer": -11.27,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Klei, siltig / leem",
+        "top_of_layer": -11.29,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, siltig tot leem",
+        "top_of_layer": -11.41,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, zwak siltig tot siltig",
+        "top_of_layer": -11.45,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, siltig tot leem",
+        "top_of_layer": -11.77,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, zwak siltig tot siltig",
+        "top_of_layer": -11.81,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, siltig tot leem",
+        "top_of_layer": -12.35,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, zwak siltig tot siltig",
+        "top_of_layer": -12.47,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, siltig tot leem",
+        "top_of_layer": -12.97,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Klei, siltig / leem",
+        "top_of_layer": -13.01,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, siltig tot leem",
+        "top_of_layer": -13.05,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Klei, siltig / leem",
+        "top_of_layer": -13.09,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, siltig tot leem",
+        "top_of_layer": -13.15,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, zwak siltig tot siltig",
+        "top_of_layer": -13.21,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, siltig tot leem",
+        "top_of_layer": -13.59,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Klei, siltig / leem",
+        "top_of_layer": -13.61,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, siltig tot leem",
+        "top_of_layer": -13.71,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, zwak siltig tot siltig",
+        "top_of_layer": -13.73,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, siltig tot leem",
+        "top_of_layer": -14.21,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Klei, siltig / leem",
+        "top_of_layer": -14.23,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, siltig tot leem",
+        "top_of_layer": -14.41,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, zwak siltig tot siltig",
+        "top_of_layer": -14.45,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, siltig tot leem",
+        "top_of_layer": -14.73,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, zwak siltig tot siltig",
+        "top_of_layer": -14.75,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, siltig tot leem",
+        "top_of_layer": -14.79,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Klei, siltig / leem",
+        "top_of_layer": -14.83,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, siltig tot leem",
+        "top_of_layer": -14.91,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, zwak siltig tot siltig",
+        "top_of_layer": -14.93,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, siltig tot leem",
+        "top_of_layer": -15.03,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Klei, siltig / leem",
+        "top_of_layer": -15.05,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, siltig tot leem",
+        "top_of_layer": -15.17,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Klei, siltig / leem",
+        "top_of_layer": -15.23,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, siltig tot leem",
+        "top_of_layer": -15.29,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, zwak siltig tot siltig",
+        "top_of_layer": -15.33,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, siltig tot leem",
+        "top_of_layer": -15.41,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Klei, siltig / leem",
+        "top_of_layer": -15.49,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Klei, zwak siltig tot siltig",
+        "top_of_layer": -15.61,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Klei, siltig / leem",
+        "top_of_layer": -15.67,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, siltig tot leem",
+        "top_of_layer": -15.69,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, zwak siltig tot siltig",
+        "top_of_layer": -15.71,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, siltig tot leem",
+        "top_of_layer": -16.29,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Klei, siltig / leem",
+        "top_of_layer": -16.37,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, siltig tot leem",
+        "top_of_layer": -16.47,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, zwak siltig tot siltig",
+        "top_of_layer": -16.51,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, siltig tot leem",
+        "top_of_layer": -16.63,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Klei, siltig / leem",
+        "top_of_layer": -16.67,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, siltig tot leem",
+        "top_of_layer": -16.71,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, zwak siltig tot siltig",
+        "top_of_layer": -16.75,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, siltig tot leem",
+        "top_of_layer": -17.66,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, zwak siltig tot siltig",
+        "top_of_layer": -17.74,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, siltig tot leem",
+        "top_of_layer": -17.84,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, zwak siltig tot siltig",
+        "top_of_layer": -17.98,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, siltig tot leem",
+        "top_of_layer": -18.46,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Klei, siltig / leem",
+        "top_of_layer": -18.84,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, siltig tot leem",
+        "top_of_layer": -19.14,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, zwak siltig tot siltig",
+        "top_of_layer": -19.16,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, siltig tot leem",
+        "top_of_layer": -19.44,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Klei, siltig / leem",
+        "top_of_layer": -19.54,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, siltig tot leem",
+        "top_of_layer": -19.66,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, zwak siltig tot siltig",
+        "top_of_layer": -19.72,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, siltig tot leem",
+        "top_of_layer": -20.14,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Klei, siltig / leem",
+        "top_of_layer": -20.2,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Klei, zwak siltig tot siltig",
+        "top_of_layer": -20.26,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Klei, siltig / leem",
+        "top_of_layer": -20.38,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Klei, zwak siltig tot siltig",
+        "top_of_layer": -20.4,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Klei, siltig / leem",
+        "top_of_layer": -20.54,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Klei, zwak siltig tot siltig",
+        "top_of_layer": -20.66,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Klei, siltig / leem",
+        "top_of_layer": -20.76,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, siltig tot leem",
+        "top_of_layer": -20.8,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, zwak siltig tot siltig",
+        "top_of_layer": -20.84,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, siltig tot leem",
+        "top_of_layer": -23.09,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Klei, siltig / leem",
+        "top_of_layer": -23.13,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, siltig tot leem",
+        "top_of_layer": -23.17,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, zwak siltig tot siltig",
+        "top_of_layer": -23.21,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, siltig tot leem",
+        "top_of_layer": -24.6,
+        "has_vertical_drain": false
+      },
+      {
+        "name": "Zand, zwak siltig tot siltig",
+        "top_of_layer": -24.64,
+        "has_vertical_drain": false
+      }
+    ],
+    "soil_layout_original": {
+      "layers": [
+        {
+          "soil": {
+            "name": "Zand tot zand, grindig",
+            "color": [
+              255,
+              183,
+              42
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand tot zand, grindig"
+            }
+          },
+          "properties": {},
+          "top_of_layer": 5.34,
+          "bottom_of_layer": 5.32
+        },
+        {
+          "soil": {
+            "name": "Zand, zwak siltig tot siltig",
+            "color": [
+              255,
+              225,
+              178
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, zwak siltig tot siltig"
+            }
+          },
+          "properties": {},
+          "top_of_layer": 5.32,
+          "bottom_of_layer": 5.3
+        },
+        {
+          "soil": {
+            "name": "Zand, vast - zand, kleiig",
+            "color": [
+              200,
+              190,
+              200
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, vast - zand, kleiig"
+            }
+          },
+          "properties": {},
+          "top_of_layer": 5.3,
+          "bottom_of_layer": 5.28
+        },
+        {
+          "soil": {
+            "name": "Zand, zwak siltig tot siltig",
+            "color": [
+              255,
+              225,
+              178
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, zwak siltig tot siltig"
+            }
+          },
+          "properties": {},
+          "top_of_layer": 5.28,
+          "bottom_of_layer": 5.22
+        },
+        {
+          "soil": {
+            "name": "Zand, vast - zand, kleiig",
+            "color": [
+              200,
+              190,
+              200
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, vast - zand, kleiig"
+            }
+          },
+          "properties": {},
+          "top_of_layer": 5.22,
+          "bottom_of_layer": 5.16
+        },
+        {
+          "soil": {
+            "name": "Zand, zwak siltig tot siltig",
+            "color": [
+              255,
+              225,
+              178
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, zwak siltig tot siltig"
+            }
+          },
+          "properties": {},
+          "top_of_layer": 5.16,
+          "bottom_of_layer": 4.88
+        },
+        {
+          "soil": {
+            "name": "Zand, vast - zand, kleiig",
+            "color": [
+              200,
+              190,
+              200
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, vast - zand, kleiig"
+            }
+          },
+          "properties": {},
+          "top_of_layer": 4.88,
+          "bottom_of_layer": 4.78
+        },
+        {
+          "soil": {
+            "name": "Zand, zwak siltig tot siltig",
+            "color": [
+              255,
+              225,
+              178
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, zwak siltig tot siltig"
+            }
+          },
+          "properties": {},
+          "top_of_layer": 4.78,
+          "bottom_of_layer": 4.76
+        },
+        {
+          "soil": {
+            "name": "Zand tot zand, grindig",
+            "color": [
+              255,
+              183,
+              42
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand tot zand, grindig"
+            }
+          },
+          "properties": {},
+          "top_of_layer": 4.76,
+          "bottom_of_layer": 4.72
+        },
+        {
+          "soil": {
+            "name": "Zand, zwak siltig tot siltig",
+            "color": [
+              255,
+              225,
+              178
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, zwak siltig tot siltig"
+            }
+          },
+          "properties": {},
+          "top_of_layer": 4.72,
+          "bottom_of_layer": 4.7
+        },
+        {
+          "soil": {
+            "name": "Zand, vast - zand, kleiig",
+            "color": [
+              200,
+              190,
+              200
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, vast - zand, kleiig"
+            }
+          },
+          "properties": {},
+          "top_of_layer": 4.7,
+          "bottom_of_layer": 4.68
+        },
+        {
+          "soil": {
+            "name": "Zand, zwak siltig tot siltig",
+            "color": [
+              255,
+              225,
+              178
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, zwak siltig tot siltig"
+            }
+          },
+          "properties": {},
+          "top_of_layer": 4.68,
+          "bottom_of_layer": 4.62
+        },
+        {
+          "soil": {
+            "name": "Zand, vast - zand, kleiig",
+            "color": [
+              200,
+              190,
+              200
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, vast - zand, kleiig"
+            }
+          },
+          "properties": {},
+          "top_of_layer": 4.62,
+          "bottom_of_layer": 4.6
+        },
+        {
+          "soil": {
+            "name": "Zand, zwak siltig tot siltig",
+            "color": [
+              255,
+              225,
+              178
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, zwak siltig tot siltig"
+            }
+          },
+          "properties": {},
+          "top_of_layer": 4.6,
+          "bottom_of_layer": 4.32
+        },
+        {
+          "soil": {
+            "name": "Klei, siltig / leem",
+            "color": [
+              213,
+              252,
+              181
+            ],
+            "properties": {
+              "ui_name_dutch": "Klei, siltig / leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": 4.32,
+          "bottom_of_layer": 4.3
+        },
+        {
+          "soil": {
+            "name": "Zand, vast - zand, kleiig",
+            "color": [
+              200,
+              190,
+              200
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, vast - zand, kleiig"
+            }
+          },
+          "properties": {},
+          "top_of_layer": 4.3,
+          "bottom_of_layer": 4.28
+        },
+        {
+          "soil": {
+            "name": "Grond, zeer stijf, fijnkorrelig",
+            "color": [
+              186,
+              205,
+              224
+            ],
+            "properties": {
+              "ui_name_dutch": "Grond, zeer stijf, fijnkorrelig"
+            }
+          },
+          "properties": {},
+          "top_of_layer": 4.28,
+          "bottom_of_layer": 4.24
+        },
+        {
+          "soil": {
+            "name": "Klei, siltig / leem",
+            "color": [
+              213,
+              252,
+              181
+            ],
+            "properties": {
+              "ui_name_dutch": "Klei, siltig / leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": 4.24,
+          "bottom_of_layer": 4.22
+        },
+        {
+          "soil": {
+            "name": "Klei, zwak siltig tot siltig",
+            "color": [
+              29,
+              118,
+              29
+            ],
+            "properties": {
+              "ui_name_dutch": "Klei, zwak siltig tot siltig"
+            }
+          },
+          "properties": {},
+          "top_of_layer": 4.22,
+          "bottom_of_layer": 4.2
+        },
+        {
+          "soil": {
+            "name": "Klei, siltig / leem",
+            "color": [
+              213,
+              252,
+              181
+            ],
+            "properties": {
+              "ui_name_dutch": "Klei, siltig / leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": 4.2,
+          "bottom_of_layer": 4.18
+        },
+        {
+          "soil": {
+            "name": "Zand, zwak siltig tot siltig",
+            "color": [
+              255,
+              225,
+              178
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, zwak siltig tot siltig"
+            }
+          },
+          "properties": {},
+          "top_of_layer": 4.18,
+          "bottom_of_layer": 3.94
+        },
+        {
+          "soil": {
+            "name": "Klei, siltig / leem",
+            "color": [
+              213,
+              252,
+              181
+            ],
+            "properties": {
+              "ui_name_dutch": "Klei, siltig / leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": 3.94,
+          "bottom_of_layer": 3.86
+        },
+        {
+          "soil": {
+            "name": "Zand, zwak siltig tot siltig",
+            "color": [
+              255,
+              225,
+              178
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, zwak siltig tot siltig"
+            }
+          },
+          "properties": {},
+          "top_of_layer": 3.86,
+          "bottom_of_layer": 2.88
+        },
+        {
+          "soil": {
+            "name": "Zand, siltig tot leem",
+            "color": [
+              213,
+              252,
+              155
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, siltig tot leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": 2.88,
+          "bottom_of_layer": 2.76
+        },
+        {
+          "soil": {
+            "name": "Zand, zwak siltig tot siltig",
+            "color": [
+              255,
+              225,
+              178
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, zwak siltig tot siltig"
+            }
+          },
+          "properties": {},
+          "top_of_layer": 2.76,
+          "bottom_of_layer": 2.54
+        },
+        {
+          "soil": {
+            "name": "Zand, siltig tot leem",
+            "color": [
+              213,
+              252,
+              155
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, siltig tot leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": 2.54,
+          "bottom_of_layer": 2.46
+        },
+        {
+          "soil": {
+            "name": "Klei, siltig / leem",
+            "color": [
+              213,
+              252,
+              181
+            ],
+            "properties": {
+              "ui_name_dutch": "Klei, siltig / leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": 2.46,
+          "bottom_of_layer": 2.38
+        },
+        {
+          "soil": {
+            "name": "Zand, siltig tot leem",
+            "color": [
+              213,
+              252,
+              155
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, siltig tot leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": 2.38,
+          "bottom_of_layer": 2.12
+        },
+        {
+          "soil": {
+            "name": "Klei, siltig / leem",
+            "color": [
+              213,
+              252,
+              181
+            ],
+            "properties": {
+              "ui_name_dutch": "Klei, siltig / leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": 2.12,
+          "bottom_of_layer": 1.98
+        },
+        {
+          "soil": {
+            "name": "Zand, siltig tot leem",
+            "color": [
+              213,
+              252,
+              155
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, siltig tot leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": 1.98,
+          "bottom_of_layer": 1.82
+        },
+        {
+          "soil": {
+            "name": "Klei, siltig / leem",
+            "color": [
+              213,
+              252,
+              181
+            ],
+            "properties": {
+              "ui_name_dutch": "Klei, siltig / leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": 1.82,
+          "bottom_of_layer": 1.66
+        },
+        {
+          "soil": {
+            "name": "Zand, siltig tot leem",
+            "color": [
+              213,
+              252,
+              155
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, siltig tot leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": 1.66,
+          "bottom_of_layer": 1.62
+        },
+        {
+          "soil": {
+            "name": "Klei, siltig / leem",
+            "color": [
+              213,
+              252,
+              181
+            ],
+            "properties": {
+              "ui_name_dutch": "Klei, siltig / leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": 1.62,
+          "bottom_of_layer": 1.46
+        },
+        {
+          "soil": {
+            "name": "Klei, zwak siltig tot siltig",
+            "color": [
+              29,
+              118,
+              29
+            ],
+            "properties": {
+              "ui_name_dutch": "Klei, zwak siltig tot siltig"
+            }
+          },
+          "properties": {},
+          "top_of_layer": 1.46,
+          "bottom_of_layer": 1.32
+        },
+        {
+          "soil": {
+            "name": "Klei, siltig / leem",
+            "color": [
+              213,
+              252,
+              181
+            ],
+            "properties": {
+              "ui_name_dutch": "Klei, siltig / leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": 1.32,
+          "bottom_of_layer": 1.28
+        },
+        {
+          "soil": {
+            "name": "Klei, zwak siltig tot siltig",
+            "color": [
+              29,
+              118,
+              29
+            ],
+            "properties": {
+              "ui_name_dutch": "Klei, zwak siltig tot siltig"
+            }
+          },
+          "properties": {},
+          "top_of_layer": 1.28,
+          "bottom_of_layer": 0.66
+        },
+        {
+          "soil": {
+            "name": "Klei, siltig / leem",
+            "color": [
+              213,
+              252,
+              181
+            ],
+            "properties": {
+              "ui_name_dutch": "Klei, siltig / leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": 0.66,
+          "bottom_of_layer": 0.64
+        },
+        {
+          "soil": {
+            "name": "Zand, siltig tot leem",
+            "color": [
+              213,
+              252,
+              155
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, siltig tot leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": 0.64,
+          "bottom_of_layer": 0.5
+        },
+        {
+          "soil": {
+            "name": "Klei, siltig / leem",
+            "color": [
+              213,
+              252,
+              181
+            ],
+            "properties": {
+              "ui_name_dutch": "Klei, siltig / leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": 0.5,
+          "bottom_of_layer": 0.48
+        },
+        {
+          "soil": {
+            "name": "Klei, zwak siltig tot siltig",
+            "color": [
+              29,
+              118,
+              29
+            ],
+            "properties": {
+              "ui_name_dutch": "Klei, zwak siltig tot siltig"
+            }
+          },
+          "properties": {},
+          "top_of_layer": 0.48,
+          "bottom_of_layer": 0.06
+        },
+        {
+          "soil": {
+            "name": "Klei, siltig / leem",
+            "color": [
+              213,
+              252,
+              181
+            ],
+            "properties": {
+              "ui_name_dutch": "Klei, siltig / leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": 0.06,
+          "bottom_of_layer": -0.16
+        },
+        {
+          "soil": {
+            "name": "Klei, zwak siltig tot siltig",
+            "color": [
+              29,
+              118,
+              29
+            ],
+            "properties": {
+              "ui_name_dutch": "Klei, zwak siltig tot siltig"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -0.16,
+          "bottom_of_layer": -0.22
+        },
+        {
+          "soil": {
+            "name": "Klei, siltig / leem",
+            "color": [
+              213,
+              252,
+              181
+            ],
+            "properties": {
+              "ui_name_dutch": "Klei, siltig / leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -0.22,
+          "bottom_of_layer": -0.28
+        },
+        {
+          "soil": {
+            "name": "Klei, zwak siltig tot siltig",
+            "color": [
+              29,
+              118,
+              29
+            ],
+            "properties": {
+              "ui_name_dutch": "Klei, zwak siltig tot siltig"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -0.28,
+          "bottom_of_layer": -0.3
+        },
+        {
+          "soil": {
+            "name": "Veen, organisch materiaal",
+            "color": [
+              188,
+              104,
+              67
+            ],
+            "properties": {
+              "ui_name_dutch": "Veen, organisch materiaal"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -0.3,
+          "bottom_of_layer": -0.4
+        },
+        {
+          "soil": {
+            "name": "Klei, zwak siltig tot siltig",
+            "color": [
+              29,
+              118,
+              29
+            ],
+            "properties": {
+              "ui_name_dutch": "Klei, zwak siltig tot siltig"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -0.4,
+          "bottom_of_layer": -0.44
+        },
+        {
+          "soil": {
+            "name": "Klei, siltig / leem",
+            "color": [
+              213,
+              252,
+              181
+            ],
+            "properties": {
+              "ui_name_dutch": "Klei, siltig / leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -0.44,
+          "bottom_of_layer": -0.46
+        },
+        {
+          "soil": {
+            "name": "Zand, siltig tot leem",
+            "color": [
+              213,
+              252,
+              155
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, siltig tot leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -0.46,
+          "bottom_of_layer": -0.48
+        },
+        {
+          "soil": {
+            "name": "Zand, zwak siltig tot siltig",
+            "color": [
+              255,
+              225,
+              178
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, zwak siltig tot siltig"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -0.48,
+          "bottom_of_layer": -1.36
+        },
+        {
+          "soil": {
+            "name": "Zand, siltig tot leem",
+            "color": [
+              213,
+              252,
+              155
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, siltig tot leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -1.36,
+          "bottom_of_layer": -1.42
+        },
+        {
+          "soil": {
+            "name": "Klei, siltig / leem",
+            "color": [
+              213,
+              252,
+              181
+            ],
+            "properties": {
+              "ui_name_dutch": "Klei, siltig / leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -1.42,
+          "bottom_of_layer": -1.7
+        },
+        {
+          "soil": {
+            "name": "Zand, zwak siltig tot siltig",
+            "color": [
+              255,
+              225,
+              178
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, zwak siltig tot siltig"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -1.7,
+          "bottom_of_layer": -1.86
+        },
+        {
+          "soil": {
+            "name": "Zand, siltig tot leem",
+            "color": [
+              213,
+              252,
+              155
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, siltig tot leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -1.86,
+          "bottom_of_layer": -1.88
+        },
+        {
+          "soil": {
+            "name": "Klei, siltig / leem",
+            "color": [
+              213,
+              252,
+              181
+            ],
+            "properties": {
+              "ui_name_dutch": "Klei, siltig / leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -1.88,
+          "bottom_of_layer": -2.48
+        },
+        {
+          "soil": {
+            "name": "Klei, zwak siltig tot siltig",
+            "color": [
+              29,
+              118,
+              29
+            ],
+            "properties": {
+              "ui_name_dutch": "Klei, zwak siltig tot siltig"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -2.48,
+          "bottom_of_layer": -2.54
+        },
+        {
+          "soil": {
+            "name": "Klei, siltig / leem",
+            "color": [
+              213,
+              252,
+              181
+            ],
+            "properties": {
+              "ui_name_dutch": "Klei, siltig / leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -2.54,
+          "bottom_of_layer": -2.720000000000001
+        },
+        {
+          "soil": {
+            "name": "Klei, zwak siltig tot siltig",
+            "color": [
+              29,
+              118,
+              29
+            ],
+            "properties": {
+              "ui_name_dutch": "Klei, zwak siltig tot siltig"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -2.720000000000001,
+          "bottom_of_layer": -2.8
+        },
+        {
+          "soil": {
+            "name": "Klei, siltig / leem",
+            "color": [
+              213,
+              252,
+              181
+            ],
+            "properties": {
+              "ui_name_dutch": "Klei, siltig / leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -2.8,
+          "bottom_of_layer": -2.86
+        },
+        {
+          "soil": {
+            "name": "Zand, siltig tot leem",
+            "color": [
+              213,
+              252,
+              155
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, siltig tot leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -2.86,
+          "bottom_of_layer": -2.88
+        },
+        {
+          "soil": {
+            "name": "Klei, siltig / leem",
+            "color": [
+              213,
+              252,
+              181
+            ],
+            "properties": {
+              "ui_name_dutch": "Klei, siltig / leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -2.88,
+          "bottom_of_layer": -3.06
+        },
+        {
+          "soil": {
+            "name": "Klei, zwak siltig tot siltig",
+            "color": [
+              29,
+              118,
+              29
+            ],
+            "properties": {
+              "ui_name_dutch": "Klei, zwak siltig tot siltig"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -3.06,
+          "bottom_of_layer": -3.1
+        },
+        {
+          "soil": {
+            "name": "Klei, siltig / leem",
+            "color": [
+              213,
+              252,
+              181
+            ],
+            "properties": {
+              "ui_name_dutch": "Klei, siltig / leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -3.1,
+          "bottom_of_layer": -3.24
+        },
+        {
+          "soil": {
+            "name": "Zand, siltig tot leem",
+            "color": [
+              213,
+              252,
+              155
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, siltig tot leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -3.24,
+          "bottom_of_layer": -3.34
+        },
+        {
+          "soil": {
+            "name": "Klei, siltig / leem",
+            "color": [
+              213,
+              252,
+              181
+            ],
+            "properties": {
+              "ui_name_dutch": "Klei, siltig / leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -3.34,
+          "bottom_of_layer": -3.38
+        },
+        {
+          "soil": {
+            "name": "Zand, siltig tot leem",
+            "color": [
+              213,
+              252,
+              155
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, siltig tot leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -3.38,
+          "bottom_of_layer": -3.6
+        },
+        {
+          "soil": {
+            "name": "Zand, zwak siltig tot siltig",
+            "color": [
+              255,
+              225,
+              178
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, zwak siltig tot siltig"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -3.6,
+          "bottom_of_layer": -3.76
+        },
+        {
+          "soil": {
+            "name": "Zand, siltig tot leem",
+            "color": [
+              213,
+              252,
+              155
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, siltig tot leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -3.76,
+          "bottom_of_layer": -3.8
+        },
+        {
+          "soil": {
+            "name": "Klei, siltig / leem",
+            "color": [
+              213,
+              252,
+              181
+            ],
+            "properties": {
+              "ui_name_dutch": "Klei, siltig / leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -3.8,
+          "bottom_of_layer": -4.06
+        },
+        {
+          "soil": {
+            "name": "Zand, siltig tot leem",
+            "color": [
+              213,
+              252,
+              155
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, siltig tot leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -4.06,
+          "bottom_of_layer": -4.08
+        },
+        {
+          "soil": {
+            "name": "Zand, zwak siltig tot siltig",
+            "color": [
+              255,
+              225,
+              178
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, zwak siltig tot siltig"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -4.08,
+          "bottom_of_layer": -8.02
+        },
+        {
+          "soil": {
+            "name": "Zand, siltig tot leem",
+            "color": [
+              213,
+              252,
+              155
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, siltig tot leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -8.02,
+          "bottom_of_layer": -8.04
+        },
+        {
+          "soil": {
+            "name": "Klei, siltig / leem",
+            "color": [
+              213,
+              252,
+              181
+            ],
+            "properties": {
+              "ui_name_dutch": "Klei, siltig / leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -8.04,
+          "bottom_of_layer": -8.1
+        },
+        {
+          "soil": {
+            "name": "Zand, siltig tot leem",
+            "color": [
+              213,
+              252,
+              155
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, siltig tot leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -8.1,
+          "bottom_of_layer": -8.22
+        },
+        {
+          "soil": {
+            "name": "Klei, siltig / leem",
+            "color": [
+              213,
+              252,
+              181
+            ],
+            "properties": {
+              "ui_name_dutch": "Klei, siltig / leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -8.22,
+          "bottom_of_layer": -8.32
+        },
+        {
+          "soil": {
+            "name": "Zand, siltig tot leem",
+            "color": [
+              213,
+              252,
+              155
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, siltig tot leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -8.32,
+          "bottom_of_layer": -8.38
+        },
+        {
+          "soil": {
+            "name": "Klei, siltig / leem",
+            "color": [
+              213,
+              252,
+              181
+            ],
+            "properties": {
+              "ui_name_dutch": "Klei, siltig / leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -8.38,
+          "bottom_of_layer": -8.48
+        },
+        {
+          "soil": {
+            "name": "Zand, siltig tot leem",
+            "color": [
+              213,
+              252,
+              155
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, siltig tot leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -8.48,
+          "bottom_of_layer": -8.52
+        },
+        {
+          "soil": {
+            "name": "Zand, zwak siltig tot siltig",
+            "color": [
+              255,
+              225,
+              178
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, zwak siltig tot siltig"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -8.52,
+          "bottom_of_layer": -8.9
+        },
+        {
+          "soil": {
+            "name": "Zand, siltig tot leem",
+            "color": [
+              213,
+              252,
+              155
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, siltig tot leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -8.9,
+          "bottom_of_layer": -8.92
+        },
+        {
+          "soil": {
+            "name": "Klei, siltig / leem",
+            "color": [
+              213,
+              252,
+              181
+            ],
+            "properties": {
+              "ui_name_dutch": "Klei, siltig / leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -8.92,
+          "bottom_of_layer": -9.02
+        },
+        {
+          "soil": {
+            "name": "Zand, siltig tot leem",
+            "color": [
+              213,
+              252,
+              155
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, siltig tot leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -9.02,
+          "bottom_of_layer": -9.04
+        },
+        {
+          "soil": {
+            "name": "Zand, zwak siltig tot siltig",
+            "color": [
+              255,
+              225,
+              178
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, zwak siltig tot siltig"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -9.04,
+          "bottom_of_layer": -9.06
+        },
+        {
+          "soil": {
+            "name": "Zand, siltig tot leem",
+            "color": [
+              213,
+              252,
+              155
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, siltig tot leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -9.06,
+          "bottom_of_layer": -9.1
+        },
+        {
+          "soil": {
+            "name": "Klei, siltig / leem",
+            "color": [
+              213,
+              252,
+              181
+            ],
+            "properties": {
+              "ui_name_dutch": "Klei, siltig / leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -9.1,
+          "bottom_of_layer": -9.24
+        },
+        {
+          "soil": {
+            "name": "Zand, siltig tot leem",
+            "color": [
+              213,
+              252,
+              155
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, siltig tot leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -9.24,
+          "bottom_of_layer": -9.34
+        },
+        {
+          "soil": {
+            "name": "Klei, siltig / leem",
+            "color": [
+              213,
+              252,
+              181
+            ],
+            "properties": {
+              "ui_name_dutch": "Klei, siltig / leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -9.34,
+          "bottom_of_layer": -9.46
+        },
+        {
+          "soil": {
+            "name": "Zand, siltig tot leem",
+            "color": [
+              213,
+              252,
+              155
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, siltig tot leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -9.46,
+          "bottom_of_layer": -9.54
+        },
+        {
+          "soil": {
+            "name": "Zand, zwak siltig tot siltig",
+            "color": [
+              255,
+              225,
+              178
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, zwak siltig tot siltig"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -9.54,
+          "bottom_of_layer": -9.64
+        },
+        {
+          "soil": {
+            "name": "Zand, siltig tot leem",
+            "color": [
+              213,
+              252,
+              155
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, siltig tot leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -9.64,
+          "bottom_of_layer": -9.8
+        },
+        {
+          "soil": {
+            "name": "Zand, zwak siltig tot siltig",
+            "color": [
+              255,
+              225,
+              178
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, zwak siltig tot siltig"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -9.8,
+          "bottom_of_layer": -9.86
+        },
+        {
+          "soil": {
+            "name": "Zand, siltig tot leem",
+            "color": [
+              213,
+              252,
+              155
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, siltig tot leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -9.86,
+          "bottom_of_layer": -9.9
+        },
+        {
+          "soil": {
+            "name": "Klei, siltig / leem",
+            "color": [
+              213,
+              252,
+              181
+            ],
+            "properties": {
+              "ui_name_dutch": "Klei, siltig / leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -9.9,
+          "bottom_of_layer": -9.96
+        },
+        {
+          "soil": {
+            "name": "Klei, zwak siltig tot siltig",
+            "color": [
+              29,
+              118,
+              29
+            ],
+            "properties": {
+              "ui_name_dutch": "Klei, zwak siltig tot siltig"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -9.96,
+          "bottom_of_layer": -10.06
+        },
+        {
+          "soil": {
+            "name": "Klei, siltig / leem",
+            "color": [
+              213,
+              252,
+              181
+            ],
+            "properties": {
+              "ui_name_dutch": "Klei, siltig / leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -10.06,
+          "bottom_of_layer": -10.1
+        },
+        {
+          "soil": {
+            "name": "Zand, siltig tot leem",
+            "color": [
+              213,
+              252,
+              155
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, siltig tot leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -10.1,
+          "bottom_of_layer": -10.14
+        },
+        {
+          "soil": {
+            "name": "Klei, siltig / leem",
+            "color": [
+              213,
+              252,
+              181
+            ],
+            "properties": {
+              "ui_name_dutch": "Klei, siltig / leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -10.14,
+          "bottom_of_layer": -10.28
+        },
+        {
+          "soil": {
+            "name": "Klei, zwak siltig tot siltig",
+            "color": [
+              29,
+              118,
+              29
+            ],
+            "properties": {
+              "ui_name_dutch": "Klei, zwak siltig tot siltig"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -10.28,
+          "bottom_of_layer": -10.36
+        },
+        {
+          "soil": {
+            "name": "Veen, organisch materiaal",
+            "color": [
+              188,
+              104,
+              67
+            ],
+            "properties": {
+              "ui_name_dutch": "Veen, organisch materiaal"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -10.36,
+          "bottom_of_layer": -10.52
+        },
+        {
+          "soil": {
+            "name": "Klei, zwak siltig tot siltig",
+            "color": [
+              29,
+              118,
+              29
+            ],
+            "properties": {
+              "ui_name_dutch": "Klei, zwak siltig tot siltig"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -10.52,
+          "bottom_of_layer": -10.54
+        },
+        {
+          "soil": {
+            "name": "Klei, siltig / leem",
+            "color": [
+              213,
+              252,
+              181
+            ],
+            "properties": {
+              "ui_name_dutch": "Klei, siltig / leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -10.54,
+          "bottom_of_layer": -10.56
+        },
+        {
+          "soil": {
+            "name": "Zand, siltig tot leem",
+            "color": [
+              213,
+              252,
+              155
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, siltig tot leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -10.56,
+          "bottom_of_layer": -10.639999999999999
+        },
+        {
+          "soil": {
+            "name": "Klei, siltig / leem",
+            "color": [
+              213,
+              252,
+              181
+            ],
+            "properties": {
+              "ui_name_dutch": "Klei, siltig / leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -10.639999999999999,
+          "bottom_of_layer": -10.700000000000001
+        },
+        {
+          "soil": {
+            "name": "Klei, zwak siltig tot siltig",
+            "color": [
+              29,
+              118,
+              29
+            ],
+            "properties": {
+              "ui_name_dutch": "Klei, zwak siltig tot siltig"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -10.700000000000001,
+          "bottom_of_layer": -10.76
+        },
+        {
+          "soil": {
+            "name": "Klei, siltig / leem",
+            "color": [
+              213,
+              252,
+              181
+            ],
+            "properties": {
+              "ui_name_dutch": "Klei, siltig / leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -10.76,
+          "bottom_of_layer": -10.83
+        },
+        {
+          "soil": {
+            "name": "Zand, siltig tot leem",
+            "color": [
+              213,
+              252,
+              155
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, siltig tot leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -10.83,
+          "bottom_of_layer": -10.85
+        },
+        {
+          "soil": {
+            "name": "Klei, siltig / leem",
+            "color": [
+              213,
+              252,
+              181
+            ],
+            "properties": {
+              "ui_name_dutch": "Klei, siltig / leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -10.85,
+          "bottom_of_layer": -10.950000000000001
+        },
+        {
+          "soil": {
+            "name": "Zand, siltig tot leem",
+            "color": [
+              213,
+              252,
+              155
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, siltig tot leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -10.950000000000001,
+          "bottom_of_layer": -11.07
+        },
+        {
+          "soil": {
+            "name": "Klei, siltig / leem",
+            "color": [
+              213,
+              252,
+              181
+            ],
+            "properties": {
+              "ui_name_dutch": "Klei, siltig / leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -11.07,
+          "bottom_of_layer": -11.15
+        },
+        {
+          "soil": {
+            "name": "Zand, siltig tot leem",
+            "color": [
+              213,
+              252,
+              155
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, siltig tot leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -11.15,
+          "bottom_of_layer": -11.19
+        },
+        {
+          "soil": {
+            "name": "Zand, zwak siltig tot siltig",
+            "color": [
+              255,
+              225,
+              178
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, zwak siltig tot siltig"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -11.19,
+          "bottom_of_layer": -11.27
+        },
+        {
+          "soil": {
+            "name": "Zand, siltig tot leem",
+            "color": [
+              213,
+              252,
+              155
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, siltig tot leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -11.27,
+          "bottom_of_layer": -11.29
+        },
+        {
+          "soil": {
+            "name": "Klei, siltig / leem",
+            "color": [
+              213,
+              252,
+              181
+            ],
+            "properties": {
+              "ui_name_dutch": "Klei, siltig / leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -11.29,
+          "bottom_of_layer": -11.41
+        },
+        {
+          "soil": {
+            "name": "Zand, siltig tot leem",
+            "color": [
+              213,
+              252,
+              155
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, siltig tot leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -11.41,
+          "bottom_of_layer": -11.45
+        },
+        {
+          "soil": {
+            "name": "Zand, zwak siltig tot siltig",
+            "color": [
+              255,
+              225,
+              178
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, zwak siltig tot siltig"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -11.45,
+          "bottom_of_layer": -11.77
+        },
+        {
+          "soil": {
+            "name": "Zand, siltig tot leem",
+            "color": [
+              213,
+              252,
+              155
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, siltig tot leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -11.77,
+          "bottom_of_layer": -11.81
+        },
+        {
+          "soil": {
+            "name": "Zand, zwak siltig tot siltig",
+            "color": [
+              255,
+              225,
+              178
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, zwak siltig tot siltig"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -11.81,
+          "bottom_of_layer": -12.35
+        },
+        {
+          "soil": {
+            "name": "Zand, siltig tot leem",
+            "color": [
+              213,
+              252,
+              155
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, siltig tot leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -12.35,
+          "bottom_of_layer": -12.47
+        },
+        {
+          "soil": {
+            "name": "Zand, zwak siltig tot siltig",
+            "color": [
+              255,
+              225,
+              178
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, zwak siltig tot siltig"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -12.47,
+          "bottom_of_layer": -12.97
+        },
+        {
+          "soil": {
+            "name": "Zand, siltig tot leem",
+            "color": [
+              213,
+              252,
+              155
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, siltig tot leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -12.97,
+          "bottom_of_layer": -13.01
+        },
+        {
+          "soil": {
+            "name": "Klei, siltig / leem",
+            "color": [
+              213,
+              252,
+              181
+            ],
+            "properties": {
+              "ui_name_dutch": "Klei, siltig / leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -13.01,
+          "bottom_of_layer": -13.05
+        },
+        {
+          "soil": {
+            "name": "Zand, siltig tot leem",
+            "color": [
+              213,
+              252,
+              155
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, siltig tot leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -13.05,
+          "bottom_of_layer": -13.09
+        },
+        {
+          "soil": {
+            "name": "Klei, siltig / leem",
+            "color": [
+              213,
+              252,
+              181
+            ],
+            "properties": {
+              "ui_name_dutch": "Klei, siltig / leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -13.09,
+          "bottom_of_layer": -13.15
+        },
+        {
+          "soil": {
+            "name": "Zand, siltig tot leem",
+            "color": [
+              213,
+              252,
+              155
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, siltig tot leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -13.15,
+          "bottom_of_layer": -13.21
+        },
+        {
+          "soil": {
+            "name": "Zand, zwak siltig tot siltig",
+            "color": [
+              255,
+              225,
+              178
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, zwak siltig tot siltig"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -13.21,
+          "bottom_of_layer": -13.59
+        },
+        {
+          "soil": {
+            "name": "Zand, siltig tot leem",
+            "color": [
+              213,
+              252,
+              155
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, siltig tot leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -13.59,
+          "bottom_of_layer": -13.61
+        },
+        {
+          "soil": {
+            "name": "Klei, siltig / leem",
+            "color": [
+              213,
+              252,
+              181
+            ],
+            "properties": {
+              "ui_name_dutch": "Klei, siltig / leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -13.61,
+          "bottom_of_layer": -13.71
+        },
+        {
+          "soil": {
+            "name": "Zand, siltig tot leem",
+            "color": [
+              213,
+              252,
+              155
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, siltig tot leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -13.71,
+          "bottom_of_layer": -13.73
+        },
+        {
+          "soil": {
+            "name": "Zand, zwak siltig tot siltig",
+            "color": [
+              255,
+              225,
+              178
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, zwak siltig tot siltig"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -13.73,
+          "bottom_of_layer": -14.21
+        },
+        {
+          "soil": {
+            "name": "Zand, siltig tot leem",
+            "color": [
+              213,
+              252,
+              155
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, siltig tot leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -14.21,
+          "bottom_of_layer": -14.23
+        },
+        {
+          "soil": {
+            "name": "Klei, siltig / leem",
+            "color": [
+              213,
+              252,
+              181
+            ],
+            "properties": {
+              "ui_name_dutch": "Klei, siltig / leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -14.23,
+          "bottom_of_layer": -14.41
+        },
+        {
+          "soil": {
+            "name": "Zand, siltig tot leem",
+            "color": [
+              213,
+              252,
+              155
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, siltig tot leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -14.41,
+          "bottom_of_layer": -14.45
+        },
+        {
+          "soil": {
+            "name": "Zand, zwak siltig tot siltig",
+            "color": [
+              255,
+              225,
+              178
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, zwak siltig tot siltig"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -14.45,
+          "bottom_of_layer": -14.73
+        },
+        {
+          "soil": {
+            "name": "Zand, siltig tot leem",
+            "color": [
+              213,
+              252,
+              155
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, siltig tot leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -14.73,
+          "bottom_of_layer": -14.75
+        },
+        {
+          "soil": {
+            "name": "Zand, zwak siltig tot siltig",
+            "color": [
+              255,
+              225,
+              178
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, zwak siltig tot siltig"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -14.75,
+          "bottom_of_layer": -14.79
+        },
+        {
+          "soil": {
+            "name": "Zand, siltig tot leem",
+            "color": [
+              213,
+              252,
+              155
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, siltig tot leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -14.79,
+          "bottom_of_layer": -14.83
+        },
+        {
+          "soil": {
+            "name": "Klei, siltig / leem",
+            "color": [
+              213,
+              252,
+              181
+            ],
+            "properties": {
+              "ui_name_dutch": "Klei, siltig / leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -14.83,
+          "bottom_of_layer": -14.91
+        },
+        {
+          "soil": {
+            "name": "Zand, siltig tot leem",
+            "color": [
+              213,
+              252,
+              155
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, siltig tot leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -14.91,
+          "bottom_of_layer": -14.93
+        },
+        {
+          "soil": {
+            "name": "Zand, zwak siltig tot siltig",
+            "color": [
+              255,
+              225,
+              178
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, zwak siltig tot siltig"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -14.93,
+          "bottom_of_layer": -15.03
+        },
+        {
+          "soil": {
+            "name": "Zand, siltig tot leem",
+            "color": [
+              213,
+              252,
+              155
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, siltig tot leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -15.03,
+          "bottom_of_layer": -15.05
+        },
+        {
+          "soil": {
+            "name": "Klei, siltig / leem",
+            "color": [
+              213,
+              252,
+              181
+            ],
+            "properties": {
+              "ui_name_dutch": "Klei, siltig / leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -15.05,
+          "bottom_of_layer": -15.17
+        },
+        {
+          "soil": {
+            "name": "Zand, siltig tot leem",
+            "color": [
+              213,
+              252,
+              155
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, siltig tot leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -15.17,
+          "bottom_of_layer": -15.23
+        },
+        {
+          "soil": {
+            "name": "Klei, siltig / leem",
+            "color": [
+              213,
+              252,
+              181
+            ],
+            "properties": {
+              "ui_name_dutch": "Klei, siltig / leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -15.23,
+          "bottom_of_layer": -15.29
+        },
+        {
+          "soil": {
+            "name": "Zand, siltig tot leem",
+            "color": [
+              213,
+              252,
+              155
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, siltig tot leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -15.29,
+          "bottom_of_layer": -15.33
+        },
+        {
+          "soil": {
+            "name": "Zand, zwak siltig tot siltig",
+            "color": [
+              255,
+              225,
+              178
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, zwak siltig tot siltig"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -15.33,
+          "bottom_of_layer": -15.41
+        },
+        {
+          "soil": {
+            "name": "Zand, siltig tot leem",
+            "color": [
+              213,
+              252,
+              155
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, siltig tot leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -15.41,
+          "bottom_of_layer": -15.49
+        },
+        {
+          "soil": {
+            "name": "Klei, siltig / leem",
+            "color": [
+              213,
+              252,
+              181
+            ],
+            "properties": {
+              "ui_name_dutch": "Klei, siltig / leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -15.49,
+          "bottom_of_layer": -15.61
+        },
+        {
+          "soil": {
+            "name": "Klei, zwak siltig tot siltig",
+            "color": [
+              29,
+              118,
+              29
+            ],
+            "properties": {
+              "ui_name_dutch": "Klei, zwak siltig tot siltig"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -15.61,
+          "bottom_of_layer": -15.67
+        },
+        {
+          "soil": {
+            "name": "Klei, siltig / leem",
+            "color": [
+              213,
+              252,
+              181
+            ],
+            "properties": {
+              "ui_name_dutch": "Klei, siltig / leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -15.67,
+          "bottom_of_layer": -15.69
+        },
+        {
+          "soil": {
+            "name": "Zand, siltig tot leem",
+            "color": [
+              213,
+              252,
+              155
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, siltig tot leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -15.69,
+          "bottom_of_layer": -15.71
+        },
+        {
+          "soil": {
+            "name": "Zand, zwak siltig tot siltig",
+            "color": [
+              255,
+              225,
+              178
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, zwak siltig tot siltig"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -15.71,
+          "bottom_of_layer": -16.29
+        },
+        {
+          "soil": {
+            "name": "Zand, siltig tot leem",
+            "color": [
+              213,
+              252,
+              155
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, siltig tot leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -16.29,
+          "bottom_of_layer": -16.37
+        },
+        {
+          "soil": {
+            "name": "Klei, siltig / leem",
+            "color": [
+              213,
+              252,
+              181
+            ],
+            "properties": {
+              "ui_name_dutch": "Klei, siltig / leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -16.37,
+          "bottom_of_layer": -16.47
+        },
+        {
+          "soil": {
+            "name": "Zand, siltig tot leem",
+            "color": [
+              213,
+              252,
+              155
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, siltig tot leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -16.47,
+          "bottom_of_layer": -16.51
+        },
+        {
+          "soil": {
+            "name": "Zand, zwak siltig tot siltig",
+            "color": [
+              255,
+              225,
+              178
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, zwak siltig tot siltig"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -16.51,
+          "bottom_of_layer": -16.63
+        },
+        {
+          "soil": {
+            "name": "Zand, siltig tot leem",
+            "color": [
+              213,
+              252,
+              155
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, siltig tot leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -16.63,
+          "bottom_of_layer": -16.67
+        },
+        {
+          "soil": {
+            "name": "Klei, siltig / leem",
+            "color": [
+              213,
+              252,
+              181
+            ],
+            "properties": {
+              "ui_name_dutch": "Klei, siltig / leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -16.67,
+          "bottom_of_layer": -16.71
+        },
+        {
+          "soil": {
+            "name": "Zand, siltig tot leem",
+            "color": [
+              213,
+              252,
+              155
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, siltig tot leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -16.71,
+          "bottom_of_layer": -16.75
+        },
+        {
+          "soil": {
+            "name": "Zand, zwak siltig tot siltig",
+            "color": [
+              255,
+              225,
+              178
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, zwak siltig tot siltig"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -16.75,
+          "bottom_of_layer": -17.66
+        },
+        {
+          "soil": {
+            "name": "Zand, siltig tot leem",
+            "color": [
+              213,
+              252,
+              155
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, siltig tot leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -17.66,
+          "bottom_of_layer": -17.74
+        },
+        {
+          "soil": {
+            "name": "Zand, zwak siltig tot siltig",
+            "color": [
+              255,
+              225,
+              178
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, zwak siltig tot siltig"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -17.74,
+          "bottom_of_layer": -17.84
+        },
+        {
+          "soil": {
+            "name": "Zand, siltig tot leem",
+            "color": [
+              213,
+              252,
+              155
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, siltig tot leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -17.84,
+          "bottom_of_layer": -17.98
+        },
+        {
+          "soil": {
+            "name": "Zand, zwak siltig tot siltig",
+            "color": [
+              255,
+              225,
+              178
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, zwak siltig tot siltig"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -17.98,
+          "bottom_of_layer": -18.46
+        },
+        {
+          "soil": {
+            "name": "Zand, siltig tot leem",
+            "color": [
+              213,
+              252,
+              155
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, siltig tot leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -18.46,
+          "bottom_of_layer": -18.84
+        },
+        {
+          "soil": {
+            "name": "Klei, siltig / leem",
+            "color": [
+              213,
+              252,
+              181
+            ],
+            "properties": {
+              "ui_name_dutch": "Klei, siltig / leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -18.84,
+          "bottom_of_layer": -19.14
+        },
+        {
+          "soil": {
+            "name": "Zand, siltig tot leem",
+            "color": [
+              213,
+              252,
+              155
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, siltig tot leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -19.14,
+          "bottom_of_layer": -19.16
+        },
+        {
+          "soil": {
+            "name": "Zand, zwak siltig tot siltig",
+            "color": [
+              255,
+              225,
+              178
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, zwak siltig tot siltig"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -19.16,
+          "bottom_of_layer": -19.44
+        },
+        {
+          "soil": {
+            "name": "Zand, siltig tot leem",
+            "color": [
+              213,
+              252,
+              155
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, siltig tot leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -19.44,
+          "bottom_of_layer": -19.54
+        },
+        {
+          "soil": {
+            "name": "Klei, siltig / leem",
+            "color": [
+              213,
+              252,
+              181
+            ],
+            "properties": {
+              "ui_name_dutch": "Klei, siltig / leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -19.54,
+          "bottom_of_layer": -19.66
+        },
+        {
+          "soil": {
+            "name": "Zand, siltig tot leem",
+            "color": [
+              213,
+              252,
+              155
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, siltig tot leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -19.66,
+          "bottom_of_layer": -19.72
+        },
+        {
+          "soil": {
+            "name": "Zand, zwak siltig tot siltig",
+            "color": [
+              255,
+              225,
+              178
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, zwak siltig tot siltig"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -19.72,
+          "bottom_of_layer": -20.14
+        },
+        {
+          "soil": {
+            "name": "Zand, siltig tot leem",
+            "color": [
+              213,
+              252,
+              155
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, siltig tot leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -20.14,
+          "bottom_of_layer": -20.2
+        },
+        {
+          "soil": {
+            "name": "Klei, siltig / leem",
+            "color": [
+              213,
+              252,
+              181
+            ],
+            "properties": {
+              "ui_name_dutch": "Klei, siltig / leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -20.2,
+          "bottom_of_layer": -20.26
+        },
+        {
+          "soil": {
+            "name": "Klei, zwak siltig tot siltig",
+            "color": [
+              29,
+              118,
+              29
+            ],
+            "properties": {
+              "ui_name_dutch": "Klei, zwak siltig tot siltig"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -20.26,
+          "bottom_of_layer": -20.38
+        },
+        {
+          "soil": {
+            "name": "Klei, siltig / leem",
+            "color": [
+              213,
+              252,
+              181
+            ],
+            "properties": {
+              "ui_name_dutch": "Klei, siltig / leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -20.38,
+          "bottom_of_layer": -20.4
+        },
+        {
+          "soil": {
+            "name": "Klei, zwak siltig tot siltig",
+            "color": [
+              29,
+              118,
+              29
+            ],
+            "properties": {
+              "ui_name_dutch": "Klei, zwak siltig tot siltig"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -20.4,
+          "bottom_of_layer": -20.54
+        },
+        {
+          "soil": {
+            "name": "Klei, siltig / leem",
+            "color": [
+              213,
+              252,
+              181
+            ],
+            "properties": {
+              "ui_name_dutch": "Klei, siltig / leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -20.54,
+          "bottom_of_layer": -20.66
+        },
+        {
+          "soil": {
+            "name": "Klei, zwak siltig tot siltig",
+            "color": [
+              29,
+              118,
+              29
+            ],
+            "properties": {
+              "ui_name_dutch": "Klei, zwak siltig tot siltig"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -20.66,
+          "bottom_of_layer": -20.76
+        },
+        {
+          "soil": {
+            "name": "Klei, siltig / leem",
+            "color": [
+              213,
+              252,
+              181
+            ],
+            "properties": {
+              "ui_name_dutch": "Klei, siltig / leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -20.76,
+          "bottom_of_layer": -20.8
+        },
+        {
+          "soil": {
+            "name": "Zand, siltig tot leem",
+            "color": [
+              213,
+              252,
+              155
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, siltig tot leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -20.8,
+          "bottom_of_layer": -20.84
+        },
+        {
+          "soil": {
+            "name": "Zand, zwak siltig tot siltig",
+            "color": [
+              255,
+              225,
+              178
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, zwak siltig tot siltig"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -20.84,
+          "bottom_of_layer": -23.09
+        },
+        {
+          "soil": {
+            "name": "Zand, siltig tot leem",
+            "color": [
+              213,
+              252,
+              155
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, siltig tot leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -23.09,
+          "bottom_of_layer": -23.13
+        },
+        {
+          "soil": {
+            "name": "Klei, siltig / leem",
+            "color": [
+              213,
+              252,
+              181
+            ],
+            "properties": {
+              "ui_name_dutch": "Klei, siltig / leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -23.13,
+          "bottom_of_layer": -23.17
+        },
+        {
+          "soil": {
+            "name": "Zand, siltig tot leem",
+            "color": [
+              213,
+              252,
+              155
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, siltig tot leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -23.17,
+          "bottom_of_layer": -23.21
+        },
+        {
+          "soil": {
+            "name": "Zand, zwak siltig tot siltig",
+            "color": [
+              255,
+              225,
+              178
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, zwak siltig tot siltig"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -23.21,
+          "bottom_of_layer": -24.6
+        },
+        {
+          "soil": {
+            "name": "Zand, siltig tot leem",
+            "color": [
+              213,
+              252,
+              155
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, siltig tot leem"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -24.6,
+          "bottom_of_layer": -24.64
+        },
+        {
+          "soil": {
+            "name": "Zand, zwak siltig tot siltig",
+            "color": [
+              255,
+              225,
+              178
+            ],
+            "properties": {
+              "ui_name_dutch": "Zand, zwak siltig tot siltig"
+            }
+          },
+          "properties": {},
+          "top_of_layer": -24.64,
+          "bottom_of_layer": -29.52
+        }
+      ]
+    },
+    "bottom_of_soil_layout_user": -29.52,
+    "ground_level_wrt_reference_m": 5.42
+  }
+}

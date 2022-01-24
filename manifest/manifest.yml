@@ -2,15 +2,34 @@ version: '1'
 
 # Define all entity types
 entity_types:
-  Sample:
+  ProjectFolder:
+    is_file: false
+    has_designer: false
     show_properties: false
+  Project:
     has_designer: true
+    show_properties: true
+  CPTFile:
+    has_designer: true
+    show_properties: true
+  Section:
+    has_designer: true
+    show_properties: true
 
 # On app start, create sample entity
 entities:
-- entity_type: Sample
+ entity_type: ProjectFolder
   properties:
-    name: Sample App
+    name: Projects
+  children:
+    - entity_type: Project
+      properties: fixtures/project_1.json
+- entity_type: FeedbackFolder
+  properties:
+    name: Feedback
+- entity_type: UserManual
+  properties:
+    name: User Manual
 
 # Meta data
 metadata:
