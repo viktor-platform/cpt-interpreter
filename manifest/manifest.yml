@@ -1,0 +1,17 @@
+version: '1'
+
+# Define all entity types
+entity_types:
+  Sample:
+    show_properties: false
+    has_designer: true
+
+# On app start, create sample entity
+entities:
+- entity_type: Sample
+  properties:
+    name: Sample App
+
+# Meta data
+metadata:
+    background_image: background_image.jpg
