@@ -1,0 +1,30 @@
+#GEFID= 1, 1, 0
+#COLUMN= {{meta.COLUMN}}
+{%- for ci in meta.COLUMNINFO %}
+#COLUMNINFO= {{ci.colnum}}, {{ci.units}}, {{ci.description}}, {{ci.id}}
+{%- endfor %}
+#COLUMNSEPARATOR= ;
+#COLUMNTEXT= 1, aan
+{%- for ci in meta.COLUMNINFO %}
+#COLUMNVOID= {{ci.colnum}}, -999999
+{%- endfor %}
+#COMPANYID= uitvoerder onderzoek, wordt niet uitgeleverd, -
+#FILEDATE= {{headers.FILEDATE}}
+#FILEOWNER= Basisregistratie Ondergrond
+#LASTSCAN= {{meta.LASTSCAN}}
+{%- for ci in headers.MEASUREMENTTEXT %}
+#MEASUREMENTTEXT= {{ci}}
+{%- endfor %}
+{%- for ci in headers.MEASUREMENTVAR %}
+#MEASUREMENTVAR= {{ci}}
+{%- endfor %}
+#PROJECTID= BRO
+#RECORDSEPARATOR= !
+#REPORTCODE= GEF-CPT-Report, 1, 1, 2
+#STARTDATE= {{headers.STARTDATE}}
+#STARTTIME= {{headers.STARTTIME}}
+#TESTID= {{headers.TESTID}}
+#XYID= {{headers.XYID}}
+#ZID= {{headers.ZID}}
+#EOH=
+{{data}}

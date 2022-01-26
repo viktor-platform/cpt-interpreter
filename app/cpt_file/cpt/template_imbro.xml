@@ -1,0 +1,138 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ns9:GeotechnicalCPTSurvey xmlns:brocom="http://www.broservices.nl/xsd/brocommon/3.0" xmlns:cptcommon="http://www.broservices.nl/xsd/cptcommon/1.1" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:ns9="nl.broservices.xsd.dscpt.v_1_1" xmlns:om="http://www.opengis.net/om/2.0" xmlns:sampling="http://www.opengis.net/sampling/2.0" xmlns:swe="http://www.opengis.net/swe/2.0" xmlns:xlink="http://www.w3.org/1999/xlink" gml:id="BRO_0902">
+  <brocom:broId>NO_DEFAULT</brocom:broId>
+  <brocom:deliveryAccountableParty>NO_DEFAULT</brocom:deliveryAccountableParty>
+  <brocom:qualityRegime>IMBRO</brocom:qualityRegime>
+  <deliveryContext codeSpace="urn:bro:cpt:DeliveryContext">NO_DEFAULT</deliveryContext>
+  <surveyPurpose codeSpace="urn:bro:cpt:SurveyPurpose">NO_DEFAULT</surveyPurpose>
+  <researchReportDate>
+    <brocom:date>NO_DEFAULT</brocom:date>
+  </researchReportDate>
+  <cptStandard codeSpace="urn:bro:cpt:CPTStandard">NO_DEFAULT</cptStandard>
+  <additionalInvestigationPerformed>NO_DEFAULT</additionalInvestigationPerformed>
+  <standardizedLocation>
+    <brocom:location srsName="urn:ogc:def:crs:EPSG::4258" gml:id="BRO_0896">
+      <gml:pos>NO_DEFAULT</gml:pos>
+    </brocom:location>
+    <brocom:coordinateTransformation codeSpace="urn:bro:CoordinateTransformation">NO_DEFAULT</brocom:coordinateTransformation>
+  </standardizedLocation>
+  <deliveredLocation>
+    <cptcommon:location srsName="urn:ogc:def:crs:EPSG::28992" gml:id="BRO_0897">
+      <gml:pos>NO_DEFAULT</gml:pos>
+    </cptcommon:location>
+    <cptcommon:horizontalPositioningDate>
+      <brocom:date>NO_DEFAULT</brocom:date>
+    </cptcommon:horizontalPositioningDate>
+    <cptcommon:horizontalPositioningMethod codeSpace="urn:bro:cpt:HorizontalPositioningMethod">NO_DEFAULT</cptcommon:horizontalPositioningMethod>
+  </deliveredLocation>
+  <deliveredVerticalPosition>
+    <cptcommon:localVerticalReferencePoint codeSpace="urn:bro:cpt:LocalVerticalReferencePoint">NO_DEFAULT</cptcommon:localVerticalReferencePoint>
+    <cptcommon:offset uom="m">NO_DEFAULT</cptcommon:offset>
+    <cptcommon:verticalDatum codeSpace="urn:bro:cpt:VerticalDatum">NO_DEFAULT</cptcommon:verticalDatum>
+    <cptcommon:verticalPositioningDate>
+      <brocom:date>NO_DEFAULT</brocom:date>
+    </cptcommon:verticalPositioningDate>
+    <cptcommon:verticalPositioningMethod codeSpace="urn:bro:cpt:VerticalPositioningMethod">NO_DEFAULT</cptcommon:verticalPositioningMethod>
+  </deliveredVerticalPosition>
+  <conePenetrometerSurvey gml:id="BRO_0901">
+    <sampling:sampledFeature xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+    <cptcommon:dissipationTestPerformed>NO_DEFAULT</cptcommon:dissipationTestPerformed>
+    <cptcommon:finalProcessingDate>
+      <brocom:date>NO_DEFAULT</brocom:date>
+    </cptcommon:finalProcessingDate>
+    <cptcommon:cptMethod codeSpace="urn:bro:cpt:CPTMethod">NO_DEFAULT</cptcommon:cptMethod>
+    <cptcommon:qualityClass codeSpace="urn:bro:cpt:QualityClass">NO_DEFAULT</cptcommon:qualityClass>
+    <cptcommon:stopCriterion codeSpace="urn:bro:cpt:StopCriterion">NO_DEFAULT</cptcommon:stopCriterion>
+    <cptcommon:trajectory>
+      <cptcommon:predrilledDepth uom="m">NO_DEFAULT</cptcommon:predrilledDepth>
+      <cptcommon:finalDepth uom="m">NO_DEFAULT</cptcommon:finalDepth>
+    </cptcommon:trajectory>
+    <cptcommon:conePenetrometer>
+      <cptcommon:description>Onbekend</cptcommon:description>
+      <cptcommon:conePenetrometerType>NO_DEFAULT</cptcommon:conePenetrometerType>
+      <cptcommon:coneSurfaceArea uom="mm2">NO_DEFAULT</cptcommon:coneSurfaceArea>
+      <cptcommon:coneSurfaceQuotient uom="1">NO_DEFAULT</cptcommon:coneSurfaceQuotient>
+      <cptcommon:coneToFrictionSleeveDistance uom="mm">NO_DEFAULT</cptcommon:coneToFrictionSleeveDistance>
+      <cptcommon:frictionSleeveSurfaceArea uom="mm2">NO_DEFAULT</cptcommon:frictionSleeveSurfaceArea>
+      <cptcommon:frictionSleeveSurfaceQuotient uom="1">NO_DEFAULT</cptcommon:frictionSleeveSurfaceQuotient>
+      <cptcommon:zeroLoadMeasurement>
+        <cptcommon:coneResistanceBefore uom="MPa">NO_DEFAULT</cptcommon:coneResistanceBefore>
+        <cptcommon:coneResistanceAfter uom="MPa">NO_DEFAULT</cptcommon:coneResistanceAfter>
+        <cptcommon:inclinationEWBefore uom="deg">NO_DEFAULT</cptcommon:inclinationEWBefore>
+        <cptcommon:inclinationEWAfter uom="deg">NO_DEFAULT</cptcommon:inclinationEWAfter>
+        <cptcommon:inclinationNSBefore uom="deg">NO_DEFAULT</cptcommon:inclinationNSBefore>
+        <cptcommon:inclinationNSAfter uom="deg">NO_DEFAULT</cptcommon:inclinationNSAfter>
+        <cptcommon:inclinationResultantBefore uom="deg">NO_DEFAULT</cptcommon:inclinationResultantBefore>
+        <cptcommon:inclinationResultantAfter uom="deg">NO_DEFAULT</cptcommon:inclinationResultantAfter>
+        <cptcommon:localFrictionBefore uom="MPa">NO_DEFAULT</cptcommon:localFrictionBefore>
+        <cptcommon:localFrictionAfter uom="MPa">NO_DEFAULT</cptcommon:localFrictionAfter>
+        <cptcommon:porePressureU2Before uom="MPa">NO_DEFAULT</cptcommon:porePressureU2Before>
+        <cptcommon:porePressureU2After uom="MPa">NO_DEFAULT</cptcommon:porePressureU2After>
+      </cptcommon:zeroLoadMeasurement>
+    </cptcommon:conePenetrometer>
+    <cptcommon:conePenetrationTest gml:id="BRO_0900">
+      <om:phenomenonTime xlink:type="simple">
+        <gml:TimeInstant gml:id="BRO_0899">
+          <gml:timePosition>NO_DEFAULT</gml:timePosition>
+        </gml:TimeInstant>
+      </om:phenomenonTime>
+      <om:resultTime xlink:type="simple">
+        <gml:TimeInstant gml:id="BRO_0898">
+          <gml:timePosition>NO_DEFAULT</gml:timePosition>
+        </gml:TimeInstant>
+      </om:resultTime>
+      <om:procedure xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+      <om:observedProperty xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+      <om:featureOfInterest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+      <cptcommon:cptResult>
+        <swe:elementCount xlink:type="simple"/>
+        <swe:elementType name="ConePenetrationTestResultRecord" xlink:type="simple" xlink:href="http://www.broservices.nl/xsd/cptcommon/1.0/cpttestresult_record.xml"/>
+        <swe:encoding>
+          <swe:TextEncoding decimalSeparator="." tokenSeparator="," blockSeparator=";"/>
+        </swe:encoding>
+        <cptcommon:values>NO_DEFAULT</cptcommon:values>
+      </cptcommon:cptResult>
+    </cptcommon:conePenetrationTest>
+    <cptcommon:procedure>
+      <cptcommon:interruptionProcessingPerformed>nee</cptcommon:interruptionProcessingPerformed>
+      <cptcommon:expertCorrectionPerformed>nee</cptcommon:expertCorrectionPerformed>
+      <cptcommon:signalProcessingPerformed>nee</cptcommon:signalProcessingPerformed>
+    </cptcommon:procedure>
+    <cptcommon:parameters>
+      <cptcommon:penetrationLength>nee</cptcommon:penetrationLength>
+      <cptcommon:depth>nee</cptcommon:depth>
+      <cptcommon:elapsedTime>nee</cptcommon:elapsedTime>
+      <cptcommon:coneResistance>nee</cptcommon:coneResistance>
+      <cptcommon:correctedConeResistance>nee</cptcommon:correctedConeResistance>
+      <cptcommon:netConeResistance>nee</cptcommon:netConeResistance>
+      <cptcommon:magneticFieldStrengthX>nee</cptcommon:magneticFieldStrengthX>
+      <cptcommon:magneticFieldStrengthY>nee</cptcommon:magneticFieldStrengthY>
+      <cptcommon:magneticFieldStrengthZ>nee</cptcommon:magneticFieldStrengthZ>
+      <cptcommon:magneticFieldStrengthTotal>nee</cptcommon:magneticFieldStrengthTotal>
+      <cptcommon:electricalConductivity>nee</cptcommon:electricalConductivity>
+      <cptcommon:inclinationEW>nee</cptcommon:inclinationEW>
+      <cptcommon:inclinationNS>nee</cptcommon:inclinationNS>
+      <cptcommon:inclinationX>nee</cptcommon:inclinationX>
+      <cptcommon:inclinationY>nee</cptcommon:inclinationY>
+      <cptcommon:inclinationResultant>nee</cptcommon:inclinationResultant>
+      <cptcommon:magneticInclination>nee</cptcommon:magneticInclination>
+      <cptcommon:magneticDeclination>nee</cptcommon:magneticDeclination>
+      <cptcommon:localFriction>nee</cptcommon:localFriction>
+      <cptcommon:poreRatio>nee</cptcommon:poreRatio>
+      <cptcommon:temperature>nee</cptcommon:temperature>
+      <cptcommon:porePressureU1>nee</cptcommon:porePressureU1>
+      <cptcommon:porePressureU2>nee</cptcommon:porePressureU2>
+      <cptcommon:porePressureU3>nee</cptcommon:porePressureU3>
+      <cptcommon:frictionRatio>nee</cptcommon:frictionRatio>
+    </cptcommon:parameters>
+  </conePenetrometerSurvey>
+  <registrationHistory>
+    <brocom:objectRegistrationTime>NO_DEFAULT</brocom:objectRegistrationTime>
+    <brocom:registrationStatus codeSpace="urn:bro:RegistrationStatus">NO_DEFAULT</brocom:registrationStatus>
+    <brocom:registrationCompletionTime>NO_DEFAULT</brocom:registrationCompletionTime>
+    <brocom:corrected>nee</brocom:corrected>
+    <brocom:underReview>nee</brocom:underReview>
+    <brocom:deregistered>nee</brocom:deregistered>
+    <brocom:reregistered>nee</brocom:reregistered>
+  </registrationHistory>
+</ns9:GeotechnicalCPTSurvey>

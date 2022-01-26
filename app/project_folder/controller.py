@@ -16,11 +16,9 @@ SOFTWARE.
 """
 from viktor.core import ViktorController
 
-from .parametrization import SampleParametrization
 
-
-class SampleController(ViktorController):
+class ProjectFolderController(ViktorController):
     """Controller class which acts as interface for the Sample entity type."""
-    label = "Sample"
-    parametrization = SampleParametrization
-    viktor_convert_entity_field = True
+    label = 'Projects'
+    children = ['Project']
+    show_children_as = 'Table'

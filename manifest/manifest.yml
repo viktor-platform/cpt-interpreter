@@ -12,24 +12,15 @@ entity_types:
   CPTFile:
     has_designer: true
     show_properties: true
-  Section:
-    has_designer: true
-    show_properties: true
 
 # On app start, create sample entity
 entities:
- entity_type: ProjectFolder
+- entity_type: ProjectFolder
   properties:
     name: Projects
   children:
     - entity_type: Project
       properties: fixtures/project_1.json
-- entity_type: FeedbackFolder
-  properties:
-    name: Feedback
-- entity_type: UserManual
-  properties:
-    name: User Manual
 
 # Meta data
 metadata:
