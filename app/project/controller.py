@@ -23,7 +23,7 @@ from viktor.core import ViktorController
 from viktor.views import MapResult
 from viktor.views import MapView
 from viktor.views import Summary
-from .parametrization import SampleParametrization
+from .parametrization import ProjectParametrization
 from ..cpt_file.constants import CPT_LEGEND
 from ..cpt_file.model import CPT
 from ..cpt_file.model import color_coded_cpt_map_points
@@ -34,7 +34,7 @@ class ProjectController(ViktorController):
     label = "Sample"
     children = ['CPTFile']
     show_children_as = 'Table'
-    parametrization = SampleParametrization
+    parametrization = ProjectParametrization
     viktor_convert_entity_field = True
     summary = Summary()
 

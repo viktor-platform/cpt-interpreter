@@ -42,7 +42,7 @@ def _get_soils_options(entity_id: int, **kwargs) -> List[OptionListElement]:
     """Options all possible soil type from the Classification parameter in the Project entity."""
     project_params = _get_project_entity(entity_id).last_saved_params
     classification = Classification(project_params.soil_interpretation.classification)
-    return [OptionListElement(soil) for soil in classification.soil_mapping.keys()]
+    return [OptionListElement(soil) for soil in classification.soil_mapping]
 
 
 class CPTFileParametrization(Parametrization):

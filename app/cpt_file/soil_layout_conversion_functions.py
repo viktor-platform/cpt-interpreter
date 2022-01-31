@@ -1,3 +1,19 @@
+"""Copyright (c) 2022 VIKTOR B.V.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
+documentation files (the "Software"), to deal in the Software without restriction, including without limitation the
+rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit
+persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the
+Software.
+
+VIKTOR B.V. PROVIDES THIS SOFTWARE ON AN "AS IS" BASIS, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
+NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT
+SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
+CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+"""
 from copy import deepcopy
 from math import ceil
 from typing import List
@@ -55,9 +71,9 @@ def convert_input_table_field_to_soil_layout(bottom_of_soil_layout_user: float,
         top_of_layer = layer["top_of_layer"]
         try:
             soil_layers.append(SoilLayer(soils[soil_name], top_of_layer, bottom))
-        except KeyError:
-            raise UserException(f"{soil_name} is not available in the selected classification table.\n"
-                                f"Please select a different table, or reclassify the CPT files")
+        except KeyError as soil_name_no_exist:
+            raise UserException(f"{soil_name} is not available in the selected classification " f"table.\n "
+                                f"Please select a different table, or reclassify the CPT files") from soil_name_no_exist
         bottom = top_of_layer  # Set bottom of next soil layer to top of current layer.
     return convert_soil_layout_from_m_to_mm(SoilLayout(soil_layers[::-1]))
 
@@ -148,12 +164,11 @@ class Classification:
             soil_layout_obj = cpt_data_object.classify(method=RobertsonMethod(self.table),
                                                        return_soil_layout_obj=True)
 
-        except GEFParsingException as e:
-            raise UserException(f"CPT Parsing: {str(e)}")
-        except GEFClassificationError as e:
-            raise UserException(f"CPT Classification: {str(e)}")
+        except GEFParsingException as parsing_exception:
+            raise UserException(f"CPT Parsing: {str(parsing_exception)}") from parsing_exception
+        except GEFClassificationError as classification_exception:
+            raise UserException(f"CPT Classification: {str(classification_exception)}") from classification_exception
 
-        # TODO: do we really want to apply a standard filtering whenever we classify a cpt file?
         soil_layout_filtered = soil_layout_obj.filter_layers_on_thickness(
             min_layer_thickness=DEFAULT_MIN_LAYER_THICKNESS, merge_adjacent_same_soil_layers=True)
         soil_layout_filtered_in_m = convert_soil_layout_from_mm_to_m(soil_layout_filtered)

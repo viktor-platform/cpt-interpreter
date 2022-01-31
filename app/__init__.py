@@ -17,29 +17,3 @@ SOFTWARE.
 from .cpt_file.controller import CPTFileController
 from .project.controller import ProjectController
 from .project_folder.controller import ProjectFolderController
-
-# TODO remove this when we perform a migration to GeoFields
-# ===== This is needed to prevent manifest errors ===== #
-# pylint: disable=wrong-import-order
-from viktor import ViktorController
-from viktor.core import ParamsFromFile
-from viktor.parametrization import Parametrization as ParametrizationBaseClass
-from viktor.views import Summary
-
-
-class Parametrization(ParametrizationBaseClass):
-    pass
-
-
-class TempController(ViktorController):
-    viktor_typed_empty_fields = True
-    parametrization = Parametrization
-    summary = Summary()
-
-    @ParamsFromFile(file_types=['.gif', '.png', '.jpg'])
-    def process_file(self, file, **kwargs) -> dict:
-        return {}
-
-
-UserManualController = TempController
-UserManualStepController = TempController

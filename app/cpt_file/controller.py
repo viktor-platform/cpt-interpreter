@@ -52,6 +52,7 @@ class CPTFileController(ViktorController):
 
     @ParamsFromFile(file_types=['.gef'])
     def process_file(self, file: File, entity_id: int, **kwargs) -> dict:
+        """Process the CPT file when it is first uploaded"""
         self.classify_file(file, entity_id=entity_id)
         return self.classify_file(file, entity_id=entity_id)
 
@@ -90,9 +91,9 @@ class CPTFileController(ViktorController):
         if not headers:
             raise UserException('GEF file has no headers')
         try:
-            x, y = params.x_rd, params.y_rd
+            x_coordinate, y_coordinate = params.x_rd, params.y_rd
         except AttributeError:
-            x, y = headers.x_y_coordinates
+            x_coordinate, y_coordinate = headers.x_y_coordinates
         height_system = headers.height_system
         ground_level_wrt_ref_m = headers.ground_level_wrt_reference_m
         return DataGroup(
@@ -100,8 +101,8 @@ class CPTFileController(ViktorController):
             ground_water_level=DataItem('Phreatic level (NAP)', params.ground_water_level),
             height_system=DataItem('Height system', height_system or '-'),
             coordinates=DataItem('Coordinates', '', subgroup=DataGroup(
-                x_coordinate=DataItem('X-coordinate', x or 0, suffix='m'),
-                y_coordinate=DataItem('Y-coordinate', y or 0, suffix='m'),
+                x_coordinate=DataItem('X-coordinate', x_coordinate or 0, suffix='m'),
+                y_coordinate=DataItem('Y-coordinate', y_coordinate or 0, suffix='m'),
             ))
         )
 

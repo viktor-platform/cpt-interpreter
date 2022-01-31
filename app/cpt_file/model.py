@@ -1,3 +1,19 @@
+"""Copyright (c) 2022 VIKTOR B.V.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
+documentation files (the "Software"), to deal in the Software without restriction, including without limitation the
+rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit
+persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the
+Software.
+
+VIKTOR B.V. PROVIDES THIS SOFTWARE ON AN "AS IS" BASIS, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
+NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT
+SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
+CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+"""
 from io import StringIO
 from math import floor
 from typing import List
@@ -20,6 +36,7 @@ from .soil_layout_conversion_functions import \
 
 
 class CPT:
+    """"CPT model used for visualizing the soil layout"""
     def __init__(self, cpt_params, soils=None, entity_id=None, **kwargs):
         params = unmunchify(cpt_params)
         self.headers = munchify(params['headers'])
@@ -29,7 +46,7 @@ class CPT:
         self.bottom_of_soil_layout_user = self.soil_layout_original.bottom / 1e3
         self.ground_water_level = params['ground_water_level']
         self.name = params['name']
-        self.id = entity_id
+        self.entity_id = entity_id
 
         self._soils = soils
         self._params_soil_layout = params['soil_layout']
@@ -43,7 +60,7 @@ class CPT:
     @property
     def entity_link(self) -> MapEntityLink:
         """Returns a MapEntity link to the GEF entity, which is used in the MapView of the Project entity"""
-        return MapEntityLink(self.name, self.id)
+        return MapEntityLink(self.name, self.entity_id)
 
     @staticmethod
     def filter_nones_from_params_dict(raw_dict) -> dict:
@@ -141,12 +158,9 @@ class CPT:
                                  base=[layer.top_of_layer * 1e-3 for layer in soil_type_layers]),
                           row=1, col=3)
 
-        # Add dashed blue line representing phreatic level, and solid black line for ground level
+        # Add dashed blue line representing phreatic level
         fig.add_hline(y=self.ground_water_level, line=dict(color='Blue', dash='dash', width=1),
                       row='all', col='all')
-
-        # fig.add_hline(y=self.parsed_cpt.elevation[0] * 1e-3, line=dict(color='Black', width=1),
-        #               row='all', col='all') #TODO Horizontal line for groundlevel: a bit ugly
 
         fig.update_layout(barmode='stack', template='plotly_white', legend=dict(x=1.05, y=0.5))
 
@@ -208,4 +222,3 @@ def color_coded_cpt_map_points(cpt_models: List[CPT]) -> List[MapPoint]:
     for cpt in cpt_models:
         map_features.append(cpt.get_map_point())
     return map_features
-
