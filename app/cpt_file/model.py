@@ -39,66 +39,30 @@ from .soil_layout_conversion_functions import \
     convert_input_table_field_to_soil_layout
 
 
-# TODO clean file
-
-class CPTSummary:
-    """CPT object created from the 'last_saved_summary', which greatly improves speed."""
-
-    def __init__(self, summary: dict, name: str, entity_id: int):
+class CPT():
+    def __init__(self, cpt_params, soils=None, entity_id=None, **kwargs):
+        params = unmunchify(cpt_params)
+        self.headers = munchify(params['headers'])
+        self.params = params
+        self.parsed_cpt = GEFData(self.filter_nones_from_params_dict(params))
+        self.soil_layout_original = SoilLayout.from_dict(params['soil_layout_original'])
+        self.bottom_of_soil_layout_user = self.soil_layout_original.bottom / 1e3
+        self.name = params['name']
         self.id = entity_id
-        self.name = name
-        self.x_coordinate = summary["x_coordinate"]["value"]
-        self.y_coordinate = summary["y_coordinate"]["value"]
 
-    @property
-    def coordinates(self) -> Point:
-        """Returns a Point object of the x-y coordinates to be used in geographic calculations"""
-        return Point(self.x_coordinate, self.y_coordinate)
-
-    @property
-    def wgs_coordinates(self) -> Munch:
-        """Returns a dictionary of the lat lon coordinates to be used in geographic calculations"""
-        lat, lon = RDWGSConverter.from_rd_to_wgs((self.x_coordinate, self.y_coordinate))
-        return munchify({"lat": lat, "lon": lon})
-
-    @property
-    def entity_link(self) -> MapEntityLink:
-        """Returns a MapEntity link to the GEF entity, which is used in the MapView of the Project entity"""
-        return MapEntityLink(self.name, self.id)
-
-    def get_map_point(self, color):
-        """Returns a MapPoint object with a specific color"""
-        return MapPoint(self.wgs_coordinates.lat, self.wgs_coordinates.lon, color=color, title=self.name,
-                        description=f"RD coordinaten: {self.coordinates.x}, {self.coordinates.y}",
-                        entity_links=[self.entity_link])
-
-    def get_map_label(self, size):
-        """Returns a MapLabel object with a specific label size, ranging from 17 (max size in viktor sdk) to 1"""
-        return MapLabel(self.wgs_coordinates.lat, self.wgs_coordinates.lon, self.name, scale=20.5 - size * 0.5)
-
-
-# pylint: disable=super-init-not-called
-class CPT(CPTSummary):
-    def __init__(self, cpt_params=None, soils=None, entity_id=None, **kwargs):
-        if cpt_params is not None:
-            params = unmunchify(cpt_params)
-            self.headers = munchify(params['headers'])
-            self.params = params
-            self.parsed_cpt = GEFData(self.filter_nones_from_params_dict(params))
-            self.soil_layout_original = SoilLayout.from_dict(params['soil_layout_original'])
-            self.bottom_of_soil_layout_user = params['bottom_of_soil_layout_user']
-            self.ground_water_level = params['ground_water_level']
-            self.name = params['name']
-            self.id = entity_id
-
-            self._soils = soils
-            self._params_soil_layout = params['soil_layout']
+        self._soils = soils
+        self._params_soil_layout = params['soil_layout']
 
     @property
     def soil_layout(self) -> SoilLayout:
         """Returns a soil layout based on the input table"""
         return convert_input_table_field_to_soil_layout(self.bottom_of_soil_layout_user,
                                                         self._params_soil_layout, self._soils)
+
+    @property
+    def entity_link(self) -> MapEntityLink:
+        """Returns a MapEntity link to the GEF entity, which is used in the MapView of the Project entity"""
+        return MapEntityLink(self.name, self.id)
 
     @staticmethod
     def filter_nones_from_params_dict(raw_dict) -> dict:
@@ -126,6 +90,12 @@ class CPT(CPTSummary):
             raise UserException(f"CPT {self.name} has no coordinates: please check the GEF file")
         lat, lon = RDWGSConverter.from_rd_to_wgs(self.parsed_cpt.x_y_coordinates)
         return munchify({"lat": lat, "lon": lon})
+
+    def get_map_point(self):
+        """Returns a MapPoint object with a specific color"""
+        return MapPoint(self.wgs_coordinates.lat, self.wgs_coordinates.lon, title=self.name,
+                        description=f"RD coordinaten: {self.coordinates.x}, {self.coordinates.y}",
+                        entity_links=[self.entity_link])
 
     def visualize(self) -> StringIO:
         """Creates an interactive plot using plotly, showing the same information as the static visualization"""
@@ -190,9 +160,6 @@ class CPT(CPTSummary):
                                  base=[layer.top_of_layer * 1e-3 for layer in soil_type_layers]),
                           row=1, col=3)
 
-        # Add dashed blue line representing phreatic level, and solid black line for ground level
-        fig.add_hline(y=self.ground_water_level, line=dict(color='Blue', dash='dash', width=1),
-                      row='all', col='all')
         # fig.add_hline(y=self.parsed_cpt.elevation[0] * 1e-3, line=dict(color='Black', width=1),
         #               row='all', col='all') #TODO Horizontal line for groundlevel: a bit ugly
 
@@ -549,44 +516,10 @@ def create_friction_ratio_box(rect: List[float], ymin_ymax: List[float], gef_dat
     return rf
 
 
-def color_coded_cpt_map_points(cpt_models: Union[List[CPT], List[CPTSummary]]) -> List[MapPoint]:
+def color_coded_cpt_map_points(cpt_models: List[CPT]) -> List[MapPoint]:
     """Function that assigns correct color to CPT based on location wrt. Polyline or exclusion"""
     map_features = []
     for cpt in cpt_models:
-        map_features.append(cpt.get_map_point(Color.viktor_yellow()))
+        map_features.append(cpt.get_map_point())
     return map_features
 
-
-def color_coded_bore_map_points(bore_models: Union[List[CPT], List[CPTSummary]], near_line_cpt_ids: List[int],
-                                excluded_cpt_ids: List[int], already_in_section_cpts: List[int] = None,
-                                show_labels: bool = False, label_size: int = None) -> Tuple[List[MapPoint],
-                                                                                            List[MapLabel]]:
-    """Function that assigns correct color to CPT based on location wrt. Polyline or exclusion"""
-    map_features, labels = [], []
-    for bore in bore_models:
-        if bore.id in excluded_cpt_ids:
-            map_features.append(bore.get_map_point(Color.from_hex('ff007f')))
-        elif bore.id in near_line_cpt_ids:
-            map_features.append(bore.get_map_point(Color.from_hex('00ffff')))
-        else:
-            map_features.append(bore.get_map_point(Color.from_hex('ffff00')))
-            if already_in_section_cpts:
-                if bore.id in already_in_section_cpts:
-                    map_features.append(bore.get_map_point(Color.lime()))
-        if show_labels:
-            labels.append(bore.get_map_label(label_size))
-    return map_features, labels
-
-
-def polygon_validity_cpt_range_map(cpt_models: Union[List[CPT], List[CPTSummary]], excluded_cpt_ids: List[int],
-                                   validity_range: float = 25, precision: float = 25) -> List[MapPolygon]:
-    """Draws a circle around the CPT to visualize its validity range"""
-    map_feature = []
-    for cpt in cpt_models:
-        if cpt.id not in excluded_cpt_ids:
-            angles = radians(linspace(0, 360, precision))
-            points_circle = [RDWGSConverter.from_rd_to_wgs((cpt.x_coordinate + validity_range * cos(angle),
-                                                            cpt.y_coordinate + validity_range * sin(angle))) for angle
-                             in angles]
-            map_feature.append(MapPolygon([MapPoint(*point) for point in points_circle]))
-    return map_feature

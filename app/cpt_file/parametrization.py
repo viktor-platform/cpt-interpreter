@@ -49,20 +49,14 @@ class CPTFileParametrization(Parametrization):
     """Defines the input fields in left-side of the web UI in the CPT_file entity (Editor)."""
     gef = Tab('GEF')
     gef.cpt_data = Section('Properties and soil layout')
-    gef.cpt_data.ground_water_level = NumberField('Phreatic level', suffix='m', name='ground_water_level')
-    gef.cpt_data.x_rd = NumberField('X-coordinate', suffix='m', name='x_rd')
-    gef.cpt_data.y_rd = NumberField('Y-coordinate', suffix='m', name='y_rd')
 
-    gef.cpt_data.lb1 = LineBreak()
-    gef.cpt_data.bottom_of_soil_layout_user = NumberField('Bottom layers', name='bottom_of_soil_layout_user',
-                                                          suffix='m')
     gef.cpt_data.min_layer_thickness = NumberField('Minimum Layer Thickness', suffix='mm', min=0, step=50,
                                                    default=DEFAULT_MIN_LAYER_THICKNESS)
-    gef.cpt_data.lb2 = LineBreak()
+    gef.cpt_data.lb1 = LineBreak()
     gef.cpt_data.reset_original_layers = SetParamsButton('Original Soil Layout', method='reset_soil_layout_user')
     gef.cpt_data.filter_thin_layers = SetParamsButton('Filter Layer Thickness',
                                                       method='filter_soil_layout_on_min_layer_thickness')
-    gef.cpt_data.lb3 = LineBreak()
+    gef.cpt_data.lb2 = LineBreak()
     gef.cpt_data.soil_layout = TableInput('Soil layout', name='soil_layout')
     gef.cpt_data.soil_layout.name = OptionField("Material", options=_get_soils_options)
     gef.cpt_data.soil_layout.top_of_layer = NumberField("Top NAP [m]", num_decimals=1)

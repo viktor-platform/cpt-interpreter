@@ -108,7 +108,6 @@ class CPTFileController(ViktorController):
             ground_level_wrt_ref_m = headers.ground_level_wrt_reference_m
         return DataGroup(
             ground_level_wrt_reference_m=DataItem('Ground level (NAP)', ground_level_wrt_ref_m or -999, suffix='m'),
-            ground_water_level=DataItem('Phreatic level (NAP)', params.ground_water_level),
             height_system=DataItem('Height system', height_system or '-'),
             coordinates=DataItem('Coordinates', '', subgroup=DataGroup(
                 x_coordinate=DataItem('X-coordinate', x or 0, suffix='m'),

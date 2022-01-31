@@ -20,14 +20,6 @@ from .file_conversion import xyid_codes
 from .file_conversion import zid_codes
 
 
-def _is_xml(file: File, encoding: str) -> bool:
-    """It is assumed that xml file always starts with the character '<',
-    this way we can discriminate gef and xml """
-    first_character = file.getvalue(encoding)[0]
-    if first_character == '<':
-        return True
-    return False
-
 
 class IMBROFile:
 

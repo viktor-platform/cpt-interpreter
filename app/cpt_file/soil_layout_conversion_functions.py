@@ -185,7 +185,7 @@ class Classification:
             soil_mapping[ui_name] = Soil(soil['name'], convert_to_color(soil['color']), properties=properties)
         return soil_mapping
 
-    def classify_cpt_file(self, cpt_file: Union[GEFFile, IMBROFile], saved_ground_water_level=None) -> dict:
+    def classify_cpt_file(self, cpt_file: GEFFile, saved_ground_water_level=None) -> dict:
         """Classify an uploaded CPT File based on the selected _ClassificationMethod"""
 
         try:
@@ -217,68 +217,3 @@ class Classification:
         cpt_dict['x_rd'] = cpt_dict['headers']['x_y_coordinates'][0] if 'x_y_coordinates' in cpt_dict['headers'] else 0
         cpt_dict['y_rd'] = cpt_dict['headers']['x_y_coordinates'][1] if 'x_y_coordinates' in cpt_dict['headers'] else 0
         return cpt_dict
-
-
-def convert_table_to_soil_layers_2d(soil_layout_table: List[dict], columns: List[str], bottoms: List[float],
-                                    positions: List[float], soils: dict, phreatic_levels: List[float]):
-    """Creates a list of PositionalSoilLayouts from the user input table."""
-    if not soil_layout_table:
-        raise UserException('The soil layout table is still empty')
-    soil_layers_2d = []
-    bottom_profile = [Point(position, bottom * 1e3) for position, bottom in zip(positions, bottoms)]
-
-    r = soil_layout_table[0]
-    pl_line_bottom = PiezoLine([Point(positions[0], bottoms[0] * 1e3),
-                                Point(positions[-1], bottoms[-1] * 1e3)], phreatic=False)
-    pl_line_top = PiezoLine([Point(positions[0], r[columns[0]] * 1e3 if r[columns[0]] else bottom_profile[0].y),
-                             Point(positions[-1], r[columns[-1]] * 1e3 if r[columns[-1]] else bottom_profile[-1].y)],
-                            phreatic=False)
-
-    # Because the table only defines the top level of each layer, we iterate from bottom to top so we can re-use the
-    # top-level of the previous layer as the new bottom-level of the current layer
-    first_phreatic = True
-    for row in soil_layout_table[::-1]:
-        soil = soils[row['layer']]
-        top_profile = [Point(position, row[column] * 1e3 if row[column] else bottom_profile[i].y)
-                       for i, (position, column) in enumerate(zip(positions, columns))]
-
-        if any(pt_bot.y <= phreatic_level * 1e3 <= pt_top.y
-               for pt_top, pt_bot, phreatic_level in zip(top_profile, bottom_profile, phreatic_levels)):
-            piezo_line = PiezoLine([Point(x, y) for x, y in [(positions[0], phreatic_levels[0] * 1e3),
-                                                             (positions[-1], phreatic_levels[-1] * 1e3)]],
-                                   phreatic=first_phreatic)
-
-            first_phreatic = False
-            soil_layers_2d.append(SoilLayer2D(soil, PolylineSDK(top_profile), PolylineSDK(bottom_profile),
-                                              piezo_line_top=piezo_line))
-        else:
-            soil_layers_2d.append(SoilLayer2D(soil, PolylineSDK(top_profile), PolylineSDK(bottom_profile)))
-
-        bottom_profile = top_profile
-
-    soil_layers_2d[-1].piezo_line_top = pl_line_top
-    soil_layers_2d[0].piezo_line_bottom = pl_line_bottom
-    return soil_layers_2d
-
-
-@memoize
-def get_cpt_file_content(extension: str, file_name: str, entity_id: int) -> Union[str, bytes]:
-    """Returns the file_content in a specific format (GEF or BRO XML)
-
-    If uploaded file was IMBROFile and a GEF format is required, it converts the IMBROFile to a GEFFile.
-    If uploaded file was GEF XML and a IMBRO format is required, it converts the GEFFile to a IMBROFile.
-
-    Note that this call can be memoized, because it only uses the OldAPI to download from S3 (immutable, because the
-    file content cannot be changed after upload)
-    """
-    file = API().get_entity_file(entity_id)
-    if file_name.lower().endswith('gef'):
-        file_content = file.getvalue(encoding='ISO-8859-1')
-    else:
-        file_content = file.getvalue_binary()
-
-    if file_name.lower().endswith('gef') and extension.lower() == 'xml':
-        file_content = GEFFile(file_content).convert_to_imbro_file_content()
-    if file_name.lower().endswith('xml') and extension.lower() == 'gef':
-        file_content = IMBROFile(file_content).convert_to_gef_file_content()
-    return file_content

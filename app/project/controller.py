@@ -50,7 +50,8 @@ class ProjectController(ViktorController):
     def _get_cpt_models(self, entity_id):
         """Obtains all child 'CPT File' entities"""
         cpt_file_entities = self._get_cpt_file_entities(entity_id, include_params=True)
-        all_cpt_files = [CPT(cpt_params=cpt_entity.last_saved_params) for cpt_entity in cpt_file_entities]
+        all_cpt_files = [CPT(cpt_params=cpt_entity.last_saved_params, entity_id=cpt_entity.id)
+                         for cpt_entity in cpt_file_entities]
         return all_cpt_files
 
     @staticmethod

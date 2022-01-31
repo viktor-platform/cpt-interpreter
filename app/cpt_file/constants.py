@@ -40,5 +40,5 @@ DEFAULT_SOIL_NAMES = [
 ]
 
 CPT_LEGEND = MapLegend([
-    (Color.viktor_yellow(), "CPT"),
+    (Color.viktor_black(), "CPT"),
 ])
