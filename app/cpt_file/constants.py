@@ -2,9 +2,6 @@ from viktor import Color
 from viktor.parametrization import OptionListElement
 from viktor.views import MapLegend
 
-CPT_COLOR = Color.from_hex('#a86832')
-
-CM2INCH = 1 / 2.54
 
 DEFAULT_MIN_LAYER_THICKNESS = 200
 
