@@ -25,8 +25,7 @@ from viktor.utils import memoize
 
 from .constants import ADDITIONAL_COLUMNS
 from .constants import DEFAULT_MIN_LAYER_THICKNESS
-from .cpt.gef_file import GEFFile
-from .cpt.imbro_file import IMBROFile
+from viktor.geo import GEFFile
 
 
 def convert_soil_layout_from_mm_to_m(soil_layout: SoilLayout) -> SoilLayout:

@@ -34,7 +34,7 @@ from viktor.views import Summary
 from viktor.views import SummaryItem
 from viktor.views import WebResult
 from viktor.views import WebView
-from .cpt import GEFFile
+from viktor.geo import GEFFile
 from .model import CPT
 from .parametrization import CPTFileParametrization
 from .soil_layout_conversion_functions import Classification
