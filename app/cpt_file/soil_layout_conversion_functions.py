@@ -1,6 +1,4 @@
 from copy import deepcopy
-from io import BytesIO
-from io import StringIO
 from math import ceil
 from typing import List
 from typing import Union
@@ -17,7 +15,6 @@ from viktor.geo import RobertsonMethod
 from viktor.geo import Soil
 from viktor.geo import SoilLayer
 from viktor.geo import SoilLayout
-from viktor.geo import TableMethod
 from .constants import ADDITIONAL_COLUMNS
 from .constants import DEFAULT_MIN_LAYER_THICKNESS
 
@@ -138,7 +135,7 @@ class Classification:
             soil_mapping[ui_name] = Soil(soil['name'], convert_to_color(soil['color']), properties=properties)
         return soil_mapping
 
-    def classify_cpt_file(self, cpt_file: GEFFile, saved_ground_water_level=None) -> dict:
+    def classify_cpt_file(self, cpt_file: GEFFile) -> dict:
         """Classify an uploaded CPT File based on the selected _ClassificationMethod"""
 
         try:

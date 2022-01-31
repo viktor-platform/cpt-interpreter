@@ -20,7 +20,7 @@ from munch import unmunchify
 from viktor import File
 from viktor import ParamsFromFile
 from viktor import UserException
-from viktor.api_v1 import API as NewAPI
+from viktor.api_v1 import API
 from viktor.api_v1 import Entity
 from viktor.core import ViktorController
 from viktor.core import progress_message
@@ -29,13 +29,9 @@ from viktor.geo import SoilLayout
 from viktor.result import SetParametersResult
 from viktor.views import DataGroup
 from viktor.views import DataItem
-from viktor.views import DataResult
-from viktor.views import DataView
 from viktor.views import Summary
 from viktor.views import WebAndDataResult
 from viktor.views import WebAndDataView
-from viktor.views import WebResult
-from viktor.views import WebView
 from .model import CPT
 from .parametrization import CPTFileParametrization
 from .soil_layout_conversion_functions import Classification
@@ -62,7 +58,7 @@ class CPTFileController(ViktorController):
     @staticmethod
     def _get_project_entity(entity_id: int) -> Entity:
         """Retrieves the project entity through an API call"""
-        return NewAPI().get_entity(entity_id).parent()
+        return API().get_entity(entity_id).parent()
 
     def get_classification(self, entity_id: int) -> Classification:
         """Returns Classification object based on Project classification parameters"""
@@ -90,15 +86,15 @@ class CPTFileController(ViktorController):
     @staticmethod
     def _get_data_group(params: Munch) -> DataGroup:
         """Collect the necessary information from the GEF headers and return a DataGroup with the data"""
-        height_system = ground_level_wrt_ref_m = None
         headers = params.get('headers')
-        if headers:
-            try:
-                x, y = params.x_rd, params.y_rd
-            except AttributeError:
-                x, y = headers.x_y_coordinates
-            height_system = headers.height_system
-            ground_level_wrt_ref_m = headers.ground_level_wrt_reference_m
+        if not headers:
+            raise UserException('GEF file has no headers')
+        try:
+            x, y = params.x_rd, params.y_rd
+        except AttributeError:
+            x, y = headers.x_y_coordinates
+        height_system = headers.height_system
+        ground_level_wrt_ref_m = headers.ground_level_wrt_reference_m
         return DataGroup(
             ground_level_wrt_reference_m=DataItem('Ground level (NAP)', ground_level_wrt_ref_m or -999, suffix='m'),
             ground_water_level=DataItem('Phreatic level (NAP)', params.ground_water_level),
@@ -114,7 +110,9 @@ class CPTFileController(ViktorController):
         progress_message('Filtering thin layers from soil layout')
         soil_mapping = self.get_classification(entity_id).soil_mapping
         # Create SoilLayout and filter.
-        soil_layout_user = convert_input_table_field_to_soil_layout(params.bottom_of_soil_layout_user,
+        soil_layout_original = SoilLayout.from_dict(params['soil_layout_original'])
+        bottom_of_soil_layout_user = soil_layout_original.bottom / 1e3
+        soil_layout_user = convert_input_table_field_to_soil_layout(bottom_of_soil_layout_user,
                                                                     params.soil_layout,
                                                                     soil_mapping)
         soil_layout_user.filter_layers_on_thickness(params.gef.cpt_data.min_layer_thickness,
@@ -124,7 +122,8 @@ class CPTFileController(ViktorController):
 
         return SetParametersResult({'soil_layout': table_input_soil_layers})
 
-    def reset_soil_layout_user(self, params: Munch, **kwargs) -> SetParametersResult:
+    @staticmethod
+    def reset_soil_layout_user(params: Munch, **kwargs) -> SetParametersResult:
         """Place the original soil layout (after parsing) in the table input."""
         progress_message('Resetting soil layout to original unfiltered result')
         soil_layout_original = SoilLayout.from_dict(unmunchify(params.soil_layout_original))
