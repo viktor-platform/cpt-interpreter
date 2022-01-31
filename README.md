@@ -1,25 +1,21 @@
 ![](https://img.shields.io/badge/SDK-v12.9.0-blue) <Please check version is the same as specified in requirements.txt>
 
-# Title of App (concept that it is trying to show)
-This sample app shows ... <basic one line intro here>
+# CPT interpretation with Robertson
+This sample app shows  show how to interpret a CPT (.gef) to a soil layout using the Robertson method. <basic one line intro here>
 
-More elaborate description here. Lorem ipsum dolor sit amet, consectetur 
-adipiscing elit. Vivamus libero leo, pellentesque ornare, adipiscing vitae, 
-rhoncus commodo, nulla. Fusce quis ipsum. Nulla neque massa, feugiat sed, 
-commodo in, adipiscing ut, est. In fermentum mattis ligula. Nulla ipsum.
+This app can consist of multiple projects with multiple cpt files. The first picture is an example of such a cpt file. On the left there is the input where the minimum layer thickness can be defined. 
+On the right the soil layer interpretation is shown with its data.
 
+![](manifest/cpt_visualisation.png)
 
-![](manifest/background_image.jpg) <Please update the background image in the manifest to something relevant to the app>
+Then on picture 2 a map overview of all the cpt locations can be seen.
+
+![](manifest/cpt_map.png)
 
 ## App structure <please provide if more than a single entity type is present>
 
 ```
-Universe: has a controller but no parametrization so has no editor
-  └─ System: has a controller and a parametrization 
-     ├── Analysis: 
-     │     ├── controller with a WebAndDataView: uses data from System and Planet
-     │     └── parametrisation with a SiblingOptionField:  retrieves info from Planet
-     └── Planet:   
-           ├── controller with no view
-           └── Planet: has a controller and a parametrization            
+project_folder: has projects as its children
+  └─ project: has cpt files as its children and can visualize those cpts on a map
+     └── cpt_file: intrepretation of a CPT file using the Robertson method  
 ```
