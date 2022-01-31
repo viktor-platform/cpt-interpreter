@@ -3,7 +3,6 @@ version: '1'
 # Define all entity types
 entity_types:
   ProjectFolder:
-    is_file: false
     has_designer: false
     show_properties: false
   Project:

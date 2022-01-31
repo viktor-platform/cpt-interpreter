@@ -20,8 +20,6 @@ from munch import unmunchify
 from viktor import File
 from viktor import ParamsFromFile
 from viktor import UserException
-from viktor.api_v1 import API
-from viktor.api_v1 import Entity
 from viktor.core import ViktorController
 from viktor.core import progress_message
 from viktor.geo import GEFFile
@@ -32,6 +30,7 @@ from viktor.views import DataItem
 from viktor.views import Summary
 from viktor.views import WebAndDataResult
 from viktor.views import WebAndDataView
+from .constants import DEFAULT_ROBERTSON_TABLE
 from .model import CPT
 from .parametrization import CPTFileParametrization
 from .soil_layout_conversion_functions import Classification
@@ -51,32 +50,20 @@ class CPTFileController(ViktorController):
     summary = Summary()
 
     @ParamsFromFile(file_types=['.gef'])
-    def process_file(self, file: File, entity_id: int, **kwargs) -> dict:
+    def process_file(self, file: File, **kwargs) -> dict:
         """Process the CPT file when it is first uploaded"""
-        self.classify_file(file, entity_id=entity_id)
-        return self.classify_file(file, entity_id=entity_id)
+        return self.classify_file(file)
 
-    @staticmethod
-    def _get_project_entity(entity_id: int) -> Entity:
-        """Retrieves the project entity through an API call"""
-        return API().get_entity(entity_id).parent()
-
-    def get_classification(self, entity_id: int) -> Classification:
-        """Returns Classification object based on Project classification parameters"""
-        project_params = self._get_project_entity(entity_id).last_saved_params
-        return Classification(project_params.soil_interpretation.classification)
-
-    def classify_file(self, file: File, entity_id: int) -> dict:
+    def classify_file(self, file: File) -> dict:
         """Classify the CPT file when it is first uploaded"""
         cpt_file = GEFFile(file.getvalue(self.encoding))
-        classification = self.get_classification(entity_id)
+        classification = Classification()
         return classification.classify_cpt_file(cpt_file)
 
     @WebAndDataView("GEF", duration_guess=3)
     def visualize(self, params: Munch, entity_id: int, **kwargs) -> WebAndDataResult:
         """Visualizes the Qc and Rf line plots and also the soil layout bar plots"""
-        classification = self.get_classification(entity_id)
-        soils = classification.soil_mapping
+        soils = DEFAULT_ROBERTSON_TABLE
         headers = params.get('headers')
         if not headers:
             raise UserException('GEF file has no headers')
@@ -106,16 +93,15 @@ class CPTFileController(ViktorController):
             ))
         )
 
-    def filter_soil_layout_on_min_layer_thickness(self, params: Munch, entity_id: int, **kwargs) -> SetParametersResult:
+    @staticmethod
+    def filter_soil_layout_on_min_layer_thickness(params: Munch, **kwargs) -> SetParametersResult:
         """Remove all user defined layers below the filter threshold."""
         progress_message('Filtering thin layers from soil layout')
-        soil_mapping = self.get_classification(entity_id).soil_mapping
         # Create SoilLayout and filter.
         soil_layout_original = SoilLayout.from_dict(params['soil_layout_original'])
         bottom_of_soil_layout_user = soil_layout_original.bottom / 1e3
         soil_layout_user = convert_input_table_field_to_soil_layout(bottom_of_soil_layout_user,
-                                                                    params.soil_layout,
-                                                                    soil_mapping)
+                                                                    params.soil_layout)
         soil_layout_user.filter_layers_on_thickness(params.gef.cpt_data.min_layer_thickness,
                                                     merge_adjacent_same_soil_layers=True)
         soil_layout_user = convert_soil_layout_from_mm_to_m(soil_layout_user)

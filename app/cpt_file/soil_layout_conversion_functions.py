@@ -19,9 +19,6 @@ from math import ceil
 from typing import List
 from typing import Union
 
-from munch import Munch
-from munch import unmunchify
-
 from viktor import Color
 from viktor import UserException
 from viktor.geo import GEFClassificationError
@@ -33,6 +30,7 @@ from viktor.geo import SoilLayer
 from viktor.geo import SoilLayout
 from .constants import ADDITIONAL_COLUMNS
 from .constants import DEFAULT_MIN_LAYER_THICKNESS
+from .constants import DEFAULT_ROBERTSON_TABLE
 
 
 def convert_soil_layout_from_mm_to_m(soil_layout: SoilLayout) -> SoilLayout:
@@ -54,8 +52,7 @@ def convert_soil_layout_from_m_to_mm(soil_layout: SoilLayout) -> SoilLayout:
 
 
 def convert_input_table_field_to_soil_layout(bottom_of_soil_layout_user: float,
-                                             soil_layers_from_table_input: List[dict],
-                                             soils: dict) -> SoilLayout:
+                                             soil_layers_from_table_input: List[dict]) -> SoilLayout:
     """Creates a SoilLayout from the user input.
 
     :param bottom_of_soil_layout_user: Bottom of soil layout in [m]
@@ -65,6 +62,7 @@ def convert_input_table_field_to_soil_layout(bottom_of_soil_layout_user: float,
     :return: SoilLayout
     """
     bottom = bottom_of_soil_layout_user
+    soils = Classification().soil_mapping
     soil_layers = []
     for layer in reversed(soil_layers_from_table_input):
         soil_name = layer["name"]
@@ -100,14 +98,6 @@ def convert_soil_layout_to_input_table_field(soil_layout: SoilLayout) -> List[di
     return table_input_soil_layers
 
 
-def _update_color_string(classification_table: List[dict]) -> List[dict]:
-    """Converts the RGB color strings in the table into a tuple (R, G, B)"""
-    for row in classification_table:
-        if not isinstance(row['color'], Color):
-            row['color'] = convert_to_color(row['color'])
-    return classification_table
-
-
 def convert_to_color(rgb: Union[str, tuple]) -> Color:
     """Simple conversion function that always returns a Color object"""
     if isinstance(rgb, tuple):
@@ -131,14 +121,13 @@ class Classification:
     It also provides the correct soil mapping needs for the visualizations of the soil layers.
     """
 
-    def __init__(self, classification_params: Munch):
-        self._method = classification_params.method
-        self._table = unmunchify(classification_params.get(self._method))
+    def __init__(self):
+        self._table = DEFAULT_ROBERTSON_TABLE
 
     @property
     def table(self) -> List[dict]:
         """Returns a cleaned up table that can be used for the Classification methods"""
-        return _update_color_string(self._table)
+        return self._table
 
     @property
     def soil_mapping(self) -> dict:

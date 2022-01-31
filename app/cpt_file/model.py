@@ -37,7 +37,7 @@ from .soil_layout_conversion_functions import \
 
 class CPT:
     """"CPT model used for visualizing the soil layout"""
-    def __init__(self, cpt_params, soils=None, entity_id=None, **kwargs):
+    def __init__(self, cpt_params, entity_id=None, **kwargs):
         params = unmunchify(cpt_params)
         self.headers = munchify(params['headers'])
         self.params = params
@@ -47,15 +47,13 @@ class CPT:
         self.ground_water_level = params['ground_water_level']
         self.name = params['name']
         self.entity_id = entity_id
-
-        self._soils = soils
         self._params_soil_layout = params['soil_layout']
 
     @property
     def soil_layout(self) -> SoilLayout:
         """Returns a soil layout based on the input table"""
         return convert_input_table_field_to_soil_layout(self.bottom_of_soil_layout_user,
-                                                        self._params_soil_layout, self._soils)
+                                                        self._params_soil_layout)
 
     @property
     def entity_link(self) -> MapEntityLink:

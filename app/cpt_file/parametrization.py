@@ -17,8 +17,6 @@ SOFTWARE.
 """
 from typing import List
 
-from viktor.api_v1 import API
-from viktor.api_v1 import Entity
 from viktor.parametrization import HiddenField
 from viktor.parametrization import LineBreak
 from viktor.parametrization import NumberField
@@ -30,19 +28,12 @@ from viktor.parametrization import SetParamsButton
 from viktor.parametrization import Tab
 from viktor.parametrization import TableInput
 from .constants import DEFAULT_MIN_LAYER_THICKNESS
-from .soil_layout_conversion_functions import Classification
+from .constants import DEFAULT_ROBERTSON_TABLE
 
 
-def _get_project_entity(entity_id: int) -> Entity:
-    """Obtains the Project entity"""
-    return API().get_entity(entity_id).parent()
-
-
-def _get_soils_options(entity_id: int, **kwargs) -> List[OptionListElement]:
+def _get_soils_options(**kwargs) -> List[OptionListElement]:
     """Options all possible soil type from the Classification parameter in the Project entity."""
-    project_params = _get_project_entity(entity_id).last_saved_params
-    classification = Classification(project_params.soil_interpretation.classification)
-    return [OptionListElement(soil) for soil in classification.soil_mapping]
+    return [OptionListElement(soil.get('ui_name')) for soil in DEFAULT_ROBERTSON_TABLE]
 
 
 class CPTFileParametrization(Parametrization):
