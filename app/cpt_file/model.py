@@ -3,10 +3,8 @@ from math import floor
 from math import pi
 from typing import Dict
 from typing import List
-from typing import List
 from typing import Optional
 from typing import Tuple
-from typing import Union
 
 import numpy as np
 from matplotlib import pyplot as plt
@@ -16,30 +14,22 @@ from matplotlib.ticker import MultipleLocator
 from munch import Munch
 from munch import munchify
 from munch import unmunchify
-from numpy import cos
-from numpy import radians
-from numpy import sin
-from numpy.core import linspace
 from plotly import graph_objects as go
 from plotly.subplots import make_subplots
-from viktor import Color
+
 from viktor import UserException
 from viktor.geo import GEFData
 from viktor.geo import SoilLayout
 from viktor.geometry import Point
 from viktor.geometry import RDWGSConverter
 from viktor.views import MapEntityLink
-from viktor.views import MapLabel
 from viktor.views import MapPoint
-from viktor.views import MapPoint
-from viktor.views import MapPolygon
-
 from .constants import CM2INCH
 from .soil_layout_conversion_functions import \
     convert_input_table_field_to_soil_layout
 
 
-class CPT():
+class CPT:
     def __init__(self, cpt_params, soils=None, entity_id=None, **kwargs):
         params = unmunchify(cpt_params)
         self.headers = munchify(params['headers'])

@@ -87,17 +87,6 @@ def convert_soil_layout_to_input_table_field(soil_layout: SoilLayout) -> List[di
     return table_input_soil_layers
 
 
-def _update_classification_table(classification_table: List[dict]) -> List[dict]:
-    """Updates the table so that the min and max parameters for gamma are defined."""
-    for row in classification_table:
-        row['gamma_dry_min'] = None
-        row['gamma_dry_max'] = row['gamma_dry']
-        row['gamma_wet_min'] = None
-        row['gamma_wet_max'] = row['gamma_wet']
-        row['ui_name'] = row['name']
-    return classification_table
-
-
 def _update_color_string(classification_table: List[dict]) -> List[dict]:
     """Converts the RGB color strings in the table into a tuple (R, G, B)"""
     for row in classification_table:
@@ -136,35 +125,7 @@ class Classification:
     @property
     def table(self) -> List[dict]:
         """Returns a cleaned up table that can be used for the Classification methods"""
-        if self._method == 'robertson':
-            return _update_color_string(self._table)
-        return _update_classification_table(self._table)
-
-    def method(self, ground_water_level) -> Union[TableMethod, RobertsonMethod]:
-        """Returns the appropriate _ClassificationMethod for the CPTData.classify() function"""
-        if self._method == 'robertson':
-            return RobertsonMethod(self.table)
-        if self._method == 'table':
-            return TableMethod(self.table, ground_water_level=ground_water_level)
-        raise UserException(f'The {self._method} method has not yet been implemented')
-
-    def get_table_plot(self, gwl: float = 0, file_format: str = 'pdf') -> Union[BytesIO, StringIO]:
-        """Returns a plot of the selected _ClassificationMethod
-        The ground water level is irrelevant for qualification plot and therefore set to zero
-        to make sure the qualification plot is always downloadable."""
-        if self._method == 'robertson':
-            raise TypeError
-        if self._method == 'table':
-            return self.method(gwl).get_qualification_table_plot(fileformat=file_format)
-        raise UserException(f'The {self._method} method has not yet been implemented')
-
-    def get_table_plot_svg(self, gwl: float = 0, file_format: str = 'svg') -> Union[BytesIO, StringIO]:
-        """Returns a plot of the selected _ClassificationMethod"""
-        if self._method == 'robertson':
-            raise TypeError
-        if self._method == 'table':
-            return self.method(gwl).get_qualification_table_plot(fileformat=file_format)
-        raise UserException(f'The {self._method} method has not yet been implemented')
+        return _update_color_string(self._table)
 
     @property
     def soil_mapping(self) -> dict:
@@ -173,8 +134,7 @@ class Classification:
         for soil in self.table:
             ui_name = soil['ui_name']
             properties = deepcopy(soil)
-            if self._method == 'robertson':
-                del properties['color']
+            del properties['color']
             soil_mapping[ui_name] = Soil(soil['name'], convert_to_color(soil['color']), properties=properties)
         return soil_mapping
 
@@ -188,7 +148,7 @@ class Classification:
             ground_water_level = get_water_level(cpt_data_object)
 
             # Classify the CPTData object to get a SoilLayout
-            soil_layout_obj = cpt_data_object.classify(method=self.method(ground_water_level),
+            soil_layout_obj = cpt_data_object.classify(method=RobertsonMethod(self.table),
                                                        return_soil_layout_obj=True)
 
         except GEFParsingException as e:
