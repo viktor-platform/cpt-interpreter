@@ -7,25 +7,19 @@ from typing import Union
 
 from munch import Munch
 from munch import unmunchify
+
 from viktor import Color
 from viktor import UserException
-from viktor.api_v1 import API
 from viktor.geo import GEFClassificationError
+from viktor.geo import GEFFile
 from viktor.geo import GEFParsingException
-from viktor.geo import PiezoLine
 from viktor.geo import RobertsonMethod
 from viktor.geo import Soil
 from viktor.geo import SoilLayer
-from viktor.geo import SoilLayer2D
 from viktor.geo import SoilLayout
 from viktor.geo import TableMethod
-from viktor.geometry import Point
-from viktor.geometry import Polyline as PolylineSDK
-from viktor.utils import memoize
-
 from .constants import ADDITIONAL_COLUMNS
 from .constants import DEFAULT_MIN_LAYER_THICKNESS
-from viktor.geo import GEFFile
 
 
 def convert_soil_layout_from_mm_to_m(soil_layout: SoilLayout) -> SoilLayout:

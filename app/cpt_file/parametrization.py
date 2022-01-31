@@ -50,6 +50,7 @@ class CPTFileParametrization(Parametrization):
     gef = Tab('GEF')
     gef.cpt_data = Section('Properties and soil layout')
 
+    gef.cpt_data.ground_water_level = NumberField('Phreatic level', suffix='m', name='ground_water_level')
     gef.cpt_data.min_layer_thickness = NumberField('Minimum Layer Thickness', suffix='mm', min=0, step=50,
                                                    default=DEFAULT_MIN_LAYER_THICKNESS)
     gef.cpt_data.lb1 = LineBreak()

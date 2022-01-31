@@ -47,6 +47,7 @@ class CPT():
         self.parsed_cpt = GEFData(self.filter_nones_from_params_dict(params))
         self.soil_layout_original = SoilLayout.from_dict(params['soil_layout_original'])
         self.bottom_of_soil_layout_user = self.soil_layout_original.bottom / 1e3
+        self.ground_water_level = params['ground_water_level']
         self.name = params['name']
         self.id = entity_id
 
@@ -159,6 +160,10 @@ class CPT():
                                  hoverinfo='text',
                                  base=[layer.top_of_layer * 1e-3 for layer in soil_type_layers]),
                           row=1, col=3)
+
+        # Add dashed blue line representing phreatic level, and solid black line for ground level
+        fig.add_hline(y=self.ground_water_level, line=dict(color='Blue', dash='dash', width=1),
+                      row='all', col='all')
 
         # fig.add_hline(y=self.parsed_cpt.elevation[0] * 1e-3, line=dict(color='Black', width=1),
         #               row='all', col='all') #TODO Horizontal line for groundlevel: a bit ugly

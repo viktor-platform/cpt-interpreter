@@ -24,6 +24,7 @@ from viktor.api_v1 import API as NewAPI
 from viktor.api_v1 import Entity
 from viktor.core import ViktorController
 from viktor.core import progress_message
+from viktor.geo import GEFFile
 from viktor.geo import SoilLayout
 from viktor.result import SetParametersResult
 from viktor.views import DataGroup
@@ -31,10 +32,10 @@ from viktor.views import DataItem
 from viktor.views import DataResult
 from viktor.views import DataView
 from viktor.views import Summary
-from viktor.views import SummaryItem
+from viktor.views import WebAndDataResult
+from viktor.views import WebAndDataView
 from viktor.views import WebResult
 from viktor.views import WebView
-from viktor.geo import GEFFile
 from .model import CPT
 from .parametrization import CPTFileParametrization
 from .soil_layout_conversion_functions import Classification
@@ -74,8 +75,8 @@ class CPTFileController(ViktorController):
         classification = self.get_classification(entity_id)
         return classification.classify_cpt_file(cpt_file)
 
-    @WebView("GEF", duration_guess=3)
-    def visualize(self, params: Munch, entity_id: int, **kwargs) -> WebResult:
+    @WebAndDataView("GEF", duration_guess=3)
+    def visualize(self, params: Munch, entity_id: int, **kwargs) -> WebAndDataResult:
         """Visualizes the Qc and Rf line plots and also the soil layout bar plots"""
         classification = self.get_classification(entity_id)
         soils = classification.soil_mapping
@@ -83,16 +84,8 @@ class CPTFileController(ViktorController):
         if not headers:
             raise UserException('GEF file has no headers')
         gef = self.model(cpt_params=params, soils=soils, entity_id=entity_id)
-        return WebResult(html=gef.visualize())
-
-    @DataView('Summary', duration_guess=1)
-    def summarize(self, params: Munch, entity_id: int, **kwargs) -> DataResult:
-        """Summarizes the data inside the GEF headers"""
-        headers = params.get('headers')
-        if not headers:
-            raise UserException('GEF file has no headers')
         data = self._get_data_group(params)
-        return DataResult(data)
+        return WebAndDataResult(html=gef.visualize(), data=data)
 
     @staticmethod
     def _get_data_group(params: Munch) -> DataGroup:
@@ -108,6 +101,7 @@ class CPTFileController(ViktorController):
             ground_level_wrt_ref_m = headers.ground_level_wrt_reference_m
         return DataGroup(
             ground_level_wrt_reference_m=DataItem('Ground level (NAP)', ground_level_wrt_ref_m or -999, suffix='m'),
+            ground_water_level=DataItem('Phreatic level (NAP)', params.ground_water_level),
             height_system=DataItem('Height system', height_system or '-'),
             coordinates=DataItem('Coordinates', '', subgroup=DataGroup(
                 x_coordinate=DataItem('X-coordinate', x or 0, suffix='m'),
