@@ -12,6 +12,14 @@ Then on picture 2 a map overview of all the cpt locations can be seen.
 
 ![](manifest/cpt_map.png)
 
+Here is a gif doing the folowing tasks: 
+- create a project
+- upload a .gef file as cpt
+- adjust some parameters in the cpt interpretation
+- view the location of the cpt on the map
+
+![](manifest/CFT_with_robertson.gif)
+
 ## App structure <please provide if more than a single entity type is present>
 
 ```
