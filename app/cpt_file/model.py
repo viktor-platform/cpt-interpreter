@@ -16,7 +16,6 @@ SOFTWARE.
 """
 from io import StringIO
 from math import floor
-from typing import List
 
 from munch import Munch
 from munch import munchify
@@ -88,7 +87,7 @@ class CPT:
         return munchify({"lat": lat, "lon": lon})
 
     def get_map_point(self):
-        """Returns a MapPoint object with a specific color"""
+        """Returns a MapPoint object"""
         return MapPoint(self.wgs_coordinates.lat, self.wgs_coordinates.lon, title=self.name,
                         description=f"RD coordinaten: {self.coordinates.x}, {self.coordinates.y}",
                         entity_links=[self.entity_link])
@@ -167,11 +166,3 @@ class CPT:
                          showticklabels=True, side='right')
 
         return StringIO(fig.to_html())
-
-
-def color_coded_cpt_map_points(cpt_models: List[CPT]) -> List[MapPoint]:
-    """Function that assigns correct color to CPT based on location wrt. Polyline or exclusion"""
-    map_features = []
-    for cpt in cpt_models:
-        map_features.append(cpt.get_map_point())
-    return map_features
