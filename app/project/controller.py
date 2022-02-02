@@ -22,7 +22,6 @@ from viktor.api_v1 import EntityList
 from viktor.core import ViktorController
 from viktor.views import MapResult
 from viktor.views import MapView
-from viktor.views import Summary
 from .parametrization import ProjectParametrization
 from ..cpt_file.constants import CPT_LEGEND
 from ..cpt_file.model import CPT

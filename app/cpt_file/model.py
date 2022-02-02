@@ -42,6 +42,7 @@ class CPT:
         self.headers = munchify(params['headers'])
         self.params = params
         self.parsed_cpt = GEFData(self.filter_nones_from_params_dict(params))
+        self.soil_layout_original = SoilLayout.from_dict(params['soil_layout_original'])
         self.bottom_of_soil_layout_user = cpt_params['bottom_of_soil_layout_user']
         self.ground_water_level = params['ground_water_level']
         self.name = params['name']
