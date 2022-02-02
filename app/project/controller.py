@@ -36,7 +36,6 @@ class ProjectController(ViktorController):
     show_children_as = 'Table'
     parametrization = ProjectParametrization
     viktor_convert_entity_field = True
-    summary = Summary()
 
     @MapView('Map', duration_guess=2)
     def visualize_map(self, params: Munch, entity_id: int, **kwargs) -> MapResult:

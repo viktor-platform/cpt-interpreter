@@ -41,7 +41,6 @@ class CPTFileParametrization(Parametrization):
     gef = Tab('GEF')
     gef.cpt_data = Section('Properties and soil layout')
 
-    gef.cpt_data.ground_water_level = NumberField('Phreatic level', suffix='m', name='ground_water_level')
     gef.cpt_data.min_layer_thickness = NumberField('Minimum Layer Thickness', suffix='mm', min=0, step=50,
                                                    default=DEFAULT_MIN_LAYER_THICKNESS)
     gef.cpt_data.lb1 = LineBreak()
@@ -54,6 +53,7 @@ class CPTFileParametrization(Parametrization):
     gef.cpt_data.soil_layout.top_of_layer = NumberField("Top NAP [m]", num_decimals=1)
 
     gef.cpt_data.gef_headers = HiddenField('GEF Headers', name='headers')
+    gef.cpt_data.bottom_of_soil_layout_user = HiddenField('GEF Soil bottom', name='bottom_of_soil_layout_user')
+    gef.cpt_data.ground_water_level = HiddenField('Phreatic level', name='ground_water_level')
     gef.cpt_data.measurement_data = HiddenField('GEF Measurement data', name='measurement_data')
-    gef.cpt_data.soil_layout_original = HiddenField('Soil layout original', name='soil_layout_original')
     gef.cpt_data.soil_layout_original = HiddenField('Soil layout original', name='soil_layout_original')

@@ -33,7 +33,7 @@ from .constants import DEFAULT_MIN_LAYER_THICKNESS
 from .constants import DEFAULT_ROBERTSON_TABLE
 
 
-def convert_soil_layout_from_mm_to_m(soil_layout: SoilLayout) -> SoilLayout:
+def convert_soil_layout_from_mm_to_meter(soil_layout: SoilLayout) -> SoilLayout:
     """Converts the units of the SoilLayout from mm to m."""
     serialization_dict = soil_layout.serialize()
     for layer in serialization_dict["layers"]:
@@ -42,7 +42,7 @@ def convert_soil_layout_from_mm_to_m(soil_layout: SoilLayout) -> SoilLayout:
     return SoilLayout.from_dict(serialization_dict)
 
 
-def convert_soil_layout_from_m_to_mm(soil_layout: SoilLayout) -> SoilLayout:
+def convert_soil_layout_from_meter_to_mm(soil_layout: SoilLayout) -> SoilLayout:
     """Converts the units of the SoilLayout from m to mm."""
     serialization_dict = soil_layout.serialize()
     for layer in serialization_dict["layers"]:
@@ -58,11 +58,10 @@ def convert_input_table_field_to_soil_layout(bottom_of_soil_layout_user: float,
     :param bottom_of_soil_layout_user: Bottom of soil layout in [m]
     :param soil_layers_from_table_input: Table where a row represents a layer.
     Each row should contain a soil name and top of layer [m].
-    :param soils: Dictionary with soil names and their respective Soil.
     :return: SoilLayout
     """
     bottom = bottom_of_soil_layout_user
-    soils = Classification().soil_mapping
+    soils = get_soil_mapping()
     soil_layers = []
     for layer in reversed(soil_layers_from_table_input):
         soil_name = layer["name"]
@@ -73,7 +72,7 @@ def convert_input_table_field_to_soil_layout(bottom_of_soil_layout_user: float,
             raise UserException(f"{soil_name} is not available in the selected classification " f"table.\n "
                                 f"Please select a different table, or reclassify the CPT files") from soil_name_no_exist
         bottom = top_of_layer  # Set bottom of next soil layer to top of current layer.
-    return convert_soil_layout_from_m_to_mm(SoilLayout(soil_layers[::-1]))
+    return convert_soil_layout_from_meter_to_mm(SoilLayout(soil_layers[::-1]))
 
 
 def convert_soil_layout_to_input_table_field(soil_layout: SoilLayout) -> List[dict]:
@@ -115,59 +114,45 @@ def get_water_level(cpt_data_object) -> float:
     return water_level
 
 
-class Classification:
-    """This class handles all logic related to selecting the correct method and table for classification of CPTData.
+def get_soil_mapping() -> dict:
+    """Returns a mapping between the soil name visible in the UI and the Soil object used in the logic"""
+    soil_mapping = {}
+    for soil in DEFAULT_ROBERTSON_TABLE:
+        ui_name = soil['ui_name']
+        properties = deepcopy(soil)
+        del properties['color']
+        soil_mapping[ui_name] = Soil(soil['name'], convert_to_color(soil['color']), properties=properties)
+    return soil_mapping
 
-    It also provides the correct soil mapping needs for the visualizations of the soil layers.
-    """
 
-    def __init__(self):
-        self._table = DEFAULT_ROBERTSON_TABLE
+def classify_cpt_file(cpt_file: GEFFile) -> dict:
+    """Classify an uploaded CPT File based on the selected _ClassificationMethod"""
 
-    @property
-    def table(self) -> List[dict]:
-        """Returns a cleaned up table that can be used for the Classification methods"""
-        return self._table
+    try:
+        # Parse the GEF file content
+        cpt_data_object = cpt_file.parse(additional_columns=ADDITIONAL_COLUMNS, return_gef_data_obj=True)
 
-    @property
-    def soil_mapping(self) -> dict:
-        """Returns a mapping between the soil name visible in the UI and the Soil object used in the logic"""
-        soil_mapping = {}
-        for soil in self.table:
-            ui_name = soil['ui_name']
-            properties = deepcopy(soil)
-            del properties['color']
-            soil_mapping[ui_name] = Soil(soil['name'], convert_to_color(soil['color']), properties=properties)
-        return soil_mapping
+        ground_water_level = get_water_level(cpt_data_object)
 
-    def classify_cpt_file(self, cpt_file: GEFFile) -> dict:
-        """Classify an uploaded CPT File based on the selected _ClassificationMethod"""
+        # Classify the CPTData object to get a SoilLayout
+        soil_layout_obj = cpt_data_object.classify(method=RobertsonMethod(DEFAULT_ROBERTSON_TABLE),
+                                                   return_soil_layout_obj=True)
 
-        try:
-            # Parse the GEF file content
-            cpt_data_object = cpt_file.parse(additional_columns=ADDITIONAL_COLUMNS, return_gef_data_obj=True)
+    except GEFParsingException as parsing_exception:
+        raise UserException(f"CPT Parsing: {str(parsing_exception)}") from parsing_exception
+    except GEFClassificationError as classification_exception:
+        raise UserException(f"CPT Classification: {str(classification_exception)}") from classification_exception
 
-            ground_water_level = get_water_level(cpt_data_object)
+    soil_layout_filtered = soil_layout_obj.filter_layers_on_thickness(
+        min_layer_thickness=DEFAULT_MIN_LAYER_THICKNESS, merge_adjacent_same_soil_layers=True)
+    soil_layout_filtered_in_m = convert_soil_layout_from_mm_to_meter(soil_layout_filtered)
 
-            # Classify the CPTData object to get a SoilLayout
-            soil_layout_obj = cpt_data_object.classify(method=RobertsonMethod(self.table),
-                                                       return_soil_layout_obj=True)
-
-        except GEFParsingException as parsing_exception:
-            raise UserException(f"CPT Parsing: {str(parsing_exception)}") from parsing_exception
-        except GEFClassificationError as classification_exception:
-            raise UserException(f"CPT Classification: {str(classification_exception)}") from classification_exception
-
-        soil_layout_filtered = soil_layout_obj.filter_layers_on_thickness(
-            min_layer_thickness=DEFAULT_MIN_LAYER_THICKNESS, merge_adjacent_same_soil_layers=True)
-        soil_layout_filtered_in_m = convert_soil_layout_from_mm_to_m(soil_layout_filtered)
-
-        # Serialize the parsed CPT File content and update it with the new soil layout
-        cpt_dict = cpt_data_object.serialize()
-        cpt_dict['soil_layout_original'] = soil_layout_obj.serialize()
-        cpt_dict['bottom_of_soil_layout_user'] = ceil(soil_layout_obj.bottom) / 1e3
-        cpt_dict['soil_layout'] = convert_soil_layout_to_input_table_field(soil_layout_filtered_in_m)
-        cpt_dict['ground_water_level'] = ground_water_level
-        cpt_dict['x_rd'] = cpt_dict['headers']['x_y_coordinates'][0] if 'x_y_coordinates' in cpt_dict['headers'] else 0
-        cpt_dict['y_rd'] = cpt_dict['headers']['x_y_coordinates'][1] if 'x_y_coordinates' in cpt_dict['headers'] else 0
-        return cpt_dict
+    # Serialize the parsed CPT File content and update it with the new soil layout
+    cpt_dict = cpt_data_object.serialize()
+    cpt_dict['soil_layout_original'] = soil_layout_obj.serialize()
+    cpt_dict['bottom_of_soil_layout_user'] = ceil(soil_layout_obj.bottom) / 1e3
+    cpt_dict['soil_layout'] = convert_soil_layout_to_input_table_field(soil_layout_filtered_in_m)
+    cpt_dict['ground_water_level'] = ground_water_level
+    cpt_dict['x_rd'] = cpt_dict['headers']['x_y_coordinates'][0] if 'x_y_coordinates' in cpt_dict['headers'] else 0
+    cpt_dict['y_rd'] = cpt_dict['headers']['x_y_coordinates'][1] if 'x_y_coordinates' in cpt_dict['headers'] else 0
+    return cpt_dict

@@ -6,11 +6,11 @@ This sample app shows  show how to interpret a CPT (.gef) to a soil layout using
 This app can consist of multiple projects with multiple cpt files. The first picture is an example of such a cpt file. On the left there is the input where the minimum layer thickness can be defined. 
 On the right the soil layer interpretation is shown with its data.
 
-![](manifest/cpt_visualisation.png)
+![](resources/cpt_visualisation.png)
 
 Then on picture 2 a map overview of all the cpt locations can be seen.
 
-![](manifest/cpt_map.png)
+![](resources/cpt_map.png)
 
 Here is a gif doing the folowing tasks: 
 - create a project
@@ -18,7 +18,7 @@ Here is a gif doing the folowing tasks:
 - adjust some parameters in the cpt interpretation
 - view the location of the cpt on the map
 
-![](manifest/CFT_with_robertson.gif)
+![](resources/CFT_with_robertson.gif)
 
 ## App structure <please provide if more than a single entity type is present>
 

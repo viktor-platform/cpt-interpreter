@@ -42,8 +42,7 @@ class CPT:
         self.headers = munchify(params['headers'])
         self.params = params
         self.parsed_cpt = GEFData(self.filter_nones_from_params_dict(params))
-        self.soil_layout_original = SoilLayout.from_dict(params['soil_layout_original'])
-        self.bottom_of_soil_layout_user = self.soil_layout_original.bottom / 1e3
+        self.bottom_of_soil_layout_user = cpt_params['bottom_of_soil_layout_user']
         self.ground_water_level = params['ground_water_level']
         self.name = params['name']
         self.entity_id = entity_id
@@ -119,19 +118,6 @@ class CPT:
             row=1, col=2
         )
 
-        # Add fs plot
-        fig.add_trace(
-            go.Scatter(name='Sleeve friction',
-                       x=self.parsed_cpt.fs if self.parsed_cpt.fs else
-                       [qc / rfval for qc, rfval in zip(self.parsed_cpt.qc, self.parsed_cpt.rfval)],
-                       y=[el * 1e-3 if el else el for el in self.parsed_cpt.elevation],
-                       visible=False,
-                       mode='lines',
-                       line=dict(color='red', width=1),
-                       legendgroup="Sleeve friction"),
-            row=1, col=2
-        )
-
         # Add bars for each soil type separately in order to be able to set legend labels
         unique_soil_types = {layer.soil.properties.ui_name for layer in [*self.soil_layout_original.layers,
                                                                          *self.soil_layout.layers]}
@@ -179,38 +165,6 @@ class CPT:
                          tick0=floor(self.parsed_cpt.elevation[-1] / 1e3) - 5, dtick=1,
                          showticklabels=True, side='right')
 
-        # Button switch Rf/fs
-        fig.update_layout(
-            updatemenus=[
-                dict(
-                    type="buttons",
-                    direction="left",
-                    buttons=list([
-                        dict(
-                            args=[{'visible': [True, True, False] + [True] * len(unique_soil_types)},
-                                  {'xaxis2.title': 'Rf [%]', 'xaxis2.range': [9.9, 0], 'xaxis2.dtick': 5},
-
-                                  ],
-                            label="Rf",
-                            method="update"
-                        ),
-                        dict(
-                            args=[{'visible': [True, False, True] + [True] * len(unique_soil_types)},
-                                  {'xaxis2.title': 'fs [MPa]', 'xaxis2.range': [0.499, 0], 'xaxis2.dtick': 0.1},
-                                  ],
-                            label="fs",
-                            method="update"
-                        )
-                    ]),
-                    pad={"r": 10, "t": 10},
-                    showactive=True,
-                    x=1.11,
-                    xanchor="left",
-                    y=1.1,
-                    yanchor="top"
-                ),
-            ]
-        )
         return StringIO(fig.to_html())
 
 
