@@ -22,7 +22,6 @@ from viktor.core import ViktorController
 from viktor.views import MapResult
 from viktor.views import MapView
 from .parametrization import ProjectParametrization
-from ..cpt_file.constants import CPT_LEGEND
 from ..cpt_file.model import CPT
 
 
@@ -37,14 +36,13 @@ class ProjectController(ViktorController):
     @MapView('Map', duration_guess=2)
     def visualize_map(self, params: Munch, entity_id: int, **kwargs) -> MapResult:
         """Visualize the MapView with all CPT locations and a polyline"""
-
         all_cpt_models = self.get_cpt_models(entity_id)
 
         cpt_features = []
         for cpt in all_cpt_models:
             cpt_features.append(cpt.get_map_point())
 
-        return MapResult([*cpt_features], [], CPT_LEGEND)
+        return MapResult(cpt_features)
 
     @staticmethod
     def get_cpt_models(entity_id):

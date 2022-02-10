@@ -53,13 +53,7 @@ def convert_soil_layout_from_meter_to_mm(soil_layout: SoilLayout) -> SoilLayout:
 
 def convert_input_table_field_to_soil_layout(bottom_of_soil_layout_user: float,
                                              soil_layers_from_table_input: List[dict]) -> SoilLayout:
-    """Creates a SoilLayout from the user input.
-
-    :param bottom_of_soil_layout_user: Bottom of soil layout in [m]
-    :param soil_layers_from_table_input: Table where a row represents a layer.
-    Each row should contain a soil name and top of layer [m].
-    :return: SoilLayout
-    """
+    """Creates a SoilLayout from the user input."""
     bottom = bottom_of_soil_layout_user
     soils = get_soil_mapping()
     soil_layers = []
@@ -76,16 +70,7 @@ def convert_input_table_field_to_soil_layout(bottom_of_soil_layout_user: float,
 
 
 def convert_soil_layout_to_input_table_field(soil_layout: SoilLayout) -> List[dict]:
-    """Converts a SoilLayout to the parametrisation representation (Field = InputTable).
-
-    :param soil_layout: SoilLayout
-    :return: List containing dictionaries for the InputTable. Structure:
-    [
-    {'name': 'Zand grof', 'top_of_layer': -5},
-    {'name': 'Zand grof', 'top_of_layer': -8},
-    ...
-    ]
-    """
+    """Converts a SoilLayout to the parametrisation representation (Field = InputTable)."""
     table_input_soil_layers = [
         {
             "name": layer.soil.properties.ui_name,
@@ -108,10 +93,8 @@ def get_water_level(cpt_data_object) -> float:
     """Water level is assigned to the value parsed from GEF file if it exists, otherwise a default is assigned to 1m
     below the surface level"""
     if hasattr(cpt_data_object, 'water_level'):
-        water_level = cpt_data_object.water_level
-    else:
-        water_level = cpt_data_object.ground_level_wrt_reference/1e3 - 1
-    return water_level
+        return cpt_data_object.water_level
+    return round(cpt_data_object.ground_level_wrt_reference/1e3 - 1, 2)
 
 
 def get_soil_mapping() -> dict:

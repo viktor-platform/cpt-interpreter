@@ -14,17 +14,10 @@ SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
-from viktor import Color
-from viktor.views import MapLegend
-
 
 DEFAULT_MIN_LAYER_THICKNESS = 200
 
 ADDITIONAL_COLUMNS = ['corrected_depth', 'fs', 'u2', 'inclination', 'inclination_n_s', 'inclination_e_w']
-
-CPT_LEGEND = MapLegend([
-    (Color.viktor_black(), "CPT"),
-])
 
 DEFAULT_ROBERTSON_TABLE = [
     {

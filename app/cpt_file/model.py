@@ -26,38 +26,32 @@ from plotly.subplots import make_subplots
 from viktor import UserException
 from viktor.geo import GEFData
 from viktor.geo import SoilLayout
-from viktor.geometry import Point
 from viktor.geometry import RDWGSConverter
 from viktor.views import MapEntityLink
 from viktor.views import MapPoint
-from .soil_layout_conversion_functions import \
-    convert_input_table_field_to_soil_layout
+from .soil_layout_conversion_functions import convert_input_table_field_to_soil_layout
 
 
 class CPT:
     """"CPT model used for visualizing the soil layout"""
+
     def __init__(self, cpt_params, entity_id=None, **kwargs):
         params = unmunchify(cpt_params)
-        self.headers = munchify(params['headers'])
         self.params = params
         self.parsed_cpt = GEFData(self.filter_nones_from_params_dict(params))
         self.soil_layout_original = SoilLayout.from_dict(params['soil_layout_original'])
-        self.bottom_of_soil_layout_user = cpt_params['bottom_of_soil_layout_user']
-        self.ground_water_level = params['ground_water_level']
-        self.name = params['name']
         self.entity_id = entity_id
-        self._params_soil_layout = params['soil_layout']
 
     @property
     def soil_layout(self) -> SoilLayout:
         """Returns a soil layout based on the input table"""
-        return convert_input_table_field_to_soil_layout(self.bottom_of_soil_layout_user,
-                                                        self._params_soil_layout)
+        return convert_input_table_field_to_soil_layout(self.params['bottom_of_soil_layout_user'],
+                                                        self.params['soil_layout'])
 
     @property
     def entity_link(self) -> MapEntityLink:
         """Returns a MapEntity link to the GEF entity, which is used in the MapView of the Project entity"""
-        return MapEntityLink(self.name, self.entity_id)
+        return MapEntityLink(self.params['name'], self.entity_id)
 
     @staticmethod
     def filter_nones_from_params_dict(raw_dict) -> dict:
@@ -72,56 +66,58 @@ class CPT:
         return raw_dict
 
     @property
-    def coordinates(self) -> Point:
-        """Returns a Point object of the x-y coordinates to be used in geographic calculations"""
-        if not hasattr(self.parsed_cpt, 'x_y_coordinates') or None in self.parsed_cpt.x_y_coordinates:
-            raise UserException(f"CPT {self.name} has no coordinates: please check the CPT file")
-        return Point(self.parsed_cpt.x_y_coordinates[0], self.parsed_cpt.x_y_coordinates[1])
-
-    @property
     def wgs_coordinates(self) -> Munch:
         """Returns a dictionary of the lat lon coordinates to be used in geographic calculations"""
         if not hasattr(self.parsed_cpt, 'x_y_coordinates') or None in self.parsed_cpt.x_y_coordinates:
-            raise UserException(f"CPT {self.name} has no coordinates: please check the GEF file")
+            raise UserException(f"CPT {self.params['name']} has no coordinates: please check the GEF file")
         lat, lon = RDWGSConverter.from_rd_to_wgs(self.parsed_cpt.x_y_coordinates)
         return munchify({"lat": lat, "lon": lon})
 
     def get_map_point(self):
         """Returns a MapPoint object"""
-        return MapPoint(self.wgs_coordinates.lat, self.wgs_coordinates.lon, title=self.name,
-                        description=f"RD coordinaten: {self.coordinates.x}, {self.coordinates.y}",
+        return MapPoint(self.wgs_coordinates.lat, self.wgs_coordinates.lon, title=self.params['name'],
                         entity_links=[self.entity_link])
 
     def visualize(self) -> StringIO:
         """Creates an interactive plot using plotly, showing the same information as the static visualization"""
         fig = make_subplots(rows=1, cols=3, shared_yaxes=True, horizontal_spacing=0.00, column_widths=[3.5, 1.5, 2],
                             subplot_titles=("Cone Resistance", "Friction ratio", "Soil Layout"))
-        # Add Qc plot
-        fig.add_trace(
-            go.Scatter(name='Cone Resistance',
-                       x=self.parsed_cpt.qc,
-                       y=[el * 1e-3 for el in self.parsed_cpt.elevation],
-                       mode='lines',
-                       line=dict(color='mediumblue', width=1),
-                       legendgroup="Cone Resistance"),
-            row=1, col=1
-        )
 
-        # Add Rf plot
-        fig.add_trace(
-            go.Scatter(name='Friction ratio',
-                       x=[rfval * 100 if rfval else rfval for rfval in self.parsed_cpt.Rf],
-                       y=[el * 1e-3 if el else el for el in self.parsed_cpt.elevation],
-                       mode='lines',
-                       line=dict(color='red', width=1),
-                       legendgroup="Friction ratio"),
-            row=1, col=2
-        )
+        self.add_qc_and_rf_to_fig(fig)
+        self.add_soil_layout_to_fig(fig)
+        self.add_phreatic_level_line_to_fig(fig)
+        self.update_fig_layout(fig)
 
-        # Add bars for each soil type separately in order to be able to set legend labels
+        return StringIO(fig.to_html())
+
+    def update_fig_layout(self, fig):
+        """Updates layout of the figure and formats the grids"""
+        fig.update_layout(barmode='stack', template='plotly_white', legend=dict(x=1.15, y=0.5))
+        fig.update_annotations(font_size=12)
+        # Format axes and grids per subplot
+        standard_grid_options = dict(showgrid=True, gridwidth=1, gridcolor='LightGrey')
+        standard_line_options = dict(showline=True, linewidth=2, linecolor='LightGrey')
+        fig.update_xaxes(row=1, col=1, **standard_line_options, **standard_grid_options,
+                         range=[0, 30], tick0=0, dtick=5, title_text="qc [MPa]", title_font=dict(color='mediumblue'))
+        fig.update_xaxes(row=1, col=2, **standard_line_options, **standard_grid_options,
+                         range=[9.9, 0], tick0=0, dtick=5, title_text="Rf [%]", title_font=dict(color='red'))
+        fig.update_yaxes(row=1, col=1, **standard_grid_options, title_text="Depth [m] w.r.t. NAP",
+                         tick0=floor(self.parsed_cpt.elevation[-1] / 1e3) - 5, dtick=1)
+        fig.update_yaxes(row=1, col=2, **standard_line_options, **standard_grid_options,
+                         tick0=floor(self.parsed_cpt.elevation[-1] / 1e3) - 5, dtick=1)
+        fig.update_yaxes(row=1, col=3, **standard_line_options,
+                         tick0=floor(self.parsed_cpt.elevation[-1] / 1e3) - 5, dtick=1,
+                         showticklabels=True, side='right')
+
+    def add_phreatic_level_line_to_fig(self, fig):
+        """Add dashed blue line representing phreatic level"""
+        fig.add_hline(y=self.params['ground_water_level'], line=dict(color='Blue', dash='dash', width=1),
+                      row='all', col='all')
+
+    def add_soil_layout_to_fig(self, fig):
+        """Add bars for each soil type separately in order to be able to set legend labels"""
         unique_soil_types = {layer.soil.properties.ui_name for layer in [*self.soil_layout_original.layers,
                                                                          *self.soil_layout.layers]}
-
         for ui_name in unique_soil_types:
             original_layers = [layer for layer in self.soil_layout_original.layers
                                if layer.soil.properties.ui_name == ui_name]
@@ -142,27 +138,24 @@ class CPT:
                                  base=[layer.top_of_layer * 1e-3 for layer in soil_type_layers]),
                           row=1, col=3)
 
-        # Add dashed blue line representing phreatic level
-        fig.add_hline(y=self.ground_water_level, line=dict(color='Blue', dash='dash', width=1),
-                      row='all', col='all')
+    def add_qc_and_rf_to_fig(self, fig):
+        """Add Qc and Rf plot."""
+        fig.add_trace(
+            go.Scatter(name='Cone Resistance',
+                       x=self.parsed_cpt.qc,
+                       y=[el * 1e-3 for el in self.parsed_cpt.elevation],
+                       mode='lines',
+                       line=dict(color='mediumblue', width=1),
+                       legendgroup="Cone Resistance"),
+            row=1, col=1
+        )
 
-        fig.update_layout(barmode='stack', template='plotly_white', legend=dict(x=1.05, y=0.5))
-
-        # Format axes and grids per subplot
-        standard_grid_options = dict(showgrid=True, gridwidth=1, gridcolor='LightGrey')
-        standard_line_options = dict(showline=True, linewidth=2, linecolor='LightGrey')
-
-        fig.update_xaxes(row=1, col=1, **standard_line_options, **standard_grid_options,
-                         range=[0, 30], tick0=0, dtick=5, title_text="qc [MPa]", title_font=dict(color='mediumblue'))
-        fig.update_xaxes(row=1, col=2, **standard_line_options, **standard_grid_options,
-                         range=[9.9, 0], tick0=0, dtick=5, title_text="Rf [%]", title_font=dict(color='red'))
-
-        fig.update_yaxes(row=1, col=1, **standard_grid_options, title_text="Depth [m] w.r.t. NAP",
-                         tick0=floor(self.parsed_cpt.elevation[-1] / 1e3) - 5, dtick=1)
-        fig.update_yaxes(row=1, col=2, **standard_line_options, **standard_grid_options,
-                         tick0=floor(self.parsed_cpt.elevation[-1] / 1e3) - 5, dtick=1)
-        fig.update_yaxes(row=1, col=3, **standard_line_options,
-                         tick0=floor(self.parsed_cpt.elevation[-1] / 1e3) - 5, dtick=1,
-                         showticklabels=True, side='right')
-
-        return StringIO(fig.to_html())
+        fig.add_trace(
+            go.Scatter(name='Friction ratio',
+                       x=[rfval * 100 if rfval else rfval for rfval in self.parsed_cpt.Rf],
+                       y=[el * 1e-3 if el else el for el in self.parsed_cpt.elevation],
+                       mode='lines',
+                       line=dict(color='red', width=1),
+                       legendgroup="Friction ratio"),
+            row=1, col=2
+        )

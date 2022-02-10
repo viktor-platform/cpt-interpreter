@@ -46,28 +46,19 @@ class CPTFileController(ViktorController):
 
     @ParamsFromFile(file_types=['.gef'])
     def process_file(self, file: File, **kwargs) -> dict:
-        """using @ParamsFromFile to create an entity  when uploading a gef file"""
-        return self.classify_file(file)
-
-    @staticmethod
-    def classify_file(file: File) -> dict:
         """Classify the CPT file when it is first uploaded"""
         cpt_file = GEFFile(file.getvalue("ISO-8859-1"))
         return classify_cpt_file(cpt_file)
 
     @WebAndDataView("GEF", duration_guess=3)
     def visualize(self, params: Munch, entity_id: int, **kwargs) -> WebAndDataResult:
-        """Visualizes the Qc and Rf line plots and also the soil layout bar plots"""
-        soils = DEFAULT_ROBERTSON_TABLE
-        headers = params.get('headers')
-        if not headers:
-            raise UserException('GEF file has no headers')
-        gef = CPT(cpt_params=params, soils=soils, entity_id=entity_id)
-        data = self._get_data_group(params)
-        return WebAndDataResult(html=gef.visualize(), data=data)
+        """Visualizes the Qc and Rf line plots, the soil layout bar plots and the data of the cpt."""
+        cpt = CPT(cpt_params=params, soils=DEFAULT_ROBERTSON_TABLE, entity_id=entity_id)
+        data_group = self.get_data_group(params)
+        return WebAndDataResult(html=cpt.visualize(), data=data_group)
 
     @staticmethod
-    def _get_data_group(params: Munch) -> DataGroup:
+    def get_data_group(params: Munch) -> DataGroup:
         """Collect the necessary information from the GEF headers and return a DataGroup with the data"""
         headers = params.get('headers')
         if not headers:
