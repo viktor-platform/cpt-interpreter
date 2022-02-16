@@ -17,7 +17,6 @@ SOFTWARE.
 from copy import deepcopy
 from math import ceil
 from typing import List
-from typing import Union
 
 from viktor import Color
 from viktor import UserException
@@ -57,6 +56,7 @@ def convert_input_table_field_to_soil_layout(bottom_of_soil_layout_user: float,
     bottom = bottom_of_soil_layout_user
     soils = get_soil_mapping()
     soil_layers = []
+
     for layer in reversed(soil_layers_from_table_input):
         soil_name = layer["name"]
         top_of_layer = layer["top_of_layer"]
@@ -66,12 +66,13 @@ def convert_input_table_field_to_soil_layout(bottom_of_soil_layout_user: float,
             raise UserException(f"{soil_name} is not available in the selected classification " f"table.\n "
                                 f"Please select a different table, or reclassify the CPT files") from soil_name_no_exist
         bottom = top_of_layer  # Set bottom of next soil layer to top of current layer.
+
     return convert_soil_layout_from_meter_to_mm(SoilLayout(soil_layers[::-1]))
 
 
 def convert_soil_layout_to_input_table_field(soil_layout: SoilLayout) -> List[dict]:
     """Converts a SoilLayout to the parametrisation representation (Field = InputTable)."""
-    table_input_soil_layers = [
+    return [
         {
             "name": layer.soil.properties.ui_name,
             "top_of_layer": layer.top_of_layer
@@ -79,32 +80,17 @@ def convert_soil_layout_to_input_table_field(soil_layout: SoilLayout) -> List[di
         for layer in soil_layout.layers
     ]
 
-    return table_input_soil_layers
-
-
-def convert_to_color(rgb: Union[str, tuple]) -> Color:
-    """Simple conversion function that always returns a Color object"""
-    if isinstance(rgb, tuple):
-        return Color(*rgb)
-    return Color(*[int(element) for element in rgb.strip().split(',')])
-
-
-def get_water_level(cpt_data_object) -> float:
-    """Water level is assigned to the value parsed from GEF file if it exists, otherwise a default is assigned to 1m
-    below the surface level"""
-    if hasattr(cpt_data_object, 'water_level'):
-        return cpt_data_object.water_level
-    return round(cpt_data_object.ground_level_wrt_reference/1e3 - 1, 2)
-
 
 def get_soil_mapping() -> dict:
     """Returns a mapping between the soil name visible in the UI and the Soil object used in the logic"""
     soil_mapping = {}
     for soil in DEFAULT_ROBERTSON_TABLE:
-        ui_name = soil['ui_name']
+        # remove soil color from the properties
         properties = deepcopy(soil)
         del properties['color']
-        soil_mapping[ui_name] = Soil(soil['name'], convert_to_color(soil['color']), properties=properties)
+
+        # create soil mapping
+        soil_mapping[soil['ui_name']] = Soil(soil['name'], Color(soil['color']), properties=properties)
     return soil_mapping
 
 
@@ -115,7 +101,11 @@ def classify_cpt_file(cpt_file: GEFFile) -> dict:
         # Parse the GEF file content
         cpt_data_object = cpt_file.parse(additional_columns=ADDITIONAL_COLUMNS, return_gef_data_obj=True)
 
-        ground_water_level = get_water_level(cpt_data_object)
+        # Water level the value parsed from GEF file if it exists
+        if hasattr(cpt_data_object, 'water_level'):
+            ground_water_level = cpt_data_object.water_level
+        else:  # a default is assigned (1m below the surface level)
+            ground_water_level = round(cpt_data_object.ground_level_wrt_reference/1e3 - 1, 2)
 
         # Classify the CPTData object to get a SoilLayout
         soil_layout_obj = cpt_data_object.classify(method=RobertsonMethod(DEFAULT_ROBERTSON_TABLE),
@@ -126,6 +116,7 @@ def classify_cpt_file(cpt_file: GEFFile) -> dict:
     except GEFClassificationError as classification_exception:
         raise UserException(f"CPT Classification: {str(classification_exception)}") from classification_exception
 
+    # filter thickness and convert to meter
     soil_layout_filtered = soil_layout_obj.filter_layers_on_thickness(
         min_layer_thickness=DEFAULT_MIN_LAYER_THICKNESS, merge_adjacent_same_soil_layers=True)
     soil_layout_filtered_in_m = convert_soil_layout_from_mm_to_meter(soil_layout_filtered)

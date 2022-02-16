@@ -67,12 +67,11 @@ class CPTFileController(ViktorController):
             x_coordinate, y_coordinate = params.x_rd, params.y_rd
         except AttributeError:
             x_coordinate, y_coordinate = headers.x_y_coordinates
-        height_system = headers.height_system
-        ground_level_wrt_ref_m = headers.ground_level_wrt_reference_m
+
         return DataGroup(
-            ground_level_wrt_reference_m=DataItem('Ground level (NAP)', ground_level_wrt_ref_m or -999, suffix='m'),
+            ground_level_wrt_reference_m=DataItem('Ground level (NAP)', headers.ground_level_wrt_reference_m or -999, suffix='m'),
             ground_water_level=DataItem('Phreatic level (NAP)', params.ground_water_level),
-            height_system=DataItem('Height system', height_system or '-'),
+            height_system=DataItem('Height system', headers.height_system or '-'),
             coordinates=DataItem('Coordinates', '', subgroup=DataGroup(
                 x_coordinate=DataItem('X-coordinate', x_coordinate or 0, suffix='m'),
                 y_coordinate=DataItem('Y-coordinate', y_coordinate or 0, suffix='m'),
@@ -83,25 +82,31 @@ class CPTFileController(ViktorController):
     def filter_soil_layout_on_min_layer_thickness(params: Munch, **kwargs) -> SetParametersResult:
         """Remove all user defined layers below the filter threshold."""
         progress_message('Filtering thin layers from soil layout')
-        # Create SoilLayout and filter.
+        # Create SoilLayout
         bottom_of_soil_layout_user = params.get('bottom_of_soil_layout_user')
-        soil_layout_user = convert_input_table_field_to_soil_layout(bottom_of_soil_layout_user,
-                                                                    params.soil_layout)
+        soil_layout_user = convert_input_table_field_to_soil_layout(bottom_of_soil_layout_user, params.soil_layout)
+        # filter the layer thickness
         soil_layout_user.filter_layers_on_thickness(params.gef.cpt_data.min_layer_thickness,
                                                     merge_adjacent_same_soil_layers=True)
+        # convert to meter, and to the format for the input table
         soil_layout_user = convert_soil_layout_from_mm_to_meter(soil_layout_user)
         table_input_soil_layers = convert_soil_layout_to_input_table_field(soil_layout_user)
 
+        # send it to the parametrisation
         return SetParametersResult({'soil_layout': table_input_soil_layers})
 
     @staticmethod
     def reset_soil_layout_user(params: Munch, **kwargs) -> SetParametersResult:
         """Place the original soil layout (after parsing) in the table input."""
         progress_message('Resetting soil layout to original unfiltered result')
+        # get the original soil layout from the hidden field
         soil_layout_original = SoilLayout.from_dict(unmunchify(params.soil_layout_original))
+
+        # convert it to a format for the input table
         table_input_soil_layers = convert_soil_layout_to_input_table_field(
             convert_soil_layout_from_mm_to_meter(soil_layout_original)
         )
+        # send it to the parametrisation
         return SetParametersResult(
             {'soil_layout': table_input_soil_layers,
              'bottom_of_soil_layout_user': params.get('bottom_of_soil_layout_user')}

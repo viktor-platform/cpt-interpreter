@@ -68,8 +68,11 @@ class CPT:
     @property
     def wgs_coordinates(self) -> Munch:
         """Returns a dictionary of the lat lon coordinates to be used in geographic calculations"""
+        # chekc if coordinates are present, else raise error to user
         if not hasattr(self.parsed_cpt, 'x_y_coordinates') or None in self.parsed_cpt.x_y_coordinates:
             raise UserException(f"CPT {self.params['name']} has no coordinates: please check the GEF file")
+
+        # do conversion and return
         lat, lon = RDWGSConverter.from_rd_to_wgs(self.parsed_cpt.x_y_coordinates)
         return munchify({"lat": lat, "lon": lon})
 
@@ -83,10 +86,10 @@ class CPT:
         fig = make_subplots(rows=1, cols=3, shared_yaxes=True, horizontal_spacing=0.00, column_widths=[3.5, 1.5, 2],
                             subplot_titles=("Cone Resistance", "Friction ratio", "Soil Layout"))
 
-        self.add_qc_and_rf_to_fig(fig)
-        self.add_soil_layout_to_fig(fig)
-        self.add_phreatic_level_line_to_fig(fig)
-        self.update_fig_layout(fig)
+        self.add_qc_and_rf_to_fig(fig)  # add left side of the figure: Qc and Rf plot
+        self.add_soil_layout_to_fig(fig)   # add right side of the figure: original and interpreted soil layout
+        self.add_phreatic_level_line_to_fig(fig)  # add phreatic line to both figures
+        self.update_fig_layout(fig)  # format axis and grids before showing to the user
 
         return StringIO(fig.to_html())
 
@@ -97,15 +100,22 @@ class CPT:
         # Format axes and grids per subplot
         standard_grid_options = dict(showgrid=True, gridwidth=1, gridcolor='LightGrey')
         standard_line_options = dict(showline=True, linewidth=2, linecolor='LightGrey')
+
+        # update x-axis for Qc
         fig.update_xaxes(row=1, col=1, **standard_line_options, **standard_grid_options,
                          range=[0, 30], tick0=0, dtick=5, title_text="qc [MPa]", title_font=dict(color='mediumblue'))
+        # update x-axis for Rf
         fig.update_xaxes(row=1, col=2, **standard_line_options, **standard_grid_options,
                          range=[9.9, 0], tick0=0, dtick=5, title_text="Rf [%]", title_font=dict(color='red'))
+
+        # update all y axis to ensure they line up
         fig.update_yaxes(row=1, col=1, **standard_grid_options, title_text="Depth [m] w.r.t. NAP",
+                         tick0=floor(self.parsed_cpt.elevation[-1] / 1e3) - 5, dtick=1)   # for Qc
+
+        fig.update_yaxes(row=1, col=2, **standard_line_options, **standard_grid_options,  # for Rf
                          tick0=floor(self.parsed_cpt.elevation[-1] / 1e3) - 5, dtick=1)
-        fig.update_yaxes(row=1, col=2, **standard_line_options, **standard_grid_options,
-                         tick0=floor(self.parsed_cpt.elevation[-1] / 1e3) - 5, dtick=1)
-        fig.update_yaxes(row=1, col=3, **standard_line_options,
+
+        fig.update_yaxes(row=1, col=3, **standard_line_options,                           # for soil layouts
                          tick0=floor(self.parsed_cpt.elevation[-1] / 1e3) - 5, dtick=1,
                          showticklabels=True, side='right')
 
@@ -123,8 +133,9 @@ class CPT:
                                if layer.soil.properties.ui_name == ui_name]
             interpreted_layers = [layer for layer in self.soil_layout.layers
                                   if layer.soil.properties.ui_name == ui_name]
+            soil_type_layers = [*original_layers, *interpreted_layers]  # have a list of all soils used in both figures
 
-            soil_type_layers = [*original_layers, *interpreted_layers]
+            # add the bar plots to the figures
             fig.add_trace(go.Bar(name=ui_name,
                                  x=['Original'] * len(original_layers) + ['Interpreted'] * len(interpreted_layers),
                                  y=[-layer.thickness * 1e-3 for layer in soil_type_layers],
@@ -140,7 +151,8 @@ class CPT:
 
     def add_qc_and_rf_to_fig(self, fig):
         """Add Qc and Rf plot."""
-        fig.add_trace(
+
+        fig.add_trace(  # Add the qc curve
             go.Scatter(name='Cone Resistance',
                        x=self.parsed_cpt.qc,
                        y=[el * 1e-3 for el in self.parsed_cpt.elevation],
@@ -150,7 +162,7 @@ class CPT:
             row=1, col=1
         )
 
-        fig.add_trace(
+        fig.add_trace(   # Add the Rf curve
             go.Scatter(name='Friction ratio',
                        x=[rfval * 100 if rfval else rfval for rfval in self.parsed_cpt.Rf],
                        y=[el * 1e-3 if el else el for el in self.parsed_cpt.elevation],
