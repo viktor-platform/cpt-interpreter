@@ -69,8 +69,9 @@ class CPTFileController(ViktorController):
             x_coordinate, y_coordinate = headers.x_y_coordinates
 
         return DataGroup(
-            ground_level_wrt_reference_m=DataItem('Ground level (NAP)', headers.ground_level_wrt_reference_m or -999, suffix='m'),
-            ground_water_level=DataItem('Phreatic level (NAP)', params.ground_water_level),
+            ground_level_wrt_reference_m=DataItem('Ground level', headers.ground_level_wrt_reference_m or -999,
+                                                  suffix='m'),
+            ground_water_level=DataItem('Phreatic level', params.ground_water_level, suffix='m'),
             height_system=DataItem('Height system', headers.height_system or '-'),
             coordinates=DataItem('Coordinates', '', subgroup=DataGroup(
                 x_coordinate=DataItem('X-coordinate', x_coordinate or 0, suffix='m'),
