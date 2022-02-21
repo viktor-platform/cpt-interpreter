@@ -17,6 +17,6 @@ None.
 ### Fixed
 None.
 
-## v1.0.0 (yyyy/mm/dd)
+## v1.0.0 (2022/02/21)
 ### Added
 - Added first release of sample app
