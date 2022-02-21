@@ -90,7 +90,7 @@ def get_soil_mapping() -> dict:
         del properties['color']
 
         # create soil mapping
-        soil_mapping[soil['ui_name']] = Soil(soil['name'], Color(soil['color']), properties=properties)
+        soil_mapping[soil['ui_name']] = Soil(soil['name'], Color(*soil['color']), properties=properties)
     return soil_mapping
 
 
