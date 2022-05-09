@@ -20,7 +20,3 @@ entities:
   children:
     - entity_type: Project
       properties: fixtures/project_1.json
-
-# Meta data
-metadata:
-    background_image: background_image.jpg
