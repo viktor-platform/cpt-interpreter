@@ -22,4 +22,3 @@ class ProjectFolderController(ViktorController):
     label = 'Projects'
     children = ['Project']
     show_children_as = 'Table'
-    viktor_convert_entity_field = True

@@ -42,7 +42,6 @@ class CPTFileController(ViktorController):
     """Controller class which acts as interface for the Sample entity type."""
     label = 'CPT File'
     parametrization = CPTFileParametrization
-    viktor_convert_entity_field = True
 
     @ParamsFromFile(file_types=['.gef'])
     def process_file(self, file: File, **kwargs) -> dict:
