@@ -1,4 +1,4 @@
-![](https://img.shields.io/badge/SDK-v12.9.0-blue) <Please check version is the same as specified in requirements.txt>
+![](https://img.shields.io/badge/SDK-v13.0.0-blue) <Please check version is the same as specified in requirements.txt>
 
 # CPT interpretation with Robertson
 This sample app shows  show how to interpret a CPT (.gef) to a soil layout using the Robertson method. <basic one line intro here>
