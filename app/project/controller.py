@@ -21,7 +21,6 @@ from viktor.api_v1 import API
 from viktor.core import ViktorController
 from viktor.views import MapResult
 from viktor.views import MapView
-from .parametrization import ProjectParametrization
 from ..cpt_file.model import CPT
 
 
@@ -30,10 +29,9 @@ class ProjectController(ViktorController):
     label = "Sample"
     children = ['CPTFile']
     show_children_as = 'Table'
-    parametrization = ProjectParametrization
 
     @MapView('Map', duration_guess=2)
-    def visualize_map(self, params: Munch, entity_id: int, **kwargs) -> MapResult:
+    def visualize_map(self, entity_id: int, **kwargs) -> MapResult:
         """Visualize the MapView with all CPT locations and a polyline"""
         all_cpt_models = self.get_cpt_models(entity_id)
 
@@ -47,6 +45,6 @@ class ProjectController(ViktorController):
     def get_cpt_models(entity_id):
         """Obtains all child 'CPT File' entities"""
         cpt_file_entities = API().get_entity(entity_id).children(entity_type_names=['CPTFile'], include_params=True)
-        all_cpt_files = [CPT(cpt_params=cpt_entity.last_saved_params, entity_id=cpt_entity.id)
+        all_cpt_files = [CPT(cpt_name=cpt_entity.name, cpt_params=cpt_entity.last_saved_params, entity_id=cpt_entity.id)
                          for cpt_entity in cpt_file_entities]
         return all_cpt_files
