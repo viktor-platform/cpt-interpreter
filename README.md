@@ -14,7 +14,7 @@ Then on picture 2 a map overview of all the cpt locations can be seen.
 
 Here is a gif doing the folowing tasks: 
 - create a project
-- upload a .gef file as cptpa
+- upload a .gef file as cpt
 - adjust some parameters in the cpt interpretation
 - view the location of the cpt on the map
 
