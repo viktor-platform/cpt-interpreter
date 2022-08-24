@@ -6,7 +6,7 @@ All notable changes to this project will be documented in this file.
 None.
 
 ### Changed
-- Upgraded to VIKTOR v13
+- Upgraded to VIKTOR v13.3.0
 
 ### Deprecated
 None.
