@@ -50,9 +50,9 @@ class CPTFileController(ViktorController):
         return classify_cpt_file(cpt_file)
 
     @WebAndDataView("GEF", duration_guess=3)
-    def visualize(self, params: Munch, entity_id: int, **kwargs) -> WebAndDataResult:
+    def visualize(self, params: Munch, entity_id: int, entity_name: str, **kwargs) -> WebAndDataResult:
         """Visualizes the Qc and Rf line plots, the soil layout bar plots and the data of the cpt."""
-        cpt = CPT(cpt_params=params, soils=DEFAULT_ROBERTSON_TABLE, entity_id=entity_id)
+        cpt = CPT(cpt_name=entity_name, cpt_params=params, soils=DEFAULT_ROBERTSON_TABLE, entity_id=entity_id)
         data_group = self.get_data_group(params)
         return WebAndDataResult(html=cpt.visualize(), data=data_group)
 
