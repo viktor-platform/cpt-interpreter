@@ -6,7 +6,7 @@ All notable changes to this project will be documented in this file.
 None.
 
 ### Changed
-None.
+- translated all ui to english
 
 ### Deprecated
 None.
@@ -15,7 +15,8 @@ None.
 None.
 
 ### Fixed
-None.
+- update to simple app type
+- update to sdk 13.5
 
 ## v1.0.0 (2022/02/21)
 ### Added

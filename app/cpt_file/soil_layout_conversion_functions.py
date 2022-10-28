@@ -50,9 +50,21 @@ def convert_soil_layout_from_meter_to_mm(soil_layout: SoilLayout) -> SoilLayout:
     return SoilLayout.from_dict(serialization_dict)
 
 
+def filter_nones_from_params_dict(raw_dict) -> dict:
+    """Removes all rows which contain one or more None-values"""
+    rows_to_be_removed = []
+    for row_index, items in enumerate(zip(*raw_dict['measurement_data'].values())):
+        if None in items:
+            rows_to_be_removed.append(row_index)
+    for row in reversed(rows_to_be_removed):
+        for signal in raw_dict['measurement_data'].keys():
+            del raw_dict['measurement_data'][signal][row]
+    return raw_dict
+
+
 def convert_input_table_field_to_soil_layout(bottom_of_soil_layout_user: float,
                                              soil_layers_from_table_input: List[dict]) -> SoilLayout:
-    """Creates a SoilLayout from the user input."""
+    """Creates a viktor SoilLayout from the user input."""
     bottom = bottom_of_soil_layout_user
     soils = get_soil_mapping()
     soil_layers = []
@@ -62,9 +74,9 @@ def convert_input_table_field_to_soil_layout(bottom_of_soil_layout_user: float,
         top_of_layer = layer["top_of_layer"]
         try:
             soil_layers.append(SoilLayer(soils[soil_name], top_of_layer, bottom))
-        except KeyError as soil_name_no_exist:
+        except KeyError:
             raise UserException(f"{soil_name} is not available in the selected classification " f"table.\n "
-                                f"Please select a different table, or reclassify the CPT files") from soil_name_no_exist
+                                f"Please select a different table, or reclassify the CPT files")
         bottom = top_of_layer  # Set bottom of next soil layer to top of current layer.
 
     return convert_soil_layout_from_meter_to_mm(SoilLayout(soil_layers[::-1]))
@@ -88,25 +100,22 @@ def get_soil_mapping() -> dict:
         # remove soil color from the properties
         properties = deepcopy(soil)
         del properties['color']
-
         # create soil mapping
         soil_mapping[soil['ui_name']] = Soil(soil['name'], Color(*soil['color']), properties=properties)
     return soil_mapping
 
 
-def classify_cpt_file(cpt_file: GEFFile) -> dict:
+def classify_cpt_file_on_upload(cpt_file: GEFFile) -> dict:
     """Classify an uploaded CPT File based on the selected _ClassificationMethod"""
 
     try:
         # Parse the GEF file content
         cpt_data_object = cpt_file.parse(additional_columns=ADDITIONAL_COLUMNS, return_gef_data_obj=True)
-
-        # Water level the value parsed from GEF file if it exists
+        # Parse water level from GEF file if it exists
         if hasattr(cpt_data_object, 'water_level'):
             ground_water_level = cpt_data_object.water_level
         else:  # a default is assigned (1m below the surface level)
             ground_water_level = round(cpt_data_object.ground_level_wrt_reference/1e3 - 1, 2)
-
         # Classify the CPTData object to get a SoilLayout
         soil_layout_obj = cpt_data_object.classify(method=RobertsonMethod(DEFAULT_ROBERTSON_TABLE),
                                                    return_soil_layout_obj=True)
@@ -118,11 +127,14 @@ def classify_cpt_file(cpt_file: GEFFile) -> dict:
 
     # filter thickness and convert to meter
     soil_layout_filtered = soil_layout_obj.filter_layers_on_thickness(
-        min_layer_thickness=DEFAULT_MIN_LAYER_THICKNESS, merge_adjacent_same_soil_layers=True)
+        min_layer_thickness=DEFAULT_MIN_LAYER_THICKNESS,
+        merge_adjacent_same_soil_layers=True
+    )
     soil_layout_filtered_in_m = convert_soil_layout_from_mm_to_meter(soil_layout_filtered)
 
     # Serialize the parsed CPT File content and update it with the new soil layout
     cpt_dict = cpt_data_object.serialize()
+    cpt_dict['ground_level'] = cpt_data_object.ground_level_wrt_reference/1e3
     cpt_dict['soil_layout_original'] = soil_layout_obj.serialize()
     cpt_dict['bottom_of_soil_layout_user'] = ceil(soil_layout_obj.bottom) / 1e3
     cpt_dict['soil_layout'] = convert_soil_layout_to_input_table_field(soil_layout_filtered_in_m)

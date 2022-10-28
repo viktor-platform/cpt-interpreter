@@ -1,4 +1,3 @@
-# pylint:disable=line-too-long                                 # Allows for longer line length inside a Parametrization
 """Copyright (c) 2022 VIKTOR B.V.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
@@ -26,6 +25,7 @@ from viktor.parametrization import Parametrization
 from viktor.parametrization import Section
 from viktor.parametrization import SetParamsButton
 from viktor.parametrization import Tab
+from viktor.parametrization import Text
 from viktor.parametrization import TableInput
 from .constants import DEFAULT_MIN_LAYER_THICKNESS
 from .constants import DEFAULT_ROBERTSON_TABLE
@@ -39,21 +39,30 @@ def _get_soils_options(**kwargs) -> List[OptionListElement]:
 class CPTFileParametrization(Parametrization):
     """Defines the input fields in left-side of the web UI in the CPT_file entity (Editor)."""
     gef = Tab('GEF')
-    gef.cpt_data = Section('Properties and soil layout')
+    gef.text = Text("Use the table below to change the interpreted soil layout by changing the positions of the layers, "
+                    "adding rows or changing the material type.")
 
-    gef.cpt_data.min_layer_thickness = NumberField('Minimum Layer Thickness', suffix='mm', min=0, step=50,
-                                                   default=DEFAULT_MIN_LAYER_THICKNESS)
-    gef.cpt_data.lb1 = LineBreak()
-    gef.cpt_data.reset_original_layers = SetParamsButton('Original Soil Layout', method='reset_soil_layout_user')
-    gef.cpt_data.filter_thin_layers = SetParamsButton('Filter Layer Thickness',
-                                                      method='filter_soil_layout_on_min_layer_thickness')
-    gef.cpt_data.lb2 = LineBreak()
-    gef.cpt_data.soil_layout = TableInput('Soil layout', name='soil_layout')
-    gef.cpt_data.soil_layout.name = OptionField("Material", options=_get_soils_options)
-    gef.cpt_data.soil_layout.top_of_layer = NumberField("Top NAP [m]", num_decimals=1)
+    gef.filter_thin_layers = SetParamsButton('Filter Layer Thickness',
+                                             method='filter_soil_layout_on_min_layer_thickness', flex=60,
+                                             description="Filter the soil layout to remove layers that are "
+                                                         "thinner than the minimum layer thickness")
+    gef.min_layer_thickness = NumberField('Minimum Layer Thickness', suffix='mm', min=0, step=50,
+                                          default=DEFAULT_MIN_LAYER_THICKNESS,
+                                          flex=40)
 
-    gef.cpt_data.gef_headers = HiddenField('GEF Headers', name='headers')
-    gef.cpt_data.bottom_of_soil_layout_user = HiddenField('GEF Soil bottom', name='bottom_of_soil_layout_user')
-    gef.cpt_data.ground_water_level = HiddenField('Phreatic level', name='ground_water_level')
-    gef.cpt_data.measurement_data = HiddenField('GEF Measurement data', name='measurement_data')
-    gef.cpt_data.soil_layout_original = HiddenField('Soil layout original', name='soil_layout_original')
+    gef.reset_original_layers = SetParamsButton('Reset to original Soil Layout',
+                                                method='reset_soil_layout_user',
+                                                flex=100,
+                                                description="Reset the table to the original soil layout" )
+
+    gef.ground_water_level = NumberField('Phreatic level', name='ground_water_level', suffix='m NAP', flex=50)
+    gef.ground_level = NumberField('Ground level', name='ground_level', suffix='m NAP', flex=50)
+    gef.soil_layout = TableInput('Soil layout', name='soil_layout')
+    gef.soil_layout.name = OptionField("Material", options=_get_soils_options)
+    gef.soil_layout.top_of_layer = NumberField("Top (m NAP)", num_decimals=1)
+
+    # hidden fields
+    gef.gef_headers = HiddenField('GEF Headers', name='headers')
+    gef.bottom_of_soil_layout_user = HiddenField('GEF Soil bottom', name='bottom_of_soil_layout_user')
+    gef.measurement_data = HiddenField('GEF Measurement data', name='measurement_data')
+    gef.soil_layout_original = HiddenField('Soil layout original', name='soil_layout_original')

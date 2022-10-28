@@ -29,7 +29,7 @@ from viktor.geo import SoilLayout
 from viktor.geometry import RDWGSConverter
 from viktor.views import MapEntityLink
 from viktor.views import MapPoint
-from .soil_layout_conversion_functions import convert_input_table_field_to_soil_layout
+from .soil_layout_conversion_functions import convert_input_table_field_to_soil_layout, filter_nones_from_params_dict
 
 
 class CPT:
@@ -38,9 +38,8 @@ class CPT:
     def __init__(self, cpt_params, entity_id=None, **kwargs):
         params = unmunchify(cpt_params)
         self.params = params
-        self.parsed_cpt = GEFData(self.filter_nones_from_params_dict(params))
+        self.parsed_cpt = GEFData(filter_nones_from_params_dict(params))
         self.soil_layout_original = SoilLayout.from_dict(params['soil_layout_original'])
-        self.entity_id = entity_id
 
     @property
     def soil_layout(self) -> SoilLayout:
@@ -48,50 +47,40 @@ class CPT:
         return convert_input_table_field_to_soil_layout(self.params['bottom_of_soil_layout_user'],
                                                         self.params['soil_layout'])
 
-    @property
-    def entity_link(self) -> MapEntityLink:
-        """Returns a MapEntity link to the GEF entity, which is used in the MapView of the Project entity"""
-        return MapEntityLink(self.params['name'], self.entity_id)
-
-    @staticmethod
-    def filter_nones_from_params_dict(raw_dict) -> dict:
-        """Removes all rows which contain one or more None-values"""
-        rows_to_be_removed = []
-        for row_index, items in enumerate(zip(*raw_dict['measurement_data'].values())):
-            if None in items:
-                rows_to_be_removed.append(row_index)
-        for row in reversed(rows_to_be_removed):
-            for signal in raw_dict['measurement_data'].keys():
-                del raw_dict['measurement_data'][signal][row]
-        return raw_dict
-
-    @property
-    def wgs_coordinates(self) -> Munch:
-        """Returns a dictionary of the lat lon coordinates to be used in geographic calculations"""
-        # chekc if coordinates are present, else raise error to user
-        if not hasattr(self.parsed_cpt, 'x_y_coordinates') or None in self.parsed_cpt.x_y_coordinates:
-            raise UserException(f"CPT {self.params['name']} has no coordinates: please check the GEF file")
-
-        # do conversion and return
-        lat, lon = RDWGSConverter.from_rd_to_wgs(self.parsed_cpt.x_y_coordinates)
-        return munchify({"lat": lat, "lon": lon})
-
-    def get_map_point(self):
-        """Returns a MapPoint object"""
-        return MapPoint(self.wgs_coordinates.lat, self.wgs_coordinates.lon, title=self.params['name'],
-                        entity_links=[self.entity_link])
-
-    def visualize(self) -> StringIO:
-        """Creates an interactive plot using plotly, showing the same information as the static visualization"""
+    def visualize(self) -> go.Figure:
+        """Creates an interactive plot using plotly"""
+        # create figure
         fig = make_subplots(rows=1, cols=3, shared_yaxes=True, horizontal_spacing=0.00, column_widths=[3.5, 1.5, 2],
                             subplot_titles=("Cone Resistance", "Friction ratio", "Soil Layout"))
 
-        self.add_qc_and_rf_to_fig(fig)  # add left side of the figure: Qc and Rf plot
-        self.add_soil_layout_to_fig(fig)   # add right side of the figure: original and interpreted soil layout
-        self.add_phreatic_level_line_to_fig(fig)  # add phreatic line to both figures
-        self.update_fig_layout(fig)  # format axis and grids before showing to the user
+        # add left side of the figure: Qc and Rf plot
+        fig.add_trace(  # Add the qc curve
+            go.Scatter(name='Cone Resistance',
+                       x=self.parsed_cpt.qc,
+                       y=[el * 1e-3 for el in self.parsed_cpt.elevation],
+                       mode='lines',
+                       line=dict(color='mediumblue', width=1),
+                       legendgroup="Cone Resistance"),
+            row=1, col=1
+        )
 
-        return StringIO(fig.to_html())
+        fig.add_trace(  # Add the Rf curve
+            go.Scatter(name='Friction ratio',
+                       x=[rfval * 100 if rfval else rfval for rfval in self.parsed_cpt.Rf],
+                       y=[el * 1e-3 if el else el for el in self.parsed_cpt.elevation],
+                       mode='lines',
+                       line=dict(color='red', width=1),
+                       legendgroup="Friction ratio"),
+            row=1, col=2
+        )
+        self.add_soil_layout_to_fig(fig)  # add right side of the figure: original and interpreted soil layout
+
+        # add phreatic line
+        fig.add_hline(y=self.params['ground_water_level'], line=dict(color='Blue', dash='dash', width=1),
+                      row='all', col='all')
+
+        self.update_fig_layout(fig)  # format axis and grids before showing to the user
+        return fig
 
     def update_fig_layout(self, fig):
         """Updates layout of the figure and formats the grids"""
@@ -119,10 +108,6 @@ class CPT:
                          tick0=floor(self.parsed_cpt.elevation[-1] / 1e3) - 5, dtick=1,
                          showticklabels=True, side='right')
 
-    def add_phreatic_level_line_to_fig(self, fig):
-        """Add dashed blue line representing phreatic level"""
-        fig.add_hline(y=self.params['ground_water_level'], line=dict(color='Blue', dash='dash', width=1),
-                      row='all', col='all')
 
     def add_soil_layout_to_fig(self, fig):
         """Add bars for each soil type separately in order to be able to set legend labels"""
@@ -148,26 +133,3 @@ class CPT:
                                  hoverinfo='text',
                                  base=[layer.top_of_layer * 1e-3 for layer in soil_type_layers]),
                           row=1, col=3)
-
-    def add_qc_and_rf_to_fig(self, fig):
-        """Add Qc and Rf plot."""
-
-        fig.add_trace(  # Add the qc curve
-            go.Scatter(name='Cone Resistance',
-                       x=self.parsed_cpt.qc,
-                       y=[el * 1e-3 for el in self.parsed_cpt.elevation],
-                       mode='lines',
-                       line=dict(color='mediumblue', width=1),
-                       legendgroup="Cone Resistance"),
-            row=1, col=1
-        )
-
-        fig.add_trace(   # Add the Rf curve
-            go.Scatter(name='Friction ratio',
-                       x=[rfval * 100 if rfval else rfval for rfval in self.parsed_cpt.Rf],
-                       y=[el * 1e-3 if el else el for el in self.parsed_cpt.elevation],
-                       mode='lines',
-                       line=dict(color='red', width=1),
-                       legendgroup="Friction ratio"),
-            row=1, col=2
-        )
