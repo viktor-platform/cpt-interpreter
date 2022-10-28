@@ -55,14 +55,17 @@ Temporary Items
 # Compiled python code
 *.pyc
 
-# folder form Pycharm
+# folder form Pycharm 
 .idea/
 env
+.env
+venv
+.venv
 
 .coverage
 
 # Folder visual studio code
 .vscode/
 
-# Ignore files for local manifest
-manifest/local_*_properties.json
+# ZoneIdentifier for WSL2 users
+*Zone.Identifier
