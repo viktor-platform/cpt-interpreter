@@ -30,7 +30,7 @@ from viktor.views import DataItem
 from viktor.views import PlotlyAndDataResult
 from viktor.views import PlotlyAndDataView
 from .constants import DEFAULT_ROBERTSON_TABLE
-from .model import CPT
+from .visualisation import visualise_cpt
 from .parametrization import CPTFileParametrization
 from .soil_layout_conversion_functions import classify_cpt_file_on_upload
 from .soil_layout_conversion_functions import convert_input_table_field_to_soil_layout
@@ -53,9 +53,9 @@ class CPTFileController(ViktorController):
     @PlotlyAndDataView("GEF", duration_guess=3)
     def visualize(self, params: Munch, entity_id: int, **kwargs) -> PlotlyAndDataResult:
         """Visualizes the Qc and Rf line plots, the soil layout bar plots and the data of the cpt."""
-        cpt = CPT(cpt_params=params, soils=DEFAULT_ROBERTSON_TABLE, entity_id=entity_id)
+        fig = visualise_cpt(cpt_params=params)
         data_group = self.get_data_group(params)
-        return PlotlyAndDataResult(cpt.visualize().to_json(), data=data_group)
+        return PlotlyAndDataResult(fig.to_json(), data=data_group)
 
     @staticmethod
     def get_data_group(params: Munch) -> DataGroup:
