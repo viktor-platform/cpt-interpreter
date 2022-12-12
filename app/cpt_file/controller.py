@@ -27,12 +27,12 @@ from viktor.geo import SoilLayout
 from viktor.result import SetParametersResult
 from viktor.views import DataGroup
 from viktor.views import DataItem
-from viktor.views import WebAndDataResult
-from viktor.views import WebAndDataView
+from viktor.views import PlotlyAndDataResult
+from viktor.views import PlotlyAndDataView
 from .constants import DEFAULT_ROBERTSON_TABLE
-from .model import CPT
+from .visualisation import visualise_cpt
 from .parametrization import CPTFileParametrization
-from .soil_layout_conversion_functions import classify_cpt_file
+from .soil_layout_conversion_functions import classify_cpt_file_on_upload
 from .soil_layout_conversion_functions import convert_input_table_field_to_soil_layout
 from .soil_layout_conversion_functions import convert_soil_layout_from_mm_to_meter
 from .soil_layout_conversion_functions import convert_soil_layout_to_input_table_field
@@ -41,20 +41,21 @@ from .soil_layout_conversion_functions import convert_soil_layout_to_input_table
 class CPTFileController(ViktorController):
     """Controller class which acts as interface for the Sample entity type."""
     label = 'CPT File'
-    parametrization = CPTFileParametrization
+    parametrization = CPTFileParametrization(width = 40)
 
     @ParamsFromFile(file_types=['.gef'])
     def process_file(self, file: File, **kwargs) -> dict:
         """Classify the CPT file when it is first uploaded"""
         cpt_file = GEFFile(file.getvalue("ISO-8859-1"))
-        return classify_cpt_file(cpt_file)
+        return classify_cpt_file_on_upload(cpt_file)
 
-    @WebAndDataView("GEF", duration_guess=3)
-    def visualize(self, params: Munch, entity_id: int, entity_name: str, **kwargs) -> WebAndDataResult:
+
+    @PlotlyAndDataView("GEF", duration_guess=3)
+    def visualize(self, params: Munch, entity_id: int, **kwargs) -> PlotlyAndDataResult:
         """Visualizes the Qc and Rf line plots, the soil layout bar plots and the data of the cpt."""
-        cpt = CPT(cpt_name=entity_name, cpt_params=params, soils=DEFAULT_ROBERTSON_TABLE, entity_id=entity_id)
+        fig = visualise_cpt(cpt_params=params)
         data_group = self.get_data_group(params)
-        return WebAndDataResult(html=cpt.visualize(), data=data_group)
+        return PlotlyAndDataResult(fig.to_json(), data=data_group)
 
     @staticmethod
     def get_data_group(params: Munch) -> DataGroup:
@@ -80,13 +81,14 @@ class CPTFileController(ViktorController):
 
     @staticmethod
     def filter_soil_layout_on_min_layer_thickness(params: Munch, **kwargs) -> SetParametersResult:
-        """Remove all user defined layers below the filter threshold."""
+        """Remove all layers below the filter threshold."""
         progress_message('Filtering thin layers from soil layout')
+
         # Create SoilLayout
         bottom_of_soil_layout_user = params.get('bottom_of_soil_layout_user')
         soil_layout_user = convert_input_table_field_to_soil_layout(bottom_of_soil_layout_user, params.soil_layout)
         # filter the layer thickness
-        soil_layout_user.filter_layers_on_thickness(params.gef.cpt_data.min_layer_thickness,
+        soil_layout_user.filter_layers_on_thickness(params.gef.min_layer_thickness,
                                                     merge_adjacent_same_soil_layers=True)
         # convert to meter, and to the format for the input table
         soil_layout_user = convert_soil_layout_from_mm_to_meter(soil_layout_user)

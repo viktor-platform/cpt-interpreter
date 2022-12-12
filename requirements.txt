@@ -1,3 +1,3 @@
-# viktor==13.3.0
+# viktor==13.5.0
 plotly
 lxml
