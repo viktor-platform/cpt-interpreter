@@ -38,7 +38,7 @@ from .parametrization import CPTFileParametrization
 from .soil_layout_conversion_functions import (
     convert_input_table_field_to_soil_layout,
     Classification,
-    convert_soil_layout_from_mm_to_m,
+    convert_soil_layout_from_mm_to_meter,
 )
 from .soil_layout_conversion_functions import convert_soil_layout_to_input_table_field
 
@@ -48,6 +48,7 @@ class CPTFileController(ViktorController):
 
     label = "CPT File"
     parametrization = CPTFileParametrization(width=40)
+    viktor_enforce_field_constraints = True
 
     @staticmethod
     def classify_soil_layout(params, **kwargs) -> SetParametersResult:
@@ -69,11 +70,6 @@ class CPTFileController(ViktorController):
     @PlotlyAndDataView("CPT interpretation", duration_guess=3)
     def visualize_cpt(self, params: Munch, **kwargs) -> PlotlyAndDataResult:
         """Visualizes the Qc and Rf line plots, the soil layout bar plots and the data of the cpt."""
-        # TODO: replace this with step validation when VIKTOR SDK v13.7.0 is available
-        if not params.measurement_data:
-            raise UserException(
-                'Go to previous step, and make sure to classify the GEF file by clicking on "Classify soil layout"'
-            )
         fig = visualise_cpt(cpt_params=params)
         data_group = self.get_data_group(params)
         return PlotlyAndDataResult(fig.to_json(), data=data_group)
@@ -111,20 +107,11 @@ class CPTFileController(ViktorController):
             ground_level_wrt_reference_m=DataItem(
                 "Ground level", headers.ground_level_wrt_reference_m or -999, suffix="m"
             ),
-            ground_water_level=DataItem(
-                "Phreatic level", params.ground_water_level, suffix="m"
-            ),
+            ground_water_level=DataItem("Phreatic level", params.ground_water_level, suffix="m"),
             height_system=DataItem("Height system", headers.height_system or "-"),
-            coordinates=DataItem(
-                "Coordinates",
-                "",
-                subgroup=DataGroup(
-                    x_coordinate=DataItem(
-                        "X-coordinate", x_coordinate or 0, suffix="m"
-                    ),
-                    y_coordinate=DataItem(
-                        "Y-coordinate", y_coordinate or 0, suffix="m"
-                    ),
+            coordinates=DataItem("Coordinates", "", subgroup=DataGroup(
+                    x_coordinate=DataItem("X-coordinate", x_coordinate or 0, suffix="m"),
+                    y_coordinate=DataItem("Y-coordinate", y_coordinate or 0, suffix="m"),
                 ),
             ),
         )
@@ -149,7 +136,7 @@ class CPTFileController(ViktorController):
             params.cpt.min_layer_thickness, merge_adjacent_same_soil_layers=True
         )
         # convert to meter, and to the format for the input table
-        soil_layout_user = convert_soil_layout_from_mm_to_m(soil_layout_user)
+        soil_layout_user = convert_soil_layout_from_mm_to_meter(soil_layout_user)
         table_input_soil_layers = convert_soil_layout_to_input_table_field(
             soil_layout_user
         )
@@ -168,7 +155,7 @@ class CPTFileController(ViktorController):
 
         # convert it to a format for the input table
         table_input_soil_layers = convert_soil_layout_to_input_table_field(
-            convert_soil_layout_from_mm_to_m(soil_layout_original)
+            convert_soil_layout_from_mm_to_meter(soil_layout_original)
         )
         # send it to the parametrisation
         return SetParametersResult(

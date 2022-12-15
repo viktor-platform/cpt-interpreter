@@ -34,7 +34,7 @@ from viktor.geo import (
 from .constants import ADDITIONAL_COLUMNS, DEFAULT_MIN_LAYER_THICKNESS
 
 
-def convert_soil_layout_from_mm_to_m(soil_layout: SoilLayout) -> SoilLayout:
+def convert_soil_layout_from_mm_to_meter(soil_layout: SoilLayout) -> SoilLayout:
     """Converts the units of the SoilLayout from mm to m."""
     serialization_dict = soil_layout.serialize()
     for layer in serialization_dict["layers"]:
@@ -43,7 +43,7 @@ def convert_soil_layout_from_mm_to_m(soil_layout: SoilLayout) -> SoilLayout:
     return SoilLayout.from_dict(serialization_dict)
 
 
-def convert_soil_layout_from_m_to_mm(soil_layout: SoilLayout) -> SoilLayout:
+def convert_soil_layout_from_meter_to_mm(soil_layout: SoilLayout) -> SoilLayout:
     """Converts the units of the SoilLayout from m to mm."""
     serialization_dict = soil_layout.serialize()
     for layer in serialization_dict["layers"]:
@@ -90,7 +90,7 @@ def convert_input_table_field_to_soil_layout(
                 f"Please select a different table, or reclassify the CPT files"
             )
         bottom = top_of_layer  # Set bottom of next soil layer to top of current layer.
-    return convert_soil_layout_from_m_to_mm(SoilLayout(soil_layers[::-1]))
+    return convert_soil_layout_from_meter_to_mm(SoilLayout(soil_layers[::-1]))
 
 
 def convert_soil_layout_to_input_table_field(soil_layout: SoilLayout) -> List[dict]:
@@ -229,7 +229,7 @@ class Classification:
             min_layer_thickness=DEFAULT_MIN_LAYER_THICKNESS,
             merge_adjacent_same_soil_layers=True,
         )
-        soil_layout_filtered_in_m = convert_soil_layout_from_mm_to_m(
+        soil_layout_filtered_in_m = convert_soil_layout_from_mm_to_meter(
             soil_layout_filtered
         )
 

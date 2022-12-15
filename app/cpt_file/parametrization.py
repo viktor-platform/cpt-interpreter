@@ -24,7 +24,6 @@ from viktor.parametrization import (
     FileField,
     IsEqual,
     TextField,
-    LineBreak,
     NumberField,
     OptionField,
     OptionListElement,
@@ -34,6 +33,7 @@ from viktor.parametrization import (
     TableInput,
     And,
 )
+from viktor.errors import UserError
 from .constants import (
     DEFAULT_MIN_LAYER_THICKNESS,
     DEFAULT_CLASSIFICATION_TABLE,
@@ -49,10 +49,16 @@ CLASSIFICATION_METHODS = [
 ]
 
 
+def validate_step_1(params, **kwargs):
+    """Validates step 1."""
+    if not params.measurement_data:
+        raise UserError('Classify soil layout before proceeding.')
+
+
 class CPTFileParametrization(Parametrization):
     """Defines the input fields in left-side of the web UI in the CPT_file entity (Editor)."""
 
-    classification = Step("Upload and classification")
+    classification = Step("Upload and classification", on_next=validate_step_1)
     classification.text_01 = Text(
         """# Welcome to the CPT interpretation app!
 
@@ -90,13 +96,12 @@ Select your preferred classification method.
         description="Robertson method: Robertson method, optimized for the dutch soil by Fugro. \n"
         "\n Table method: Custom classification.",
     )
-    classification.lb001 = LineBreak()
-    classification.alter_table = BooleanField("Alter classification table")
+    classification.change_table = BooleanField("Change classification table")
     classification.robertson = TableInput(
         "Robertson table",
         default=DEFAULT_ROBERTSON_TABLE,
         visible=And(
-            Lookup("classification.alter_table"),
+            Lookup("classification.change_table"),
             IsEqual(Lookup("classification.method"), "robertson"),
         ),
     )
@@ -111,7 +116,7 @@ Select your preferred classification method.
         "Classification table",
         default=DEFAULT_CLASSIFICATION_TABLE,
         visible=And(
-            Lookup("classification.alter_table"),
+            Lookup("classification.change_table"),
             IsEqual(Lookup("classification.method"), "table"),
         ),
     )
@@ -180,6 +185,11 @@ Classify the uploaded GEF file by clicking the "Classify soil layout" button. Pr
     cpt.soil_layout = TableInput("Soil layout", name="soil_layout")
     cpt.soil_layout.name = OptionField("Material", options=DEFAULT_SOIL_NAMES)
     cpt.soil_layout.top_of_layer = NumberField("Top (m NAP)", num_decimals=1)
+    cpt.text3 = Text(
+        """### Curious how this app was made?
+For more information, check out the [repository on Github](https://github.com/viktor-platform/sample-cpt-interpretation-robertson)
+"""
+    )
 
     # hidden fields
     cpt.gef_headers = HiddenField("GEF Headers", name="headers")
