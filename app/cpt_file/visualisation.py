@@ -16,16 +16,15 @@ SOFTWARE.
 """
 from math import floor
 
-from munch import unmunchify, Munch
+from munch import Munch, unmunchify
 from plotly import graph_objects as go
 from plotly.subplots import make_subplots
+from viktor.geo import GEFData, SoilLayout
 
-from viktor.geo import GEFData
-from viktor.geo import SoilLayout
 from .soil_layout_conversion_functions import (
+    Classification,
     convert_input_table_field_to_soil_layout,
     filter_nones_from_params_dict,
-    Classification,
 )
 
 
@@ -96,9 +95,7 @@ def visualise_cpt(cpt_params: Munch):
 
 def update_fig_layout(fig, parsed_cpt):
     """Updates layout of the figure and formats the grids"""
-    fig.update_layout(
-        barmode="stack", template="plotly_white", legend=dict(x=1.15, y=0.5)
-    )
+    fig.update_layout(barmode="stack", template="plotly_white", legend=dict(x=1.15, y=0.5))
     fig.update_annotations(font_size=12)
     # Format axes and grids per subplot
     standard_grid_options = dict(showgrid=True, gridwidth=1, gridcolor="LightGrey")
@@ -162,20 +159,11 @@ def update_fig_layout(fig, parsed_cpt):
 def add_soil_layout_to_fig(fig, soil_layout_original, soil_layout_user):
     """Add bars for each soil type separately in order to be able to set legend labels"""
     unique_soil_types = {
-        layer.soil.properties.ui_name
-        for layer in [*soil_layout_original.layers, *soil_layout_user.layers]
+        layer.soil.properties.ui_name for layer in [*soil_layout_original.layers, *soil_layout_user.layers]
     }
     for ui_name in unique_soil_types:
-        original_layers = [
-            layer
-            for layer in soil_layout_original.layers
-            if layer.soil.properties.ui_name == ui_name
-        ]
-        interpreted_layers = [
-            layer
-            for layer in soil_layout_user.layers
-            if layer.soil.properties.ui_name == ui_name
-        ]
+        original_layers = [layer for layer in soil_layout_original.layers if layer.soil.properties.ui_name == ui_name]
+        interpreted_layers = [layer for layer in soil_layout_user.layers if layer.soil.properties.ui_name == ui_name]
         soil_type_layers = [
             *original_layers,
             *interpreted_layers,
@@ -185,13 +173,10 @@ def add_soil_layout_to_fig(fig, soil_layout_original, soil_layout_user):
         fig.add_trace(
             go.Bar(
                 name=ui_name,
-                x=["Original"] * len(original_layers)
-                + ["Interpreted"] * len(interpreted_layers),
+                x=["Original"] * len(original_layers) + ["Interpreted"] * len(interpreted_layers),
                 y=[-layer.thickness * 1e-3 for layer in soil_type_layers],
                 width=0.5,
-                marker_color=[
-                    f"rgb{layer.soil.color.rgb}" for layer in soil_type_layers
-                ],
+                marker_color=[f"rgb{layer.soil.color.rgb}" for layer in soil_type_layers],
                 hovertext=[
                     f"Soil Type: {layer.soil.properties.ui_name}<br>"
                     f"Top of layer: {layer.top_of_layer * 1e-3:.2f}<br>"

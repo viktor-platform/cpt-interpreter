@@ -23,14 +23,15 @@ from munch import Munch, unmunchify
 from viktor import Color, UserException
 from viktor.geo import (
     GEFClassificationError,
-    TableMethod,
     GEFFile,
     GEFParsingException,
     RobertsonMethod,
     Soil,
     SoilLayer,
     SoilLayout,
+    TableMethod,
 )
+
 from .constants import ADDITIONAL_COLUMNS, DEFAULT_MIN_LAYER_THICKNESS
 
 
@@ -96,8 +97,7 @@ def convert_input_table_field_to_soil_layout(
 def convert_soil_layout_to_input_table_field(soil_layout: SoilLayout) -> List[dict]:
     """Converts a SoilLayout to the parametrisation representation (Field = InputTable)."""
     return [
-        {"name": layer.soil.properties.ui_name, "top_of_layer": layer.top_of_layer}
-        for layer in soil_layout.layers
+        {"name": layer.soil.properties.ui_name, "top_of_layer": layer.top_of_layer} for layer in soil_layout.layers
     ]
 
 
@@ -162,9 +162,7 @@ class Classification:
             return TableMethod(self.table, ground_water_level=ground_water_level)
         raise UserException(f"The {self._method} method has not yet been implemented")
 
-    def get_table_plot(
-        self, gwl: float = 0, file_format: str = "pdf"
-    ) -> Union[BytesIO, StringIO]:
+    def get_table_plot(self, gwl: float = 0, file_format: str = "pdf") -> Union[BytesIO, StringIO]:
         """Returns a plot of the selected _ClassificationMethod
         The ground water level is irrelevant for qualification plot and therefore set to zero
         to make sure the qualification plot is always downloadable."""
@@ -174,9 +172,7 @@ class Classification:
             return self.method(gwl).get_qualification_table_plot(fileformat=file_format)
         raise UserException(f"The {self._method} method has not yet been implemented")
 
-    def get_table_plot_svg(
-        self, gwl: float = 0, file_format: str = "svg"
-    ) -> Union[BytesIO, StringIO]:
+    def get_table_plot_svg(self, gwl: float = 0, file_format: str = "svg") -> Union[BytesIO, StringIO]:
         """Returns a plot of the selected _ClassificationMethod"""
         if self._method == "robertson":
             raise TypeError
@@ -193,21 +189,15 @@ class Classification:
             properties = deepcopy(soil)
             if self._method == "robertson":
                 del properties["color"]
-            soil_mapping[ui_name] = Soil(
-                soil["name"], convert_to_color(soil["color"]), properties=properties
-            )
+            soil_mapping[ui_name] = Soil(soil["name"], convert_to_color(soil["color"]), properties=properties)
         return soil_mapping
 
-    def classify_cpt_file(
-        self, cpt_file: GEFFile, saved_ground_water_level=None
-    ) -> dict:
+    def classify_cpt_file(self, cpt_file: GEFFile, saved_ground_water_level=None) -> dict:
         """Classify an uploaded CPT File based on the selected _ClassificationMethod"""
 
         try:
             # Parse the GEF file content
-            cpt_data_object = cpt_file.parse(
-                additional_columns=ADDITIONAL_COLUMNS, return_gef_data_obj=True
-            )
+            cpt_data_object = cpt_file.parse(additional_columns=ADDITIONAL_COLUMNS, return_gef_data_obj=True)
 
             # Get the water level from user input, or calculate it from GEF
             if saved_ground_water_level is not None:
@@ -229,29 +219,15 @@ class Classification:
             min_layer_thickness=DEFAULT_MIN_LAYER_THICKNESS,
             merge_adjacent_same_soil_layers=True,
         )
-        soil_layout_filtered_in_m = convert_soil_layout_from_mm_to_meter(
-            soil_layout_filtered
-        )
+        soil_layout_filtered_in_m = convert_soil_layout_from_mm_to_meter(soil_layout_filtered)
 
         # Serialize the parsed CPT File content and update it with the new soil layout
         cpt_dict = cpt_data_object.serialize()
         cpt_dict["soil_layout_original"] = soil_layout_obj.serialize()
         cpt_dict["bottom_of_soil_layout_user"] = ceil(soil_layout_obj.bottom) / 1e3
-        cpt_dict["soil_layout"] = convert_soil_layout_to_input_table_field(
-            soil_layout_filtered_in_m
-        )
+        cpt_dict["soil_layout"] = convert_soil_layout_to_input_table_field(soil_layout_filtered_in_m)
         cpt_dict["ground_water_level"] = ground_water_level
-        cpt_dict["x_rd"] = (
-            cpt_dict["headers"]["x_y_coordinates"][0]
-            if "x_y_coordinates" in cpt_dict["headers"]
-            else 0
-        )
-        cpt_dict["y_rd"] = (
-            cpt_dict["headers"]["x_y_coordinates"][1]
-            if "x_y_coordinates" in cpt_dict["headers"]
-            else 0
-        )
-        cpt_dict["gef"] = {
-            "cpt_data": {"min_layer_thicknes": DEFAULT_MIN_LAYER_THICKNESS}
-        }
+        cpt_dict["x_rd"] = cpt_dict["headers"]["x_y_coordinates"][0] if "x_y_coordinates" in cpt_dict["headers"] else 0
+        cpt_dict["y_rd"] = cpt_dict["headers"]["x_y_coordinates"][1] if "x_y_coordinates" in cpt_dict["headers"] else 0
+        cpt_dict["gef"] = {"cpt_data": {"min_layer_thicknes": DEFAULT_MIN_LAYER_THICKNESS}}
         return cpt_dict

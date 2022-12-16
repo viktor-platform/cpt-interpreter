@@ -17,30 +17,31 @@ SOFTWARE.
 from pathlib import Path
 
 from munch import Munch, unmunchify
-
 from viktor import File, UserException
 from viktor.core import ViktorController, progress_message
 from viktor.geo import GEFFile, SoilLayout
 from viktor.geometry import GeoPoint
-from viktor.result import SetParametersResult, DownloadResult
+from viktor.result import DownloadResult, SetParametersResult
 from viktor.views import (
     DataGroup,
     DataItem,
+    MapPoint,
+    MapResult,
+    MapView,
     PlotlyAndDataResult,
     PlotlyAndDataView,
-    MapView,
-    MapResult,
-    MapPoint,
+    WebResult,
+    WebView,
 )
 
-from .visualisation import visualise_cpt
 from .parametrization import CPTFileParametrization
 from .soil_layout_conversion_functions import (
-    convert_input_table_field_to_soil_layout,
     Classification,
+    convert_input_table_field_to_soil_layout,
     convert_soil_layout_from_mm_to_meter,
+    convert_soil_layout_to_input_table_field,
 )
-from .soil_layout_conversion_functions import convert_soil_layout_to_input_table_field
+from .visualisation import visualise_cpt
 
 
 class CPTFileController(ViktorController):
@@ -50,22 +51,29 @@ class CPTFileController(ViktorController):
     parametrization = CPTFileParametrization(width=40)
     viktor_enforce_field_constraints = True
 
-    @staticmethod
-    def classify_soil_layout(params, **kwargs) -> SetParametersResult:
+    def classify_soil_layout(self, params, **kwargs) -> SetParametersResult:
         """Classify the CPT file when it is first uploaded"""
-        file_resource = params.classification.gef_file
-        if not file_resource:
-            raise UserException("Upload and select a GEF file.")
-        cpt_file = GEFFile(file_resource.file.getvalue("ISO-8859-1"))
+        if params.classification.get_sample_gef_toggle:
+            _file = self._get_sample_gef_file()
+        else:
+            file_resource = params.classification.gef_file
+            if not file_resource:
+                raise UserException("Upload and select a GEF file.")
+            _file = file_resource.file
+        cpt_file = GEFFile(_file.getvalue("ISO-8859-1"))
         classification = Classification(params["classification"])
         results = classification.classify_cpt_file(cpt_file)
         return SetParametersResult(results)
 
     @staticmethod
-    def download_sample_gef_file(**kwargs):
-        """Download the sample GEF file."""
+    def _get_sample_gef_file():
         gef_file_path = Path(__file__).parent / "sample_gef.GEF"
-        return DownloadResult(File.from_path(gef_file_path), "sample_gef.GEF")
+        return File.from_path(gef_file_path)
+
+    def download_sample_gef_file(self, **kwargs):
+        """Download the sample GEF file."""
+        gef_file = self._get_sample_gef_file()
+        return DownloadResult(gef_file, "sample_gef.GEF")
 
     @PlotlyAndDataView("CPT interpretation", duration_guess=3)
     def visualize_cpt(self, params: Munch, **kwargs) -> PlotlyAndDataResult:
@@ -87,9 +95,7 @@ class CPTFileController(ViktorController):
 
         cpt_features = []
         if None not in (x_coordinate, y_coordinate):
-            cpt_features.append(
-                MapPoint.from_geo_point(GeoPoint.from_rd((x_coordinate, y_coordinate)))
-            )
+            cpt_features.append(MapPoint.from_geo_point(GeoPoint.from_rd((x_coordinate, y_coordinate))))
         return MapResult(cpt_features)
 
     @staticmethod
@@ -109,7 +115,10 @@ class CPTFileController(ViktorController):
             ),
             ground_water_level=DataItem("Phreatic level", params.ground_water_level, suffix="m"),
             height_system=DataItem("Height system", headers.height_system or "-"),
-            coordinates=DataItem("Coordinates", "", subgroup=DataGroup(
+            coordinates=DataItem(
+                "Coordinates",
+                "",
+                subgroup=DataGroup(
                     x_coordinate=DataItem("X-coordinate", x_coordinate or 0, suffix="m"),
                     y_coordinate=DataItem("Y-coordinate", y_coordinate or 0, suffix="m"),
                 ),
@@ -117,9 +126,7 @@ class CPTFileController(ViktorController):
         )
 
     @staticmethod
-    def filter_soil_layout_on_min_layer_thickness(
-        params: Munch, **kwargs
-    ) -> SetParametersResult:
+    def filter_soil_layout_on_min_layer_thickness(params: Munch, **kwargs) -> SetParametersResult:
         """Remove all layers below the filter threshold."""
         progress_message("Filtering thin layers from soil layout")
 
@@ -137,9 +144,7 @@ class CPTFileController(ViktorController):
         )
         # convert to meter, and to the format for the input table
         soil_layout_user = convert_soil_layout_from_mm_to_meter(soil_layout_user)
-        table_input_soil_layers = convert_soil_layout_to_input_table_field(
-            soil_layout_user
-        )
+        table_input_soil_layers = convert_soil_layout_to_input_table_field(soil_layout_user)
 
         # send it to the parametrisation
         return SetParametersResult({"soil_layout": table_input_soil_layers})
@@ -149,9 +154,7 @@ class CPTFileController(ViktorController):
         """Place the original soil layout (after parsing) in the table input."""
         progress_message("Resetting soil layout to original unfiltered result")
         # get the original soil layout from the hidden field
-        soil_layout_original = SoilLayout.from_dict(
-            unmunchify(params.soil_layout_original)
-        )
+        soil_layout_original = SoilLayout.from_dict(unmunchify(params.soil_layout_original))
 
         # convert it to a format for the input table
         table_input_soil_layers = convert_soil_layout_to_input_table_field(
@@ -164,3 +167,11 @@ class CPTFileController(ViktorController):
                 "bottom_of_soil_layout_user": params.get("bottom_of_soil_layout_user"),
             }
         )
+
+    @WebView(" ", duration_guess=1)
+    def final_step(self, params, **kwargs):
+        """Initiates the process of rendering the last step."""
+        html_path = Path(__file__).parent / "final_step.html"
+        with html_path.open() as f:
+            html_string = f.read()
+        return WebResult(html=html_string)

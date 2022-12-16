@@ -15,33 +15,34 @@ CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFT
 SOFTWARE.
 """
 
+from viktor.errors import UserError
 from viktor.parametrization import (
-    HiddenField,
-    Step,
-    DownloadButton,
+    And,
     BooleanField,
-    Lookup,
+    DownloadButton,
     FileField,
+    HiddenField,
     IsEqual,
-    TextField,
+    IsFalse,
+    Lookup,
     NumberField,
     OptionField,
     OptionListElement,
     Parametrization,
     SetParamsButton,
-    Text,
+    Step,
     TableInput,
-    And,
+    Text,
+    TextField,
 )
-from viktor.errors import UserError
+
 from .constants import (
-    DEFAULT_MIN_LAYER_THICKNESS,
     DEFAULT_CLASSIFICATION_TABLE,
+    DEFAULT_MIN_LAYER_THICKNESS,
+    DEFAULT_ROBERTSON_TABLE,
     DEFAULT_SOIL_NAMES,
     MAX_CONE_RESISTANCE_TYPE,
 )
-from .constants import DEFAULT_ROBERTSON_TABLE
-
 
 CLASSIFICATION_METHODS = [
     OptionListElement(label="Robertson Method (Fugro)", value="robertson"),
@@ -52,7 +53,7 @@ CLASSIFICATION_METHODS = [
 def validate_step_1(params, **kwargs):
     """Validates step 1."""
     if not params.measurement_data:
-        raise UserError('Classify soil layout before proceeding.')
+        raise UserError("Classify soil layout before proceeding.")
 
 
 class CPTFileParametrization(Parametrization):
@@ -71,10 +72,12 @@ For the users who want to try out the app, but do not have a GEF file at hand, f
 GEF file available.
     """
     )
-    classification.gef_file = FileField("Upload GEF file", file_types=[".gef"])
-    classification.get_sample_gef_toggle = BooleanField(
-        "Get sample GEF file", default=False, flex=15
+    classification.gef_file = FileField(
+        "Upload GEF file",
+        file_types=[".gef"],
+        visible=IsFalse(Lookup("classification.get_sample_gef_toggle")),
     )
+    classification.get_sample_gef_toggle = BooleanField("Get sample GEF file", default=False, flex=15)
     classification.download_sample_gef = DownloadButton(
         "Download sample GEF file",
         "download_sample_gef_file",
@@ -134,18 +137,14 @@ Select your preferred classification method.
     classification.table.max_cone_res_type = OptionField(
         "Maximum cone resistance type", options=MAX_CONE_RESISTANCE_TYPE
     )
-    classification.table.max_cone_res_mpa = NumberField(
-        "Maximum cone resistance [MPa]", num_decimals=1
-    )
+    classification.table.max_cone_res_mpa = NumberField("Maximum cone resistance [MPa]", num_decimals=1)
     classification.text_03 = Text(
         """## Step 3: Classify the soil layout
         
 Classify the uploaded GEF file by clicking the "Classify soil layout" button. Proceed then to the next step.
         """
     )
-    classification.classify_soil_layout_button = SetParamsButton(
-        "Classify soil layout", "classify_soil_layout"
-    )
+    classification.classify_soil_layout_button = SetParamsButton("Classify soil layout", "classify_soil_layout")
 
     cpt = Step("CPT interpretation", views=["visualize_cpt", "visualize_map"])
     cpt.text = Text(
@@ -157,8 +156,7 @@ Classify the uploaded GEF file by clicking the "Classify soil layout" button. Pr
         "Filter Layer Thickness",
         method="filter_soil_layout_on_min_layer_thickness",
         flex=60,
-        description="Filter the soil layout to remove layers that are "
-        "thinner than the minimum layer thickness",
+        description="Filter the soil layout to remove layers that are " "thinner than the minimum layer thickness",
     )
     cpt.min_layer_thickness = NumberField(
         "Minimum Layer Thickness",
@@ -176,27 +174,16 @@ Classify the uploaded GEF file by clicking the "Classify soil layout" button. Pr
         description="Reset the table to the original soil layout",
     )
 
-    cpt.ground_water_level = NumberField(
-        "Phreatic level", name="ground_water_level", suffix="m NAP", flex=50
-    )
-    cpt.ground_level = NumberField(
-        "Ground level", name="ground_level", suffix="m NAP", flex=50
-    )
+    cpt.ground_water_level = NumberField("Phreatic level", name="ground_water_level", suffix="m NAP", flex=50)
+    cpt.ground_level = NumberField("Ground level", name="ground_level", suffix="m NAP", flex=50)
     cpt.soil_layout = TableInput("Soil layout", name="soil_layout")
     cpt.soil_layout.name = OptionField("Material", options=DEFAULT_SOIL_NAMES)
     cpt.soil_layout.top_of_layer = NumberField("Top (m NAP)", num_decimals=1)
-    cpt.text3 = Text(
-        """### Curious how this app was made?
-For more information, check out the [repository on Github](https://github.com/viktor-platform/sample-cpt-interpretation-robertson)
-"""
-    )
 
     # hidden fields
     cpt.gef_headers = HiddenField("GEF Headers", name="headers")
-    cpt.bottom_of_soil_layout_user = HiddenField(
-        "GEF Soil bottom", name="bottom_of_soil_layout_user"
-    )
+    cpt.bottom_of_soil_layout_user = HiddenField("GEF Soil bottom", name="bottom_of_soil_layout_user")
     cpt.measurement_data = HiddenField("GEF Measurement data", name="measurement_data")
-    cpt.soil_layout_original = HiddenField(
-        "Soil layout original", name="soil_layout_original"
-    )
+    cpt.soil_layout_original = HiddenField("Soil layout original", name="soil_layout_original")
+
+    final_step = Step("What's next?", views="final_step")
