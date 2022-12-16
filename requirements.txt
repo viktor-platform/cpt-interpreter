@@ -1,3 +1,3 @@
-# viktor==13.5.0
-plotly
-lxml
+viktor==13.7.0
+plotly==5.11.0
+lxml==4.9.1

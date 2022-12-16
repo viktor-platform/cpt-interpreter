@@ -1,29 +1,32 @@
-![](https://img.shields.io/badge/SDK-v13.0.0-blue) <Please check version is the same as specified in requirements.txt>
+![](https://img.shields.io/badge/SDK-v13.7.0-blue) <Please check version is the same as specified in requirements.txt>
 
-# CPT interpretation with Robertson
-This sample app shows  show how to interpret a CPT (.gef) to a soil layout using the Robertson method. <basic one line intro here>
+# CPT interpretation
+This sample app shows show how to interpret a CPT (.gef) to a soil layout using a classification method of choice.
 
-This app can consist of multiple projects with multiple cpt files. The first picture is an example of such a cpt file. On the left there is the input where the minimum layer thickness can be defined. 
-On the right the soil layer interpretation is shown with its data.
+The goal of this app is to demonstrate how the VIKTOR platform is used in the geotechnical engineering industry. This
+app is a simplified version of a type of app used by geotechnical engineers to analyse the soil layout. Soil layout 
+analyses are important for the construction industry, as many calculations rely on an accurate modelling of the soil. 
+Soil layouts are used in processes such as:
+- soil bearing capacity calculations
+- pile drive predictions
+- designing structures that interact with the soil, such as quay wall, sheet piles, etc.
+- etc.
+
+This app can consist of a single editor with steps to guide the user. The image below is an example of a result of a cpt file interpretation. 
+On the left there is the input where the interpreted results can be adjusted manually. On the right the soil layer interpretation is shown with its data.
+
+A published version of this app is available on [demo.viktor.ai](https://demo.viktor.ai/workspaces/63/app/).
 
 ![](resources/cpt_visualisation.png)
 
-Then on picture 2 a map overview of all the cpt locations can be seen.
+Here is an animation going through the steps: 
+- Step 1: Uploading a .gef file
+- Step 2: Choosing a classification method
+- Step 3: Classifying the soil layout
+- Step 4: Interpreting the results
 
-![](resources/cpt_map.png)
+![](resources/steps.gif)
 
-Here is a gif doing the folowing tasks: 
-- create a project
-- upload a .gef file as cpt
-- adjust some parameters in the cpt interpretation
-- view the location of the cpt on the map
 
-![](resources/CFT_with_robertson.gif)
-
-## App structure <please provide if more than a single entity type is present>
-
-```
-project_folder: has projects as its children
-  └─ project: has cpt files as its children and can visualize those cpts on a map
-     └── cpt_file: intrepretation of a CPT file using the Robertson method  
-```
+## App structure
+This is an editor-only app type.
