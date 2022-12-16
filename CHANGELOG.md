@@ -3,6 +3,17 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+## v1.1.0 (2022/12/16)
+### Added
 - Table method interpretation
 - Step editor
 
@@ -11,10 +22,8 @@ All notable changes to this project will be documented in this file.
 - Changed upload from File-entity (with `ParamsFromFile`) to using the `FileField` instead
 
 ### Deprecated
-None.
 
 ### Removed
-None.
 
 ### Fixed
 - update to simple app type
