@@ -17,7 +17,7 @@ SOFTWARE.
 from pathlib import Path
 
 from munch import Munch, unmunchify
-from viktor import File, UserException
+from viktor import File, UserError
 from viktor.core import ViktorController, progress_message
 from viktor.geo import GEFFile, SoilLayout
 from viktor.geometry import GeoPoint
@@ -58,7 +58,7 @@ class CPTFileController(ViktorController):
         else:
             file_resource = params.classification.gef_file
             if not file_resource:
-                raise UserException("Upload and select a GEF file.")
+                raise UserError("Upload and select a GEF file.")
             _file = file_resource.file
         cpt_file = GEFFile(_file.getvalue("ISO-8859-1"))
         classification = Classification(params["classification"])
@@ -87,7 +87,7 @@ class CPTFileController(ViktorController):
         """Visualize the MapView with the CPT location."""
         headers = params.get("headers")
         if not headers:
-            raise UserException("GEF file has no headers")
+            raise UserError("GEF file has no headers")
         try:
             x_coordinate, y_coordinate = params.x_rd, params.y_rd
         except AttributeError:
@@ -103,7 +103,7 @@ class CPTFileController(ViktorController):
         """Collect the necessary information from the GEF headers and return a DataGroup with the data"""
         headers = params.get("headers")
         if not headers:
-            raise UserException("GEF file has no headers")
+            raise UserError("GEF file has no headers")
         try:
             x_coordinate, y_coordinate = params.x_rd, params.y_rd
         except AttributeError:
