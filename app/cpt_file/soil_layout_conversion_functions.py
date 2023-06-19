@@ -20,7 +20,7 @@ from math import ceil
 from typing import List, Union
 
 from munch import Munch, unmunchify
-from viktor import Color, UserException
+from viktor import Color, UserError
 from viktor.geo import (
     GEFClassificationError,
     GEFFile,
@@ -86,7 +86,7 @@ def convert_input_table_field_to_soil_layout(
         try:
             soil_layers.append(SoilLayer(soils[soil_name], top_of_layer, bottom))
         except KeyError:
-            raise UserException(
+            raise UserError(
                 f"'{soil_name}' is not available in the selected classification table.\n"
                 f"Please select a different table, or reclassify the CPT files"
             )
@@ -160,7 +160,7 @@ class Classification:
             return RobertsonMethod(self.table)
         if self._method == "table":
             return TableMethod(self.table, ground_water_level=ground_water_level)
-        raise UserException(f"The {self._method} method has not yet been implemented")
+        raise UserError(f"The {self._method} method has not yet been implemented")
 
     def get_table_plot(self, gwl: float = 0, file_format: str = "pdf") -> Union[BytesIO, StringIO]:
         """Returns a plot of the selected _ClassificationMethod
@@ -170,7 +170,7 @@ class Classification:
             raise TypeError
         if self._method == "table":
             return self.method(gwl).get_qualification_table_plot(fileformat=file_format)
-        raise UserException(f"The {self._method} method has not yet been implemented")
+        raise UserError(f"The {self._method} method has not yet been implemented")
 
     def get_table_plot_svg(self, gwl: float = 0, file_format: str = "svg") -> Union[BytesIO, StringIO]:
         """Returns a plot of the selected _ClassificationMethod"""
@@ -178,7 +178,7 @@ class Classification:
             raise TypeError
         if self._method == "table":
             return self.method(gwl).get_qualification_table_plot(fileformat=file_format)
-        raise UserException(f"The {self._method} method has not yet been implemented")
+        raise UserError(f"The {self._method} method has not yet been implemented")
 
     @property
     def soil_mapping(self) -> dict:
@@ -211,9 +211,9 @@ class Classification:
             )
 
         except GEFParsingException as e:
-            raise UserException(f"CPT Parsing: {str(e)}")
+            raise UserError(f"CPT Parsing: {str(e)}")
         except GEFClassificationError as e:
-            raise UserException(f"CPT Classification: {str(e)}")
+            raise UserError(f"CPT Classification: {str(e)}")
 
         soil_layout_filtered = soil_layout_obj.filter_layers_on_thickness(
             min_layer_thickness=DEFAULT_MIN_LAYER_THICKNESS,
