@@ -1,0 +1,31 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/python
+{
+	"postCreateCommand": "sudo cp .devcontainer/welcome.txt /usr/local/etc/vscode-dev-containers/first-run-notice.txt && mkdir ~/.viktor && echo \"export PATH=$PATH:~/.viktor\" >> ~/.bashrc && curl -Lo viktor-cli 'https://sys.viktor.ai/api/v1/get-cli/?platform=linux&format=binary' && chmod +x viktor-cli && mv viktor-cli ~/.viktor/viktor-cli && python -m venv $PWD/venv",
+	"postStartCommand": "~/.viktor/viktor-cli upgrade",
+	"postAttachCommand": {
+		"viktor-cli": "~/.viktor/viktor-cli check-system && source venv/bin/activate"
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-python.python"
+			],
+			"settings": {
+				"python.defaultInterpreterPath": "",
+				"python.terminal.activateEnvironment": false,
+				"python.terminal.activateEnvInCurrentTerminal": false,
+				"python.interpreter.infoVisibility": "always",
+				"terminal.integrated.hideOnStartup": "never"
+			}
+		},
+		"codespaces": {
+			"openFiles": ["app.py"]
+		}
+	},
+	"secrets": {
+		"VIKTOR_CREDENTIALS": {
+			"description": "Paste the token obtained during the onboarding flow."
+		}
+	}
+}
