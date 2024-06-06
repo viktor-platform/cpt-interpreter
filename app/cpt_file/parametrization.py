@@ -1,4 +1,4 @@
-"""Copyright (c) 2022 VIKTOR B.V.
+"""Copyright (c) 2024 VIKTOR B.V.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
 documentation files (the "Software"), to deal in the Software without restriction, including without limitation the
@@ -77,10 +77,10 @@ GEF file available.
         file_types=[".gef"],
         visible=IsFalse(Lookup("classification.get_sample_gef_toggle")),
     )
-    classification.get_sample_gef_toggle = BooleanField("Get sample GEF file", default=False, flex=15)
+    classification.get_sample_gef_toggle = BooleanField("Use sample GEF file", default=False, flex=15)
     classification.download_sample_gef = DownloadButton(
         "Download sample GEF file",
-        "download_sample_gef_file",
+        method="download_sample_gef_file",
         visible=Lookup("classification.get_sample_gef_toggle"),
         flex=15,
     )
@@ -123,8 +123,8 @@ Select your preferred classification method.
             IsEqual(Lookup("classification.method"), "table"),
         ),
     )
-    classification.table.name = OptionField("Naam", options=DEFAULT_SOIL_NAMES)
-    classification.table.color = TextField("Kleur (R, G, B)")
+    classification.table.name = OptionField("Name", options=DEFAULT_SOIL_NAMES)
+    classification.table.color = TextField("Color (R, G, B)")
     classification.table.qc_min = NumberField("qc min [MPa]", num_decimals=2)
     classification.table.qc_max = NumberField("qc max [MPa]", num_decimals=2)
     classification.table.qc_norm_min = NumberField("qc norm; min [MPa]", num_decimals=1)
@@ -141,7 +141,7 @@ Select your preferred classification method.
     classification.text_03 = Text(
         """## Step 3: Classify the soil layout
         
-Classify the uploaded GEF file by clicking the "Classify soil layout" button. Proceed then to the next step.
+Classify the uploaded GEF file by clicking the button below. After classification you can proceed to the next step.
         """
     )
     classification.classify_soil_layout_button = SetParamsButton("Classify soil layout", "classify_soil_layout")
@@ -185,5 +185,3 @@ Classify the uploaded GEF file by clicking the "Classify soil layout" button. Pr
     cpt.bottom_of_soil_layout_user = HiddenField("GEF Soil bottom", name="bottom_of_soil_layout_user")
     cpt.measurement_data = HiddenField("GEF Measurement data", name="measurement_data")
     cpt.soil_layout_original = HiddenField("Soil layout original", name="soil_layout_original")
-
-    final_step = Step("What's next?", views="final_step")

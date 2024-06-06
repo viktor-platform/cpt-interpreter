@@ -1,3 +1,2 @@
-viktor==14.0.0
-plotly==5.11.0
-lxml==4.9.1
+viktor==14.10.0
+plotly==5.22.0

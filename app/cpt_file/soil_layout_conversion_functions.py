@@ -1,4 +1,4 @@
-"""Copyright (c) 2022 VIKTOR B.V.
+"""Copyright (c) 2024 VIKTOR B.V.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
 documentation files (the "Software"), to deal in the Software without restriction, including without limitation the
@@ -15,11 +15,9 @@ CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFT
 SOFTWARE.
 """
 from copy import deepcopy
-from io import BytesIO, StringIO
 from math import ceil
 from typing import List, Union
 
-from munch import Munch, unmunchify
 from viktor import Color, UserError
 from viktor.geo import (
     GEFClassificationError,
@@ -143,9 +141,9 @@ class Classification:
     It also provides the correct soil mapping needs for the visualizations of the soil layers.
     """
 
-    def __init__(self, classification_params: Munch):
+    def __init__(self, classification_params):
         self._method = classification_params.method
-        self._table = unmunchify(classification_params.get(self._method))
+        self._table = classification_params.get(self._method)
 
     @property
     def table(self) -> List[dict]:
@@ -160,24 +158,6 @@ class Classification:
             return RobertsonMethod(self.table)
         if self._method == "table":
             return TableMethod(self.table, ground_water_level=ground_water_level)
-        raise UserError(f"The {self._method} method has not yet been implemented")
-
-    def get_table_plot(self, gwl: float = 0, file_format: str = "pdf") -> Union[BytesIO, StringIO]:
-        """Returns a plot of the selected _ClassificationMethod
-        The ground water level is irrelevant for qualification plot and therefore set to zero
-        to make sure the qualification plot is always downloadable."""
-        if self._method == "robertson":
-            raise TypeError
-        if self._method == "table":
-            return self.method(gwl).get_qualification_table_plot(fileformat=file_format)
-        raise UserError(f"The {self._method} method has not yet been implemented")
-
-    def get_table_plot_svg(self, gwl: float = 0, file_format: str = "svg") -> Union[BytesIO, StringIO]:
-        """Returns a plot of the selected _ClassificationMethod"""
-        if self._method == "robertson":
-            raise TypeError
-        if self._method == "table":
-            return self.method(gwl).get_qualification_table_plot(fileformat=file_format)
         raise UserError(f"The {self._method} method has not yet been implemented")
 
     @property
@@ -227,7 +207,4 @@ class Classification:
         cpt_dict["bottom_of_soil_layout_user"] = ceil(soil_layout_obj.bottom) / 1e3
         cpt_dict["soil_layout"] = convert_soil_layout_to_input_table_field(soil_layout_filtered_in_m)
         cpt_dict["ground_water_level"] = ground_water_level
-        cpt_dict["x_rd"] = cpt_dict["headers"]["x_y_coordinates"][0] if "x_y_coordinates" in cpt_dict["headers"] else 0
-        cpt_dict["y_rd"] = cpt_dict["headers"]["x_y_coordinates"][1] if "x_y_coordinates" in cpt_dict["headers"] else 0
-        cpt_dict["gef"] = {"cpt_data": {"min_layer_thicknes": DEFAULT_MIN_LAYER_THICKNESS}}
         return cpt_dict

@@ -1,4 +1,4 @@
-"""Copyright (c) 2022 VIKTOR B.V.
+"""Copyright (c) 2024 VIKTOR B.V.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
 documentation files (the "Software"), to deal in the Software without restriction, including without limitation the
@@ -16,7 +16,6 @@ SOFTWARE.
 """
 from pathlib import Path
 
-from munch import Munch, unmunchify
 from viktor import File, UserError
 from viktor.core import ViktorController, progress_message
 from viktor.geo import GEFFile, SoilLayout
@@ -30,8 +29,6 @@ from viktor.views import (
     MapView,
     PlotlyAndDataResult,
     PlotlyAndDataView,
-    WebResult,
-    WebView,
 )
 
 from .parametrization import CPTFileParametrization
@@ -49,7 +46,6 @@ class CPTFileController(ViktorController):
 
     label = "CPT File"
     parametrization = CPTFileParametrization(width=40)
-    viktor_enforce_field_constraints = True
 
     def classify_soil_layout(self, params, **kwargs) -> SetParametersResult:
         """Classify the CPT file when it is first uploaded"""
@@ -76,30 +72,27 @@ class CPTFileController(ViktorController):
         return DownloadResult(gef_file, "sample_gef.GEF")
 
     @PlotlyAndDataView("CPT interpretation", duration_guess=3)
-    def visualize_cpt(self, params: Munch, **kwargs) -> PlotlyAndDataResult:
+    def visualize_cpt(self, params, **kwargs) -> PlotlyAndDataResult:
         """Visualizes the Qc and Rf line plots, the soil layout bar plots and the data of the cpt."""
         fig = visualise_cpt(cpt_params=params)
         data_group = self.get_data_group(params)
         return PlotlyAndDataResult(fig.to_json(), data=data_group)
 
     @MapView("Map", duration_guess=2)
-    def visualize_map(self, params: Munch, **kwargs) -> MapResult:
+    def visualize_map(self, params, **kwargs) -> MapResult:
         """Visualize the MapView with the CPT location."""
         headers = params.get("headers")
         if not headers:
             raise UserError("GEF file has no headers")
-        try:
-            x_coordinate, y_coordinate = params.x_rd, params.y_rd
-        except AttributeError:
-            x_coordinate, y_coordinate = headers.x_y_coordinates
 
+        x_coordinate, y_coordinate = headers.x_y_coordinates
         cpt_features = []
         if None not in (x_coordinate, y_coordinate):
             cpt_features.append(MapPoint.from_geo_point(GeoPoint.from_rd((x_coordinate, y_coordinate))))
         return MapResult(cpt_features)
 
     @staticmethod
-    def get_data_group(params: Munch) -> DataGroup:
+    def get_data_group(params) -> DataGroup:
         """Collect the necessary information from the GEF headers and return a DataGroup with the data"""
         headers = params.get("headers")
         if not headers:
@@ -126,7 +119,7 @@ class CPTFileController(ViktorController):
         )
 
     @staticmethod
-    def filter_soil_layout_on_min_layer_thickness(params: Munch, **kwargs) -> SetParametersResult:
+    def filter_soil_layout_on_min_layer_thickness(params, **kwargs) -> SetParametersResult:
         """Remove all layers below the filter threshold."""
         progress_message("Filtering thin layers from soil layout")
 
@@ -150,11 +143,11 @@ class CPTFileController(ViktorController):
         return SetParametersResult({"soil_layout": table_input_soil_layers})
 
     @staticmethod
-    def reset_soil_layout_user(params: Munch, **kwargs) -> SetParametersResult:
+    def reset_soil_layout_user(params, **kwargs) -> SetParametersResult:
         """Place the original soil layout (after parsing) in the table input."""
         progress_message("Resetting soil layout to original unfiltered result")
         # get the original soil layout from the hidden field
-        soil_layout_original = SoilLayout.from_dict(unmunchify(params.soil_layout_original))
+        soil_layout_original = SoilLayout.from_dict(params.soil_layout_original)
 
         # convert it to a format for the input table
         table_input_soil_layers = convert_soil_layout_to_input_table_field(
@@ -167,11 +160,3 @@ class CPTFileController(ViktorController):
                 "bottom_of_soil_layout_user": params.get("bottom_of_soil_layout_user"),
             }
         )
-
-    @WebView(" ", duration_guess=1)
-    def final_step(self, params, **kwargs):
-        """Initiates the process of rendering the last step."""
-        html_path = Path(__file__).parent / "final_step.html"
-        with html_path.open() as f:
-            html_string = f.read()
-        return WebResult(html=html_string)
