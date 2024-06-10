@@ -28,12 +28,13 @@ from viktor.parametrization import (
     NumberField,
     OptionField,
     OptionListElement,
-    Parametrization,
+    ViktorParametrization,
     SetParamsButton,
     Step,
     TableInput,
     Text,
     TextField,
+    LineBreak,
 )
 
 from .constants import (
@@ -56,10 +57,8 @@ def validate_step_1(params, **kwargs):
         raise UserError("Classify soil layout before proceeding.")
 
 
-class CPTFileParametrization(Parametrization):
-    """Defines the input fields in left-side of the web UI in the CPT_file entity (Editor)."""
-
-    classification = Step("Upload and classification", on_next=validate_step_1)
+class Parametrization(ViktorParametrization):
+    classification = Step("CPT classification", on_next=validate_step_1)
     classification.text_01 = Text(
         """# Welcome to the CPT interpretation app!
 
@@ -94,7 +93,6 @@ Select your preferred classification method.
         "Classification method",
         options=CLASSIFICATION_METHODS,
         default="robertson",
-        autoselect_single_option=True,
         variant="radio-inline",
         description="Robertson method: Robertson method, optimized for the dutch soil by Fugro. \n"
         "\n Table method: Custom classification.",
@@ -144,7 +142,7 @@ Select your preferred classification method.
 Classify the uploaded GEF file by clicking the button below. After classification you can proceed to the next step.
         """
     )
-    classification.classify_soil_layout_button = SetParamsButton("Classify soil layout", "classify_soil_layout")
+    classification.classify_soil_layout_button = SetParamsButton("Classify soil layout", method="classify_soil_layout")
 
     cpt = Step("CPT interpretation", views=["visualize_cpt", "visualize_map"])
     cpt.text = Text(
@@ -152,30 +150,29 @@ Classify the uploaded GEF file by clicking the button below. After classificatio
         "adding rows or changing the material type."
     )
 
-    cpt.filter_thin_layers = SetParamsButton(
-        "Filter Layer Thickness",
-        method="filter_soil_layout_on_min_layer_thickness",
-        flex=60,
-        description="Filter the soil layout to remove layers that are " "thinner than the minimum layer thickness",
-    )
     cpt.min_layer_thickness = NumberField(
         "Minimum Layer Thickness",
         suffix="mm",
         min=0,
         step=50,
         default=DEFAULT_MIN_LAYER_THICKNESS,
-        flex=40,
+        flex=50,
     )
-
+    cpt.l1 = LineBreak()
+    cpt.filter_thin_layers = SetParamsButton(
+        "Filter Layer Thickness",
+        method="filter_soil_layout_on_min_layer_thickness",
+        flex=50,
+        description="Filter the soil layout to remove layers that are " "thinner than the minimum layer thickness",
+    )
     cpt.reset_original_layers = SetParamsButton(
         "Reset to original Soil Layout",
         method="reset_soil_layout_user",
-        flex=100,
+        flex=50,
         description="Reset the table to the original soil layout",
     )
 
     cpt.ground_water_level = NumberField("Phreatic level", name="ground_water_level", suffix="m NAP", flex=50)
-    cpt.ground_level = NumberField("Ground level", name="ground_level", suffix="m NAP", flex=50)
     cpt.soil_layout = TableInput("Soil layout", name="soil_layout")
     cpt.soil_layout.name = OptionField("Material", options=DEFAULT_SOIL_NAMES)
     cpt.soil_layout.top_of_layer = NumberField("Top (m NAP)", num_decimals=1)

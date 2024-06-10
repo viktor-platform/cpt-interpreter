@@ -93,7 +93,7 @@ def convert_input_table_field_to_soil_layout(
 
 
 def convert_soil_layout_to_input_table_field(soil_layout: SoilLayout) -> List[dict]:
-    """Converts a SoilLayout to the parametrisation representation (Field = InputTable)."""
+    """Converts a SoilLayout to the parametrization representation (Field = InputTable)."""
     return [
         {"name": layer.soil.properties.ui_name, "top_of_layer": layer.top_of_layer} for layer in soil_layout.layers
     ]

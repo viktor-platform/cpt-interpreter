@@ -31,7 +31,7 @@ from viktor.views import (
     PlotlyAndDataView,
 )
 
-from .parametrization import CPTFileParametrization
+from .parametrization import Parametrization
 from .soil_layout_conversion_functions import (
     Classification,
     convert_input_table_field_to_soil_layout,
@@ -42,23 +42,23 @@ from .visualisation import visualise_cpt
 
 
 class CPTFileController(ViktorController):
-    """Controller class which acts as interface for the Sample entity type."""
-
     label = "CPT File"
-    parametrization = CPTFileParametrization(width=40)
+    parametrization = Parametrization(width=40)
 
     def classify_soil_layout(self, params, **kwargs) -> SetParametersResult:
         """Classify the CPT file when it is first uploaded"""
         if params.classification.get_sample_gef_toggle:
-            _file = self._get_sample_gef_file()
+            file = self._get_sample_gef_file()
         else:
             file_resource = params.classification.gef_file
             if not file_resource:
                 raise UserError("Upload and select a GEF file.")
-            _file = file_resource.file
-        cpt_file = GEFFile(_file.getvalue("ISO-8859-1"))
+            file = file_resource.file
+
+        cpt_file = GEFFile(file.getvalue("ISO-8859-1"))
         classification = Classification(params["classification"])
         results = classification.classify_cpt_file(cpt_file)
+
         return SetParametersResult(results)
 
     @staticmethod
@@ -97,11 +97,8 @@ class CPTFileController(ViktorController):
         headers = params.get("headers")
         if not headers:
             raise UserError("GEF file has no headers")
-        try:
-            x_coordinate, y_coordinate = params.x_rd, params.y_rd
-        except AttributeError:
-            x_coordinate, y_coordinate = headers.x_y_coordinates
 
+        x_coordinate, y_coordinate = headers.x_y_coordinates
         return DataGroup(
             ground_level_wrt_reference_m=DataItem(
                 "Ground level", headers.ground_level_wrt_reference_m or -999, suffix="m"
@@ -124,28 +121,29 @@ class CPTFileController(ViktorController):
         progress_message("Filtering thin layers from soil layout")
 
         # Create SoilLayout
-        bottom_of_soil_layout_user = params.get("bottom_of_soil_layout_user")
         classification = Classification(params.classification)
         soil_layout_user = convert_input_table_field_to_soil_layout(
             bottom_of_soil_layout_user=params["bottom_of_soil_layout_user"],
             soil_layers_from_table_input=params["soil_layout"],
             soils=classification.soil_mapping,
         )
+
         # filter the layer thickness
         soil_layout_user.filter_layers_on_thickness(
             params.cpt.min_layer_thickness, merge_adjacent_same_soil_layers=True
         )
+
         # convert to meter, and to the format for the input table
         soil_layout_user = convert_soil_layout_from_mm_to_meter(soil_layout_user)
         table_input_soil_layers = convert_soil_layout_to_input_table_field(soil_layout_user)
 
-        # send it to the parametrisation
         return SetParametersResult({"soil_layout": table_input_soil_layers})
 
     @staticmethod
     def reset_soil_layout_user(params, **kwargs) -> SetParametersResult:
         """Place the original soil layout (after parsing) in the table input."""
         progress_message("Resetting soil layout to original unfiltered result")
+
         # get the original soil layout from the hidden field
         soil_layout_original = SoilLayout.from_dict(params.soil_layout_original)
 
@@ -153,7 +151,7 @@ class CPTFileController(ViktorController):
         table_input_soil_layers = convert_soil_layout_to_input_table_field(
             convert_soil_layout_from_mm_to_meter(soil_layout_original)
         )
-        # send it to the parametrisation
+
         return SetParametersResult(
             {
                 "soil_layout": table_input_soil_layers,

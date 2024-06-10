@@ -15,7 +15,7 @@ On the left there is the input where the interpreted results can be adjusted man
 
 A published version of this app is available on [demo.viktor.ai](https://demo.viktor.ai/public/cpt-interpreter).
 
-![](resources/cpt_visualisation.png)
+![](.viktor-template/image.png)
 
 Here is an animation going through the steps: 
 - Step 1: Uploading a .gef file
@@ -23,7 +23,4 @@ Here is an animation going through the steps:
 - Step 3: Classifying the soil layout
 - Step 4: Interpreting the results
 
-![](resources/steps.gif)
-
-## App structure
-This is an editor-only app type.
+![](.viktor-template/demo.gif)
