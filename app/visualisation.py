@@ -19,7 +19,8 @@ from math import floor
 from munch import Munch, unmunchify
 from plotly import graph_objects as go
 from plotly.subplots import make_subplots
-from viktor.geo import GEFData, SoilLayout
+
+import viktor as vkt
 
 from .soil_layout_conversion_functions import (
     Classification,
@@ -33,8 +34,8 @@ def visualise_cpt(cpt_params: Munch):
     # parse input file and user input
     classification = Classification(cpt_params.classification)
     cpt_params = unmunchify(cpt_params)
-    parsed_cpt = GEFData(filter_nones_from_params_dict(cpt_params))
-    soil_layout_original = SoilLayout.from_dict(cpt_params["soil_layout_original"])
+    parsed_cpt = vkt.geo.GEFData(filter_nones_from_params_dict(cpt_params))
+    soil_layout_original = vkt.geo.SoilLayout.from_dict(cpt_params["soil_layout_original"])
     soil_layout_user = convert_input_table_field_to_soil_layout(
         bottom_of_soil_layout_user=cpt_params["bottom_of_soil_layout_user"],
         soil_layers_from_table_input=cpt_params["soil_layout"],

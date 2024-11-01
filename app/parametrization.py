@@ -15,27 +15,7 @@ CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFT
 SOFTWARE.
 """
 
-from viktor.errors import UserError
-from viktor.parametrization import (
-    And,
-    BooleanField,
-    DownloadButton,
-    FileField,
-    HiddenField,
-    IsEqual,
-    IsFalse,
-    Lookup,
-    NumberField,
-    OptionField,
-    OptionListElement,
-    ViktorParametrization,
-    SetParamsButton,
-    Step,
-    TableInput,
-    Text,
-    TextField,
-    LineBreak,
-)
+import viktor as vkt
 
 from .constants import (
     DEFAULT_CLASSIFICATION_TABLE,
@@ -46,20 +26,20 @@ from .constants import (
 )
 
 CLASSIFICATION_METHODS = [
-    OptionListElement(label="Robertson Method (Fugro)", value="robertson"),
-    OptionListElement(label="Table Method", value="table"),
+    vkt.OptionListElement(label="Robertson Method (Fugro)", value="robertson"),
+    vkt.OptionListElement(label="Table Method", value="table"),
 ]
 
 
 def validate_step_1(params, **kwargs):
     """Validates step 1."""
     if not params.measurement_data:
-        raise UserError("Classify soil layout before proceeding.")
+        raise vkt.UserError("Classify soil layout before proceeding.")
 
 
-class Parametrization(ViktorParametrization):
-    classification = Step("CPT classification", on_next=validate_step_1)
-    classification.text_01 = Text(
+class Parametrization(vkt.ViktorParametrization):
+    classification = vkt.Step("CPT classification", on_next=validate_step_1)
+    classification.text_01 = vkt.Text(
         """# Welcome to the CPT interpretation app!
 
 With this app you will be able to classify and interpret GEF-formatted CPT files by uploading and automatically 
@@ -71,25 +51,25 @@ For the users who want to try out the app, but do not have a GEF file at hand, f
 GEF file available.
     """
     )
-    classification.gef_file = FileField(
+    classification.gef_file = vkt.FileField(
         "Upload GEF file",
         file_types=[".gef"],
-        visible=IsFalse(Lookup("classification.get_sample_gef_toggle")),
+        visible=vkt.IsFalse(vkt.Lookup("classification.get_sample_gef_toggle")),
     )
-    classification.get_sample_gef_toggle = BooleanField("Use sample GEF file", default=False, flex=15)
-    classification.download_sample_gef = DownloadButton(
+    classification.get_sample_gef_toggle = vkt.BooleanField("Use sample GEF file", default=False, flex=15)
+    classification.download_sample_gef = vkt.DownloadButton(
         "Download sample GEF file",
         method="download_sample_gef_file",
-        visible=Lookup("classification.get_sample_gef_toggle"),
+        visible=vkt.Lookup("classification.get_sample_gef_toggle"),
         flex=15,
     )
-    classification.text_02 = Text(
+    classification.text_02 = vkt.Text(
         """## Step 2: Select your classification method
         
 Select your preferred classification method.
         """
     )
-    classification.method = OptionField(
+    classification.method = vkt.OptionField(
         "Classification method",
         options=CLASSIFICATION_METHODS,
         default="robertson",
@@ -97,60 +77,60 @@ Select your preferred classification method.
         description="Robertson method: Robertson method, optimized for the dutch soil by Fugro. \n"
         "\n Table method: Custom classification.",
     )
-    classification.change_table = BooleanField("Change classification table")
-    classification.robertson = TableInput(
+    classification.change_table = vkt.BooleanField("Change classification table")
+    classification.robertson = vkt.Table(
         "Robertson table",
         default=DEFAULT_ROBERTSON_TABLE,
-        visible=And(
-            Lookup("classification.change_table"),
-            IsEqual(Lookup("classification.method"), "robertson"),
+        visible=vkt.And(
+            vkt.Lookup("classification.change_table"),
+            vkt.IsEqual(vkt.Lookup("classification.method"), "robertson"),
         ),
     )
-    classification.robertson.name = TextField("Robertson Zone")
-    classification.robertson.ui_name = OptionField("Soil", options=DEFAULT_SOIL_NAMES)
-    classification.robertson.color = TextField("Color (R, G, B)")
-    classification.robertson.gamma_dry = NumberField("γ dry [kN/m³]", num_decimals=1)
-    classification.robertson.gamma_wet = NumberField("γ wet [kN/m³]", num_decimals=1)
-    classification.robertson.phi = NumberField("Friction angle Phi [°]", num_decimals=1)
+    classification.robertson.name = vkt.TextField("Robertson Zone")
+    classification.robertson.ui_name = vkt.OptionField("Soil", options=DEFAULT_SOIL_NAMES)
+    classification.robertson.color = vkt.TextField("Color (R, G, B)")
+    classification.robertson.gamma_dry = vkt.NumberField("γ dry [kN/m³]", num_decimals=1)
+    classification.robertson.gamma_wet = vkt.NumberField("γ wet [kN/m³]", num_decimals=1)
+    classification.robertson.phi = vkt.NumberField("Friction angle Phi [°]", num_decimals=1)
 
-    classification.table = TableInput(
+    classification.table = vkt.Table(
         "Classification table",
         default=DEFAULT_CLASSIFICATION_TABLE,
-        visible=And(
-            Lookup("classification.change_table"),
-            IsEqual(Lookup("classification.method"), "table"),
+        visible=vkt.And(
+            vkt.Lookup("classification.change_table"),
+            vkt.IsEqual(vkt.Lookup("classification.method"), "table"),
         ),
     )
-    classification.table.name = OptionField("Name", options=DEFAULT_SOIL_NAMES)
-    classification.table.color = TextField("Color (R, G, B)")
-    classification.table.qc_min = NumberField("qc min [MPa]", num_decimals=2)
-    classification.table.qc_max = NumberField("qc max [MPa]", num_decimals=2)
-    classification.table.qc_norm_min = NumberField("qc norm; min [MPa]", num_decimals=1)
-    classification.table.qc_norm_max = NumberField("qc norm; max [MPa]", num_decimals=1)
-    classification.table.rf_min = NumberField("Rf min [%]", num_decimals=1)
-    classification.table.rf_max = NumberField("Rf max [%]", num_decimals=1)
-    classification.table.gamma_dry = NumberField("γ dry [kN/m³]", num_decimals=1)
-    classification.table.gamma_wet = NumberField("γ wet [kN/m³]", num_decimals=1)
-    classification.table.phi = NumberField("Friction angle Phi [°]", num_decimals=1)
-    classification.table.max_cone_res_type = OptionField(
+    classification.table.name = vkt.OptionField("Name", options=DEFAULT_SOIL_NAMES)
+    classification.table.color = vkt.TextField("Color (R, G, B)")
+    classification.table.qc_min = vkt.NumberField("qc min [MPa]", num_decimals=2)
+    classification.table.qc_max = vkt.NumberField("qc max [MPa]", num_decimals=2)
+    classification.table.qc_norm_min = vkt.NumberField("qc norm; min [MPa]", num_decimals=1)
+    classification.table.qc_norm_max = vkt.NumberField("qc norm; max [MPa]", num_decimals=1)
+    classification.table.rf_min = vkt.NumberField("Rf min [%]", num_decimals=1)
+    classification.table.rf_max = vkt.NumberField("Rf max [%]", num_decimals=1)
+    classification.table.gamma_dry = vkt.NumberField("γ dry [kN/m³]", num_decimals=1)
+    classification.table.gamma_wet = vkt.NumberField("γ wet [kN/m³]", num_decimals=1)
+    classification.table.phi = vkt.NumberField("Friction angle Phi [°]", num_decimals=1)
+    classification.table.max_cone_res_type = vkt.OptionField(
         "Maximum cone resistance type", options=MAX_CONE_RESISTANCE_TYPE
     )
-    classification.table.max_cone_res_mpa = NumberField("Maximum cone resistance [MPa]", num_decimals=1)
-    classification.text_03 = Text(
+    classification.table.max_cone_res_mpa = vkt.NumberField("Maximum cone resistance [MPa]", num_decimals=1)
+    classification.text_03 = vkt.Text(
         """## Step 3: Classify the soil layout
         
 Classify the uploaded GEF file by clicking the button below. After classification you can proceed to the next step.
         """
     )
-    classification.classify_soil_layout_button = SetParamsButton("Classify soil layout", method="classify_soil_layout")
+    classification.classify_soil_layout_button = vkt.SetParamsButton("Classify soil layout", method="classify_soil_layout")
 
-    cpt = Step("CPT interpretation", views=["visualize_cpt", "visualize_map"])
-    cpt.text = Text(
+    cpt = vkt.Step("CPT interpretation", views=["visualize_cpt", "visualize_map"])
+    cpt.text = vkt.Text(
         "Use the table below to change the interpreted soil layout by changing the positions of the layers, "
         "adding rows or changing the material type."
     )
 
-    cpt.min_layer_thickness = NumberField(
+    cpt.min_layer_thickness = vkt.NumberField(
         "Minimum Layer Thickness",
         suffix="mm",
         min=0,
@@ -158,27 +138,27 @@ Classify the uploaded GEF file by clicking the button below. After classificatio
         default=DEFAULT_MIN_LAYER_THICKNESS,
         flex=50,
     )
-    cpt.l1 = LineBreak()
-    cpt.filter_thin_layers = SetParamsButton(
+    cpt.l1 = vkt.LineBreak()
+    cpt.filter_thin_layers = vkt.SetParamsButton(
         "Filter Layer Thickness",
         method="filter_soil_layout_on_min_layer_thickness",
         flex=50,
         description="Filter the soil layout to remove layers that are " "thinner than the minimum layer thickness",
     )
-    cpt.reset_original_layers = SetParamsButton(
+    cpt.reset_original_layers = vkt.SetParamsButton(
         "Reset to original Soil Layout",
         method="reset_soil_layout_user",
         flex=50,
         description="Reset the table to the original soil layout",
     )
 
-    cpt.ground_water_level = NumberField("Phreatic level", name="ground_water_level", suffix="m NAP", flex=50)
-    cpt.soil_layout = TableInput("Soil layout", name="soil_layout")
-    cpt.soil_layout.name = OptionField("Material", options=DEFAULT_SOIL_NAMES)
-    cpt.soil_layout.top_of_layer = NumberField("Top (m NAP)", num_decimals=1)
+    cpt.ground_water_level = vkt.NumberField("Phreatic level", name="ground_water_level", suffix="m NAP", flex=50)
+    cpt.soil_layout = vkt.Table("Soil layout", name="soil_layout")
+    cpt.soil_layout.name = vkt.OptionField("Material", options=DEFAULT_SOIL_NAMES)
+    cpt.soil_layout.top_of_layer = vkt.NumberField("Top (m NAP)", num_decimals=1)
 
     # hidden fields
-    cpt.gef_headers = HiddenField("GEF Headers", name="headers")
-    cpt.bottom_of_soil_layout_user = HiddenField("GEF Soil bottom", name="bottom_of_soil_layout_user")
-    cpt.measurement_data = HiddenField("GEF Measurement data", name="measurement_data")
-    cpt.soil_layout_original = HiddenField("Soil layout original", name="soil_layout_original")
+    cpt.gef_headers = vkt.HiddenField("GEF Headers", name="headers")
+    cpt.bottom_of_soil_layout_user = vkt.HiddenField("GEF Soil bottom", name="bottom_of_soil_layout_user")
+    cpt.measurement_data = vkt.HiddenField("GEF Measurement data", name="measurement_data")
+    cpt.soil_layout_original = vkt.HiddenField("Soil layout original", name="soil_layout_original")
